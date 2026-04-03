@@ -275,7 +275,7 @@ export default function Home() {
                     <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">@pixeldeck.design</h2>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col md:flex-row gap-2">
                   <a href="https://instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
                     <Instagram className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
@@ -299,13 +299,13 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative z-10 flex gap-3 mt-12 overflow-hidden">
-              <a href="#portfolio" className="flex-1 bg-primary text-background px-4 py-3.5 md:px-8 md:py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform text-center text-sm md:text-base whitespace-nowrap">
+            <div className="relative z-10 flex flex-wrap gap-4 mt-12">
+              <a href="#portfolio" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform">
                 View Case Studies
               </a>
               <button 
                 onClick={() => setIsContactOpen(true)} 
-                className="flex-1 bg-white/5 border border-white/10 text-white px-4 py-3.5 md:px-8 md:py-4 rounded-full font-bold hover:bg-white/10 transition-colors text-center text-sm md:text-base whitespace-nowrap"
+                className="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-colors"
               >
                 Get in Touch
               </button>
