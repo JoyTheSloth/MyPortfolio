@@ -11,12 +11,16 @@ import GenAIProjects from "./pages/GenAIProjects";
 import UiUxProjects from "./pages/UiUxProjects";
 import AllProjects from "./pages/AllProjects";
 import RotatingText from "./components/RotatingText";
+import { motion, AnimatePresence } from "motion/react";
+import { X } from "lucide-react";
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    setIsOpen(false);
     if (location.pathname === "/") {
       e.preventDefault();
       const element = document.getElementById(hash.replace('#', ''));
@@ -29,17 +33,22 @@ function Navbar() {
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-outline-variant/5">
       <div className="flex justify-between items-center px-6 md:px-12 py-6 max-w-screen-2xl mx-auto">
-        <Link to="/" className="text-2xl font-headline font-bold flex items-center gap-2">
-          Joydeep Das, 
-          <RotatingText
-            texts={['UI/UX Designer', 'Gen AI Developer', 'Front-end Developer']}
-            mainClassName="text-white/40 font-normal"
-            staggerDuration={0.025}
-            splitBy="characters"
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            rotationInterval={3000}
-          />
+        <Link to="/" className="text-xl md:text-2xl font-headline font-bold flex items-center gap-2">
+          Joydeep Das
+          <span className="hidden md:block">,</span>
+          <div className="hidden md:block">
+            <RotatingText
+              texts={['UI/UX Designer', 'Gen AI Developer', 'Front-end Developer']}
+              mainClassName="text-white/40 font-normal"
+              staggerDuration={0.025}
+              splitBy="characters"
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              rotationInterval={3000}
+            />
+          </div>
         </Link>
+        
+        {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center">
           <a href="/#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Portfolio</a>
           <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Skills</a>
@@ -47,10 +56,35 @@ function Navbar() {
           <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Projects</Link>
           <a href="#" className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold hover:bg-primary/20 transition-all text-sm">Resume / CV</a>
         </div>
-        <button className="md:hidden text-white">
-          <Menu className="w-6 h-6" />
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="md:hidden text-white p-2"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-white/5 overflow-hidden"
+          >
+            <div className="flex flex-col p-6 gap-6">
+              <a href="/#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Portfolio</a>
+              <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Skills</a>
+              <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Contact</a>
+              <Link to="/projects" onClick={() => setIsOpen(false)} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Projects</Link>
+              <a href="#" className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-primary text-background font-bold text-lg">Resume / CV</a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram } from "lucide-react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
+import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram, Github, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollVelocity from "../components/ScrollVelocity";
 import { ProjectTile } from "../components/ProjectTile";
+import DinoWidget from "../components/DinoWidget";
 
 const ExpertiseCard = ({ 
   title, 
@@ -63,7 +64,7 @@ const ExpertiseCard = ({
           <h3 className="font-headline text-2xl md:text-3xl font-bold mb-4">{title}</h3>
           <p className="text-on-surface-variant leading-relaxed text-sm md:text-base">{description}</p>
         </div>
-        <div className="flex flex-col gap-3 mt-8">
+        <div className="flex flex-col gap-3">
           {isExternal ? (
             <a href={linkTo} target="_blank" rel="noopener noreferrer" className={linkClasses}>
               {linkText}
@@ -96,48 +97,51 @@ const ExperienceItem = ({
   colorClass: string; 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   return (
     <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      className="relative pl-8 md:pl-10"
+      initial={false}
+      className={`group relative pl-8 border-l border-white/5 hover:border-primary/30 transition-all duration-500`}
     >
-      {/* Timeline Dot */}
-      <div className={`absolute -left-[5px] top-2.5 w-2.5 h-2.5 rounded-full ${colorClass.replace('text-', 'bg-')} shadow-[0_0_10px_currentColor]`} />
+      {/* Timeline Bullet */}
+      <div className={`absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]`} />
       
       <div 
-        className="mb-2 cursor-pointer group flex justify-between items-start gap-4"
+        className="cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex-1">
-          <h4 className="text-xl md:text-2xl font-bold text-white/90 mb-1 group-hover:text-white transition-colors">{company}</h4>
-          <p className="text-base md:text-lg text-white/70 mb-3">{title}</p>
-          <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs md:text-sm font-medium text-white/80">{period}</span>
-        </div>
-        <button className={`mt-1 p-2 rounded-full bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors ${colorClass}`}>
-          <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
-            <ChevronDown className="w-5 h-5" />
-          </motion.div>
-        </button>
-      </div>
-      
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="text-white/60 leading-relaxed text-sm md:text-base pt-4 pb-2">
-              {description}
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <h4 className="text-xl md:text-2xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
+            <div className="flex items-center gap-3 mt-1 mb-3">
+              <span className={`font-bold text-sm md:text-base ${colorClass}`}>{company}</span>
+              <span className="w-1 h-1 rounded-full bg-white/20" />
+              <span className="text-white/40 text-xs md:text-sm font-medium">{period}</span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+          <button className={`p-2 rounded-xl bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all`}>
+            <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <ChevronDown className="w-5 h-5 text-white/40 group-hover:text-primary" />
+            </motion.div>
+          </button>
+        </div>
+        
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+              className="overflow-hidden"
+            >
+              <div className="text-white/60 leading-relaxed text-sm md:text-base pt-2 pb-4 pr-4">
+                {description}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };
@@ -181,9 +185,20 @@ const SkillPill = ({ name, icon, colorTheme }: { name: string, icon: string, col
 
 export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
 
   return (
-    <main className="pt-20 md:pt-24 pb-16 md:pb-24">
+    <main className="pt-28 md:pt-24 pb-16 md:pb-24">
       {/* Contact Popup Modal */}
       <AnimatePresence>
         {isContactOpen && (
@@ -244,17 +259,20 @@ export default function Home() {
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-12">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 bg-surface-bright p-1">
-                    <img 
-                      src="https://api.dicebear.com/7.x/avataaars/svg?seed=Joydeep" 
-                      alt="Joydeep" 
-                      className="w-full h-full object-cover rounded-full"
-                      referrerPolicy="no-referrer"
-                    />
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary/20 bg-surface-bright relative group">
+                    <div 
+                      className="tenor-gif-embed absolute inset-0 scale-[1.3]" 
+                      data-postid="2124557923355771903" 
+                      data-share-method="host" 
+                      data-aspect-ratio="0.921986" 
+                      data-width="100%"
+                    >
+                      <a href="https://tenor.com/view/stan-twt-evil-chihuahua-twt-memes-dog-gif-2124557923355771903">GIF</a>
+                    </div>
+                    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">Hi, I'm Joydeep</h2>
-                    <p className="text-white/40 text-sm">Visual Designer (UI | UX | Graphics)</p>
+                    <h2 className="text-2xl font-bold text-white tracking-tight">@pixeldeck.design</h2>
                   </div>
                 </div>
                 <div className="flex gap-3">
@@ -301,18 +319,40 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF4500]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-white/20" />
             
-            {/* Sparkles */}
-            <Sparkles className="absolute top-10 right-10 w-8 h-8 text-white/40 animate-pulse" />
-            <Sparkles className="absolute top-24 left-12 w-6 h-6 text-white/30 animate-bounce" />
-            <Sparkles className="absolute bottom-20 right-16 w-5 h-5 text-white/20" />
+            {/* Dino-themed illustrations */}
+            <motion.div 
+              animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-10 right-10 text-2xl opacity-20 pointer-events-none"
+            >🦕</motion.div>
+            <motion.div 
+              animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-12 right-20 text-2xl opacity-20 pointer-events-none"
+            >🌵</motion.div>
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 left-8 text-xl opacity-20 pointer-events-none"
+            >⚡</motion.div>
+            <motion.div 
+              animate={{ y: [0, -15, 0], rotate: [0, 10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute top-24 left-1/4 text-xl opacity-10 pointer-events-none"
+            >🦖</motion.div>
+            <motion.div 
+              animate={{ y: [0, 12, 0], rotate: [0, -10, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              className="absolute bottom-1/4 right-8 text-lg opacity-10 pointer-events-none"
+            >🌋</motion.div>
+            <motion.div 
+              animate={{ scale: [0.8, 1, 0.8], rotate: [0, 45, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+              className="absolute top-1/3 right-1/4 text-sm opacity-10 pointer-events-none"
+            >🥚</motion.div>
 
-            <div className="absolute inset-0 flex items-center justify-center p-8">
-              <img 
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Joydeep&backgroundColor=transparent&style=transparent" 
-                alt="Joydeep Avatar" 
-                className="w-full h-auto max-w-[300px] drop-shadow-2xl group-hover:scale-110 transition-transform duration-700"
-                referrerPolicy="no-referrer"
-              />
+            <div className="absolute inset-0 flex flex-col p-4 md:p-6 lg:p-8">
+              <DinoWidget />
             </div>
           </motion.div>
         </div>
@@ -362,15 +402,31 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Experience */}
           <div className="lg:col-span-8">
-            <div className="glass-card border border-white/10 rounded-3xl p-6 md:p-8 h-full relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
+            <div className="glass-card border border-white/10 rounded-3xl p-8 md:p-10 h-full relative overflow-hidden group/exp">
+              {/* Decorative background components */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none group-hover/exp:bg-primary/10 transition-all duration-700" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
               
               <div className="relative z-10">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold mb-2">Experience</h2>
-                <p className="text-white/50 mb-8 text-base md:text-lg">Get my resume to know more.</p>
-                
-                <div className="relative border-l border-white/10 ml-3 space-y-4 pb-4">
+                <div className="flex items-center gap-4 mb-10">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <Briefcase className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
+                </div>
+                <div className="space-y-10">
+                <ExperienceItem 
+                  title="App Designer"
+                  company="Modern Mahal"
+                  period="Aug 2025 — Nov 2025"
+                  colorClass="text-[#89CFF0]"
+                  description={
+                    <ul className="list-disc list-outside ml-5 space-y-2">
+                      <li>Designed intuitive, visually appealing web and mobile interfaces in Figma to align with brand identity</li>
+                      <li>Conducted usability reviews and implemented design refinements to improve navigation, engagement and accessibility</li>
+                    </ul>
+                  }
+                />
                 <ExperienceItem 
                   title="Generative AI Developer Intern"
                   company="Al Wallah"
@@ -582,42 +638,74 @@ export default function Home() {
           <div className="lg:col-span-2 bg-gradient-to-br from-[#2a1b14] to-[#1a100c] rounded-[2.5rem] p-10 md:p-16 border border-white/5 flex flex-col justify-between min-h-[400px]">
             <div>
               <p className="text-white/50 font-medium mb-6">I constantly try to improve myself</p>
-              <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-12">
-                Currently, I am learning about<br/>Product Designing.
+              <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-12 uppercase tracking-tighter">
+                Currently, I am learning about<br/>
+                <span className="text-primary italic">LLMs and Development</span>
               </h2>
             </div>
-            <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-2xl">
+            <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-2xl mt-auto">
               I declare that the information presented above is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job role.
             </p>
           </div>
 
           {/* Right Card */}
-          <div className="bg-gradient-to-br from-[#d9651b] to-[#b34d0e] rounded-[2.5rem] p-10 md:p-12 relative overflow-hidden flex flex-col min-h-[400px]">
+          <motion.div 
+            className="bg-gradient-to-br from-[#d9651b] to-[#b34d0e] rounded-3xl md:rounded-[2.5rem] p-10 md:p-12 relative overflow-hidden flex flex-col min-h-[400px] border border-white/10 shadow-2xl group"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
+          >
+            {/* Decorative background components */}
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+            <div className="absolute -right-24 -top-24 w-64 h-64 bg-white/10 blur-[80px] rounded-full" />
+            <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-black/20 blur-[60px] rounded-full" />
+            
             <div className="relative z-10 flex-1">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Contact</h2>
               <p className="text-white/80 mb-8">Make a contact via a mail or DM.</p>
               
-              <div className="flex flex-col gap-4 items-end absolute right-0 top-1/2 -translate-y-1/2">
-                <a href="mailto:joy.thesloth@gmail.com" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20">
+              <div className="flex flex-wrap gap-4 relative z-20">
+                <a href="mailto:joy.thesloth@gmail.com" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
                   <Mail className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20">
+                <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
                   <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                  <Github className="w-5 h-5" />
+                </a>
+                <a href="https://www.behance.net/joythesloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                    <path d="M22 7h-7v-2h7v2zm.4 4.5s-.1-4.2-3.8-4.2c-3.1 0-4 2.1-4 4.1 0 2.2.8 4.4 4.2 4.4 3 0 3.7-1.8 3.7-1.8l-2.1-.9s-.3 1-1.6 1c-1.3 0-1.6-.9-1.6-1.5h5.2v-.1zm-5.2-1.1c0-1 1-1.2 1.6-1.2.9 0 1.5.5 1.5 1.2h-3.1zm-8.3 1.9c.7 0 1.2-.4 1.2-.4s.3 1.7 2.1 1.7c1.7 0 2.3-1.4 2.3-3.4 0-2.4-.8-3.7-2.6-3.7-1.7 0-1.9 1.4-1.9 1.4s-.4-1.4-2.1-1.4c-1.5 0-2 1.1-2 1.1V7.5H3.9v8.9h2.1v-3.7c0-1 1-1.1 1.3-1.1.5 0 .8.4.8.9v3.9h2.1l-.1-3.6z"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                  <Instagram className="w-5 h-5" />
                 </a>
               </div>
             </div>
             
-            {/* Avatar Image */}
-            <img 
-              src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Man%20Raising%20Hand.png" 
-              alt="Avatar Waving" 
-              className="absolute bottom-0 left-4 w-48 h-48 object-contain object-bottom z-0 drop-shadow-2xl"
-            />
+            {/* 3D Interactive Avatar */}
+            <motion.div 
+              className="absolute bottom-0 right-4 w-48 h-48 pointer-events-none overflow-visible z-0"
+              style={{
+                x: useSpring(useTransform(mouseX, [-200, 200], [-30, 30])),
+                y: useSpring(useTransform(mouseY, [-200, 200], [-30, 30])),
+                rotate: useSpring(useTransform(mouseX, [-200, 200], [-15, 15])),
+                scale: useSpring(useTransform(mouseY, [-200, 200], [1.1, 0.9]))
+              }}
+            >
+              <img 
+                src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Man%20Raising%20Hand.png" 
+                alt="Avatar Waving" 
+                className="w-full h-full object-contain object-bottom drop-shadow-2xl"
+              />
+            </motion.div>
+            
             {/* Decorative circles */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square rounded-full border border-white/10 pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] aspect-square rounded-full border border-white/10 pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] aspect-square rounded-full border border-white/10 pointer-events-none" />
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
