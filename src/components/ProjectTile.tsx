@@ -9,7 +9,9 @@ export const ProjectTile = ({
   delay,
   tags = [],
   githubUrl,
-  siteUrl
+  siteUrl,
+  secondaryUrl,
+  secondaryLabel = "View GitHub"
 }: { 
   title: string; 
   subtitle: string; 
@@ -18,6 +20,8 @@ export const ProjectTile = ({
   tags?: string[];
   githubUrl?: string;
   siteUrl?: string;
+  secondaryUrl?: string;
+  secondaryLabel?: string;
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -82,23 +86,33 @@ export const ProjectTile = ({
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-3 px-8 py-4 bg-primary text-background rounded-full font-bold hover:scale-105 transition-transform w-48 justify-center"
+                className="flex items-center gap-3 px-8 py-4 bg-primary text-background rounded-full font-bold hover:scale-105 transition-transform w-56 justify-center"
               >
-                <Globe className="w-5 h-5" /> Visit Site
+                <Globe className="w-5 h-5" /> Visit Website
               </a>
             )}
-            {githubUrl && (
+            {secondaryUrl ? (
+              <a 
+                href={secondaryUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-3 px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-colors w-56 justify-center backdrop-blur-md"
+              >
+                <ArrowUpRight className="w-5 h-5" /> {secondaryLabel}
+              </a>
+            ) : githubUrl && (
               <a 
                 href={githubUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-3 px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-colors w-48 justify-center backdrop-blur-md"
+                className="flex items-center gap-3 px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-colors w-56 justify-center backdrop-blur-md"
               >
                 <Github className="w-5 h-5" /> View GitHub
               </a>
             )}
-            {!siteUrl && !githubUrl && (
+            {!siteUrl && !githubUrl && !secondaryUrl && (
               <p className="text-white font-medium bg-black/50 px-6 py-3 rounded-full backdrop-blur-md">Links coming soon</p>
             )}
           </motion.div>

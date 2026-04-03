@@ -29,8 +29,16 @@ const ExpertiseCard = ({
   secondaryLinkTo?: string;
   delay: number;
 }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
   const isExternal = linkTo.startsWith('http');
-  const linkClasses = `w-fit flex items-center gap-2 font-bold ${colorClass} group/btn cursor-pointer text-sm md:text-base`;
 
   return (
     <motion.div 
@@ -38,47 +46,68 @@ const ExpertiseCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      className="group relative overflow-hidden rounded-2xl h-full min-h-[380px] transition-all duration-500 hover:-translate-y-2 flex flex-col"
+      onMouseMove={handleMouseMove}
+      className="group relative overflow-hidden rounded-[2rem] h-full min-h-[400px] transition-all duration-500 hover:-translate-y-2 flex flex-col border border-white/5 hover:border-white/10 bg-white/[0.03] backdrop-blur-3xl"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-30 group-hover:opacity-50 transition-opacity`} />
-      <div className="relative flex-1 p-8 md:p-10 flex flex-col justify-between border border-outline-variant/10 group-hover:border-primary/30 rounded-2xl glass-card">
-        <div>
-          <div className={`w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-            <Icon className={`w-7 h-7 ${colorClass}`} />
-          </div>
-          
-          {secondaryLinkText && secondaryLinkTo && (
-            <div className="absolute top-8 right-8 md:top-10 md:right-10 z-20">
-              {secondaryLinkTo.startsWith('http') ? (
-                <a href={secondaryLinkTo} target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs md:text-sm font-medium hover:bg-white/10 hover:text-white transition-colors backdrop-blur-md">
-                  {secondaryLinkText}
-                </a>
-              ) : (
-                <Link to={secondaryLinkTo} className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs md:text-sm font-medium hover:bg-white/10 hover:text-white transition-colors backdrop-blur-md">
-                  {secondaryLinkText}
-                </Link>
-              )}
-            </div>
-          )}
+      {/* Interactive Spotlight Effect */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useTransform(
+              [mouseX, mouseY],
+              ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 80%)`
+          ),
+        }}
+      />
 
-          <h3 className="font-headline text-2xl md:text-3xl font-bold mb-4">{title}</h3>
-          <p className="text-on-surface-variant leading-relaxed text-sm md:text-base">{description}</p>
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity`} />
+      
+      {/* Background Decorative Icon */}
+      <div className="absolute -right-8 -top-8 opacity-[0.03] group-hover:opacity-[0.07] group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 pointer-events-none">
+        <Icon size={240} className={colorClass} />
+      </div>
+
+      <div className="relative flex-1 p-8 md:p-10 flex flex-col justify-between z-10">
+        <div>
+          <div className="flex justify-between items-start mb-8">
+            <div className={`w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-xl overflow-hidden relative`}>
+               <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-20`} />
+               <Icon className={`w-8 h-8 ${colorClass} relative z-10`} />
+            </div>
+            
+            {secondaryLinkText && secondaryLinkTo && (
+                secondaryLinkTo.startsWith('http') ? (
+                  <a href={secondaryLinkTo} target="_blank" rel="noopener noreferrer" className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 text-xs font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
+                    {secondaryLinkText}
+                  </a>
+                ) : (
+                  <Link to={secondaryLinkTo} className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 text-xs font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
+                    {secondaryLinkText}
+                  </Link>
+                )
+            )}
+          </div>
+
+          <h3 className="font-headline text-3xl font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-300">{title}</h3>
+          <p className="text-white/60 leading-relaxed text-sm md:text-base font-light max-w-[90%]">{description}</p>
         </div>
-        <div className="flex flex-col gap-3">
+
+        <div className="mt-10">
           {isExternal ? (
-            <a href={linkTo} target="_blank" rel="noopener noreferrer" className={linkClasses}>
-              {linkText}
-              <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+            <a href={linkTo} target="_blank" rel="noopener noreferrer" className={`group/btn relative inline-flex items-center gap-3 py-3 px-6 rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
+              <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover/btn:opacity-10 transition-opacity`} />
+              <span className={`font-bold text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
+              <ArrowRight className={`w-4 h-4 ${colorClass} group-hover/btn:translate-x-2 transition-transform duration-300`} />
             </a>
           ) : (
-            <Link to={linkTo} className={linkClasses}>
-              {linkText}
-              <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+            <Link to={linkTo} className={`group/btn relative inline-flex items-center gap-3 py-3 px-6 rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
+              <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover/btn:opacity-10 transition-opacity`} />
+              <span className={`font-bold text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
+              <ArrowRight className={`w-4 h-4 ${colorClass} group-hover/btn:translate-x-2 transition-transform duration-300`} />
             </Link>
           )}
         </div>
       </div>
-      <div className={`absolute -right-20 -bottom-20 w-64 h-64 ${colorClass.replace('text-', 'bg-')}/10 blur-3xl group-hover:opacity-100 opacity-0 transition-opacity pointer-events-none`} />
     </motion.div>
   );
 };
@@ -252,12 +281,12 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-9 glass-card border border-white/10 rounded-3xl md:rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
+            className="lg:col-span-9 glass-card border border-white/10 rounded-3xl md:rounded-[2.5rem] pt-8 px-5 pb-6 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
           >
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
             
             <div className="relative z-10">
-              <div className="flex justify-between items-start mb-12">
+              <div className="flex justify-between items-start mb-8 md:mb-12">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary/20 bg-surface-bright relative group">
                     <div 
@@ -275,14 +304,14 @@ export default function Home() {
                     <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">@pixeldeck.design</h2>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row gap-2">
-                  <a href="https://instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
+                <div className="flex flex-col md:flex-row gap-1.5 md:gap-2 scale-90 md:scale-100 origin-right">
+                  <a href="https://instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="p-1.5 md:p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
                     <Instagram className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
-                  <a href="https://linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
+                  <a href="https://linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="p-1.5 md:p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
                     <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
-                  <a href="mailto:joy.thesloth@gmail.com" className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
+                  <a href="mailto:joy.thesloth@gmail.com" className="p-1.5 md:p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/60 hover:text-white">
                     <Mail className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                 </div>
@@ -585,45 +614,36 @@ export default function Home() {
             siteUrl="#"
           />
           <ProjectTile 
-            title="Kryptonpad"
-            subtitle="kryptonpad.io ↗"
-            imgUrl="https://images.unsplash.com/photo-1639762681485-074b7f4ec651?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["Gen AI"]}
-          />
-          <ProjectTile 
-            title="Web3preneur"
-            subtitle="www.web3preneur.com ↗"
-            imgUrl="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600"
-            delay={0.4}
-            tags={["Gen AI"]}
-          />
-          <ProjectTile 
-            title="2GatherApp"
-            subtitle="Community Engagement"
+            title="2Gather"
+            subtitle="Community & Events"
             imgUrl="/2gather.png"
-            delay={0.1}
-            tags={["UI/UX"]}
+            delay={0.3}
+            tags={["Mobile App", "UI/UX"]}
+            siteUrl="https://www.2gather.in/"
+            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
+            secondaryLabel="Play Store"
           />
           <ProjectTile 
-            title="Mourya Urja Matrimonial"
-            subtitle="Matrimonial Platform"
+            title="Mourya URJA Matrimonial"
+            subtitle="Behance Case Study ↗"
             imgUrl="/mouryaurja.png"
-            delay={0.2}
+            delay={0.4}
             tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
+          />
+          <ProjectTile 
+            title="Veliciae"
+            subtitle="Behance Case Study ↗"
+            imgUrl="/veliciae.png"
+            delay={0.5}
+            tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
           />
           <ProjectTile 
             title="Modern Mahal"
             subtitle="Real Estate Platform"
             imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["UI/UX"]}
-          />
-          <ProjectTile 
-            title="Veliciae"
-            subtitle="Jewellery E-commerce"
-            imgUrl="/veliciae.png"
-            delay={0.4}
+            delay={0.6}
             tags={["UI/UX"]}
           />
         </div>

@@ -28,31 +28,36 @@ export default function UiUxProjects() {
       <section className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <ProjectTile 
-            title="2GatherApp"
-            subtitle="Community Engagement"
+            title="2Gather"
+            subtitle="Community & Events"
             imgUrl="/2gather.png"
-            delay={0.1}
-            tags={["UI/UX"]}
+            delay={0.3}
+            tags={["Mobile App", "UI/UX"]}
+            siteUrl="https://www.2gather.in/"
+            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
+            secondaryLabel="Play Store"
           />
           <ProjectTile 
-            title="Mourya Urja"
-            subtitle="Matrimonial Platform"
+            title="URJA Matrimonial"
+            subtitle="UI/UX Case Study"
             imgUrl="/mouryaurja.png"
-            delay={0.2}
+            delay={0.4}
             tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
           />
           <ProjectTile 
             title="Veliciae"
-            subtitle="Jewellery E-commerce"
+            subtitle="Behance Case Study ↗"
             imgUrl="/veliciae.png"
-            delay={0.3}
+            delay={0.5}
             tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
           />
           <ProjectTile 
-            title="Design System"
-            subtitle="Component Library"
-            imgUrl="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1600"
-            delay={0.4}
+            title="Modern Mahal"
+            subtitle="Real Estate Platform"
+            imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
+            delay={0.6}
             tags={["UI/UX"]}
           />
         </div>

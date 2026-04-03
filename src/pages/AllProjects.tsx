@@ -46,45 +46,36 @@ export default function AllProjects() {
             siteUrl="#"
           />
           <ProjectTile 
-            title="Kryptonpad"
-            subtitle="kryptonpad.io ↗"
-            imgUrl="https://images.unsplash.com/photo-1639762681485-074b7f4ec651?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["Gen AI"]}
-          />
-          <ProjectTile 
-            title="Web3preneur"
-            subtitle="www.web3preneur.com ↗"
-            imgUrl="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600"
-            delay={0.4}
-            tags={["Gen AI"]}
-          />
-          <ProjectTile 
-            title="2GatherApp"
-            subtitle="Community Engagement"
+            title="2Gather"
+            subtitle="Community & Events"
             imgUrl="/2gather.png"
-            delay={0.1}
-            tags={["UI/UX"]}
+            delay={0.3}
+            tags={["Mobile App", "UI/UX"]}
+            siteUrl="https://www.2gather.in/"
+            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
+            secondaryLabel="Play Store"
           />
           <ProjectTile 
-            title="Mourya Urja Matrimonial"
-            subtitle="Matrimonial Platform"
+            title="Mourya URJA Matrimonial"
+            subtitle="Behance Case Study ↗"
             imgUrl="/mouryaurja.png"
-            delay={0.2}
+            delay={0.4}
             tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
+          />
+          <ProjectTile 
+            title="Veliciae"
+            subtitle="Behance Case Study ↗"
+            imgUrl="/veliciae.png"
+            delay={0.5}
+            tags={["UI/UX"]}
+            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
           />
           <ProjectTile 
             title="Modern Mahal"
             subtitle="Real Estate Platform"
             imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["UI/UX"]}
-          />
-          <ProjectTile 
-            title="Veliciae"
-            subtitle="Jewellery E-commerce"
-            imgUrl="/veliciae.png"
-            delay={0.4}
+            delay={0.6}
             tags={["UI/UX"]}
           />
         </div>

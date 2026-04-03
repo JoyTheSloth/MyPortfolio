@@ -40,24 +40,19 @@ export default function GenAIProjects() {
             siteUrl="#"
           />
           <ProjectTile 
-            title="Kryptonpad"
-            subtitle="kryptonpad.io ↗"
-            imgUrl="https://images.unsplash.com/photo-1639762681485-074b7f4ec651?auto=format&fit=crop&q=80&w=1600"
+            title="Bacsense"
+            subtitle="IoT Biosensor Dashboard"
+            imgUrl="/bacsense-thumbnail.png"
             delay={0.2}
             tags={["Gen AI"]}
-          />
-          <ProjectTile 
-            title="Web3preneur"
-            subtitle="www.web3preneur.com ↗"
-            imgUrl="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["Gen AI"]}
+            githubUrl="https://github.com/JoyTheSloth/BacSense-2.0"
+            siteUrl="#"
           />
           <ProjectTile 
             title="Agentic Framework"
             subtitle="Autonomous LLM workflows"
             imgUrl="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1600"
-            delay={0.4}
+            delay={0.3}
             tags={["Gen AI"]}
           />
         </div>

@@ -113,7 +113,7 @@ function Footer() {
   return (
     <footer className="bg-background w-full py-12 px-6 md:px-12 border-t border-outline-variant/5">
       <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-white/40 text-sm">© 2024 Joydeep Das. Crafted with Intentional Asymmetry.</p>
+        <p className="text-white/40 text-sm">© 2026 Joydeep Das. Crafted with Intentional Asymmetry.</p>
         <div className="flex flex-wrap justify-center gap-8">
           <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">LinkedIn</a>
           <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">GitHub</a>
