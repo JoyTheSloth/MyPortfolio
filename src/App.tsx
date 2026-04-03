@@ -28,7 +28,7 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-outline-variant/5">
-      <div className="flex justify-between items-center px-4 py-6 max-w-screen-2xl mx-auto">
+      <div className="flex justify-between items-center px-12 py-6 max-w-screen-2xl mx-auto">
         <Link to="/" className="text-2xl font-headline font-bold flex items-center gap-2">
           Joydeep Das, 
           <RotatingText
@@ -76,8 +76,8 @@ function ScrollToHash() {
 
 function Footer() {
   return (
-    <footer className="bg-background w-full py-12 px-8 border-t border-outline-variant/5">
-      <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-4">
+    <footer className="bg-background w-full py-12 px-12 border-t border-outline-variant/5">
+      <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-white/40 text-sm">© 2024 Joydeep Das. Crafted with Intentional Asymmetry.</p>
         <div className="flex flex-wrap justify-center gap-8">
           <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">LinkedIn</a>
