@@ -183,7 +183,7 @@ export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
-    <main className="pt-24 pb-24">
+    <main className="pt-20 md:pt-24 pb-16 md:pb-24">
       {/* Contact Popup Modal */}
       <AnimatePresence>
         {isContactOpen && (
@@ -231,13 +231,13 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="max-w-screen-2xl mx-auto px-12 mb-16">
+      <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Card: Info */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-9 glass-card border border-white/10 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[500px]"
+            className="lg:col-span-9 glass-card border border-white/10 rounded-3xl md:rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
           >
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
             
@@ -270,7 +270,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <h1 className="font-headline text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-8 max-w-2xl">
+              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-8 max-w-2xl">
                 Hi, I'm <span className="text-primary">Joydeep</span>.
               </h1>
               
@@ -296,7 +296,7 @@ export default function Home() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 rounded-[2.5rem] overflow-hidden relative group min-h-[500px]"
+            className="lg:col-span-3 rounded-3xl md:rounded-[2.5rem] overflow-hidden relative group min-h-[300px] md:min-h-[500px]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF4500]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-white/20" />
@@ -319,7 +319,7 @@ export default function Home() {
       </section>
 
       {/* Core Expertise Section */}
-      <section id="skills" className="max-w-screen-2xl mx-auto px-12 mb-16">
+      <section id="skills" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <h2 className="font-headline text-4xl font-bold mb-12 text-center">Core Expertise</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <ExpertiseCard 
@@ -358,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* Experience & Arsenal Section */}
-      <section className="max-w-screen-2xl mx-auto px-12 mb-16">
+      <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Experience */}
           <div className="lg:col-span-8">
@@ -499,7 +499,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="portfolio" className="max-w-screen-2xl mx-auto px-12 mb-16">
+      <section id="portfolio" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="flex justify-between items-end mb-12">
           <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Projects</h2>
           <Link to="/projects" className="hidden md:flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
@@ -576,7 +576,7 @@ export default function Home() {
       </section>
 
       {/* Contact & About Section */}
-      <section id="contact" className="max-w-screen-2xl mx-auto px-12 mb-16">
+      <section id="contact" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Card */}
           <div className="lg:col-span-2 bg-gradient-to-br from-[#2a1b14] to-[#1a100c] rounded-[2.5rem] p-10 md:p-16 border border-white/5 flex flex-col justify-between min-h-[400px]">
