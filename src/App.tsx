@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Palette, Sparkles } from "lucide-react";
+import { Menu, X, Palette, Sparkles, Download, FileText, ArrowLeft } from "lucide-react";
 import Home from "./pages/Home";
 import GenAIProjects from "./pages/GenAIProjects";
 import UiUxProjects from "./pages/UiUxProjects";
@@ -15,81 +15,141 @@ import { motion, AnimatePresence } from "motion/react";
 
 
 function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  // Prevent body scroll when modal is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] cursor-pointer"
+            className="absolute inset-0 bg-black/90 backdrop-blur-xl cursor-pointer"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-8 z-[70] pointer-events-none"
+            className="w-full max-w-2xl relative z-10 pointer-events-none max-h-[95vh] overflow-y-auto no-scrollbar scroll-smooth"
           >
-            <div className="glass-card border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl pointer-events-auto bg-[#0A0A0A]/90 backdrop-blur-2xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none" />
+            <div className="glass-card border border-white/10 rounded-[2rem] md:rounded-[3rem] p-6 md:p-14 shadow-[0_0_100px_rgba(0,0,0,0.8)] pointer-events-auto bg-[#080808]/95 backdrop-blur-3xl relative overflow-hidden my-4">
+               {/* Background Glows */}
+               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/4" />
+               <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 blur-[120px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/4" />
+
                <button 
                  onClick={onClose}
-                 className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white/50 hover:text-white"
+                 className="absolute top-6 right-6 md:top-10 md:right-10 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 hover:bg-white/10 transition-all text-white/50 hover:text-white z-20 border border-white/5 hover:border-white/20 active:scale-90"
+                 aria-label="Close"
                >
-                 <X className="w-5 h-5" />
+                 <X className="w-5 h-5 md:w-6 md:h-6" />
                </button>
 
-               <div className="relative z-10 text-center mb-10">
-                 <h2 className="text-3xl font-headline font-bold mb-3">Choose Your Focus</h2>
-                 <p className="text-white/40 text-sm">Select the resume that best fits your inquiry.</p>
+               <div className="relative z-10 text-center mb-8 md:mb-14 px-2 md:px-0 mt-4 md:mt-0">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/40 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] mb-4 md:mb-6">
+                   <FileText className="w-3 md:w-3.5 h-3 md:h-3.5" /> Portal
+                 </div>
+                 <h2 className="text-3xl md:text-6xl font-headline font-bold mb-3 md:mb-5 tracking-tight text-gradient-primary leading-none">Resume Hub</h2>
+                 <p className="text-white/40 text-xs md:text-base max-w-[280px] md:max-w-sm mx-auto leading-relaxed">Choose a version of my background to dive deeper.</p>
                </div>
 
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
-                 <a 
-                   href="/Joydeep_Das_UIUX_Resume.pdf" 
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/50 hover:bg-white/10 transition-all duration-300"
-                 >
-                   <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                     <Palette className="w-8 h-8" />
-                   </div>
-                   <div className="text-center">
-                     <span className="block font-bold text-white text-lg">UI/UX</span>
-                     <span className="text-xs text-white/40 font-medium tracking-widest uppercase">Resume</span>
-                   </div>
-                 </a>
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 relative z-10 mb-8 md:mb-14">
+                 {/* UI/UX Resume Card */}
+                 <div className="group relative flex flex-col items-center gap-4 md:gap-6 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/5 border border-white/5 hover:border-primary/40 hover:bg-white/10 transition-all duration-700 hover:-translate-y-2 overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary z-10 group-hover:text-background transition-all duration-700 relative shadow-inner">
+                       <Palette className="w-8 h-8 md:w-10 md:h-10" />
+                    </div>
 
-                 <a 
-                   href="/Joydeep_Das_GenAI_Resume.pdf" 
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-secondary/50 hover:bg-white/10 transition-all duration-300"
+                    <div className="text-center z-10">
+                       <h3 className="font-bold text-white text-lg md:text-2xl mb-0.5 md:mb-1">UI/UX</h3>
+                       <p className="text-[8px] md:text-[10px] text-white/30 font-medium tracking-[0.2em] uppercase">Visual Focus</p>
+                    </div>
+
+                    <div className="flex gap-2 md:gap-3 w-full pt-2 md:pt-4 z-10">
+                       <a 
+                         href="/Joydeep_Das_UIUX_Resume.pdf" 
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.15em] hover:bg-primary hover:text-background transition-all text-center border border-white/10 hover:border-primary shadow-lg"
+                       >
+                         Preview
+                       </a>
+                       <a 
+                         href="/Joydeep_Das_UIUX_Resume.pdf" 
+                         download="Joydeep_Das_UIUX_Resume.pdf"
+                         className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 text-white/50 hover:text-white hover:bg-primary hover:text-background transition-all relative group/dl border border-white/10 hover:border-primary shadow-lg"
+                       >
+                         <Download className="w-4 h-4 md:w-5 md:h-5" />
+                       </a>
+                    </div>
+                 </div>
+
+                 {/* Gen AI Resume Card */}
+                 <div className="group relative flex flex-col items-center gap-4 md:gap-6 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/5 border border-white/5 hover:border-secondary/40 hover:bg-white/10 transition-all duration-700 hover:-translate-y-2 overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-secondary group-hover:scale-110 group-hover:bg-secondary z-10 group-hover:text-background transition-all duration-700 relative shadow-inner">
+                       <Sparkles className="w-8 h-8 md:w-10 md:h-10" />
+                    </div>
+
+                    <div className="text-center z-10">
+                       <h3 className="font-bold text-white text-lg md:text-2xl mb-0.5 md:mb-1">Resume</h3>
+                       <p className="text-[8px] md:text-[10px] text-white/30 font-medium tracking-[0.2em] uppercase">Tech Focus</p>
+                    </div>
+
+                    <div className="flex gap-2 md:gap-3 w-full pt-2 md:pt-4 z-10">
+                       <a 
+                         href="/Joydeep_Das_Dev_Resume.pdf" 
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.15em] hover:bg-secondary hover:text-background transition-all text-center border border-white/10 hover:border-secondary shadow-lg"
+                       >
+                         Preview
+                       </a>
+                       <a 
+                         href="/Joydeep_Das_Dev_Resume.pdf" 
+                         download="Joydeep_Das_Dev_Resume.pdf"
+                         className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 text-white/50 hover:text-white hover:bg-secondary hover:text-background transition-all relative group/dl border border-white/10 hover:border-secondary shadow-lg"
+                       >
+                         <Download className="w-4 h-4 md:w-5 md:h-5" />
+                       </a>
+                    </div>
+                 </div>
+               </div>
+
+               <div className="relative z-10 flex justify-center pb-2 md:pb-0">
+                 <button 
+                   onClick={onClose}
+                   className="flex items-center gap-2 text-white/30 hover:text-white transition-colors text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] group"
                  >
-                   <div className="w-16 h-16 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
-                     <Sparkles className="w-8 h-8" />
-                   </div>
-                   <div className="text-center">
-                     <span className="block font-bold text-white text-lg">Gen AI</span>
-                     <span className="text-xs text-white/40 font-medium tracking-widest uppercase">Resume</span>
-                   </div>
-                 </a>
+                   <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform" /> 
+                   Keep Browsing
+                 </button>
                </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );
 }
 
-function Navbar() {
+function Navbar({ onResumeOpen }: { onResumeOpen: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isResumeOpen, setIsResumeOpen] = React.useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     setIsOpen(false);
@@ -110,7 +170,7 @@ function Navbar() {
           <span className="hidden md:block">,</span>
           <div className="hidden md:block">
             <RotatingText
-              texts={['UI/UX Designer', 'Gen AI Developer', 'Front-end Developer']}
+              texts={['UI/UX Designer', 'Product Designer', 'AI Engineer', 'Gen AI Developer', 'Front-end Developer']}
               mainClassName="text-white/40 font-normal"
               staggerDuration={0.025}
               splitBy="characters"
@@ -127,7 +187,7 @@ function Navbar() {
           <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Contact</a>
           <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Projects</Link>
           <button 
-            onClick={() => setIsResumeOpen(true)}
+            onClick={onResumeOpen}
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold hover:bg-primary/20 transition-all text-sm"
           >
             Resume / CV
@@ -160,7 +220,7 @@ function Navbar() {
               <button 
                 onClick={() => {
                   setIsOpen(false);
-                  setIsResumeOpen(true);
+                  onResumeOpen();
                 }}
                 className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-primary text-background font-bold text-lg"
               >
@@ -170,9 +230,6 @@ function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Resume Selection Modal */}
-      <ResumeDialog isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </nav>
   );
 }
@@ -217,11 +274,13 @@ function Footer() {
 }
 
 export default function App() {
+  const [isResumeOpen, setIsResumeOpen] = React.useState(false);
+
   return (
     <BrowserRouter>
       <ScrollToHash />
       <div className="min-h-screen soul-gradient selection:bg-primary selection:text-background overflow-x-hidden flex flex-col">
-        <Navbar />
+        <Navbar onResumeOpen={() => setIsResumeOpen(true)} />
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -231,6 +290,9 @@ export default function App() {
           </Routes>
         </div>
         <Footer />
+        
+        {/* Global Modal Layer */}
+        <ResumeDialog isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
       </div>
     </BrowserRouter>
   );
