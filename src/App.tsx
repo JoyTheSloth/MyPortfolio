@@ -238,6 +238,11 @@ function ScrollToHash() {
   const location = useLocation();
 
   useEffect(() => {
+    // Disable browser scroll restoration so it doesn't jump to previous position
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     if (location.hash) {
       setTimeout(() => {
         const id = location.hash.replace('#', '');
@@ -247,7 +252,8 @@ function ScrollToHash() {
         }
       }, 100);
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Use instant scroll on route change to prevent flash of wrong position
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     }
   }, [location]);
 
