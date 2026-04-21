@@ -31,13 +31,46 @@ export default function GenAIProjects() {
       <section className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <ProjectTile 
+            title="Researcix"
+            subtitle="Autonomous Academic Research & Synthesis"
+            imgUrl="/researcix.png"
+            delay={0.1}
+            tags={["Gen AI"]}
+            githubUrl="https://github.com/JoyTheSloth/Researcix"
+            siteUrl="https://researcix.vercel.app/"
+          />
+          <ProjectTile 
+            title="Fitness Bunny"
+            subtitle="AI Calorie Measurer & Recipe Creator"
+            imgUrl="/fitnessbunny-thumbnail.png"
+            delay={0.15}
+            tags={["Gen AI", "Web App"]}
+            siteUrl="https://fitnessbunny.vercel.app/"
+          />
+          <ProjectTile 
             title="MediRAG"
             subtitle="Clinical-grade hallucination detection"
             imgUrl="/medirag-thumbnail.png"
-            delay={0.1}
+            delay={0.2}
             tags={["Gen AI"]}
             githubUrl="https://github.com/JoyTheSloth/MediRAG-3.0"
             siteUrl="#"
+          />
+          <ProjectTile 
+            title="Multi-Agent Bug Analysis"
+            subtitle="Autonomous Bug Triage & RCA"
+            imgUrl="/mabas-thumbnail.png"
+            delay={0.3}
+            tags={["Gen AI", "Multi-Agent"]}
+            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-"
+          />
+          <ProjectTile 
+            title="Multi-Agent Launch Decision"
+            subtitle="War Room Rollout Orchestration"
+            imgUrl="/mlds-thumbnail.png"
+            delay={0.4}
+            tags={["Gen AI", "Multi-Agent"]}
+            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-"
           />
           <ProjectTile 
             title="Bacsense"

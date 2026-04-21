@@ -32,7 +32,7 @@ export const ProjectTile = ({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
       onClick={() => setIsClicked(!isClicked)}
-      className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-surface-container-low border border-outline-variant/10 cursor-pointer"
+      className="group relative overflow-hidden rounded-[2.5rem] aspect-video bg-surface-container-low border border-outline-variant/10 cursor-pointer"
     >
       <img 
         src={imgUrl} 

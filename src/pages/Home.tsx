@@ -329,8 +329,8 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 flex flex-wrap gap-4 mt-12">
-              <a href="#portfolio" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform">
-                View Case Studies
+              <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform">
+                Explore More
               </a>
               <button 
                 onClick={() => setIsContactOpen(true)} 
@@ -396,14 +396,14 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <ExpertiseCard 
             title="UI/UX Design"
-            description="Creating intuitive, research-driven interfaces that balance aesthetic beauty with functional clarity."
+            description="Creating intuitive, research-driven interfaces that balance aesthetic beauty with functional clarity. I also design 3D award winning websites."
             icon={Palette}
             colorClass="text-primary"
             gradientClass="from-primary-container to-background"
             linkText="View Design Portfolio"
             linkTo="https://www.behance.net/joythesloth"
-            secondaryLinkText="View Case Studies"
-            secondaryLinkTo="/ui-ux"
+            secondaryLinkText="Figma Work"
+            secondaryLinkTo="https://www.figma.com/design/lzR9XA3fQsXhGqpDNU5Exq/Portfolio--Copy-?node-id=6-19096&t=phHSoA8VxgUax1an-1"
             delay={0.1}
           />
           <ExpertiseCard 
@@ -596,13 +596,46 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <ProjectTile 
+            title="Researcix"
+            subtitle="Autonomous Academic Research & Synthesis"
+            imgUrl="/researcix.png"
+            delay={0.1}
+            tags={["Gen AI"]}
+            githubUrl="https://github.com/JoyTheSloth/Researcix"
+            siteUrl="https://researcix.vercel.app/"
+          />
+          <ProjectTile 
+            title="Fitness Bunny"
+            subtitle="AI Calorie Measurer & Recipe Creator"
+            imgUrl="/fitnessbunny-thumbnail.png"
+            delay={0.15}
+            tags={["Gen AI", "Web App"]}
+            siteUrl="https://fitnessbunny.vercel.app/"
+          />
+          <ProjectTile 
             title="MediRAG"
             subtitle="Clinical-grade hallucination detection"
             imgUrl="/medirag-thumbnail.png"
-            delay={0.1}
+            delay={0.2}
             tags={["Gen AI"]}
             githubUrl="https://github.com/JoyTheSloth/MediRAG-3.0"
             siteUrl="#"
+          />
+          <ProjectTile 
+            title="Multi-Agent Bug Analysis"
+            subtitle="Autonomous Bug Triage & RCA"
+            imgUrl="/mabas-thumbnail.png"
+            delay={0.3}
+            tags={["Gen AI", "Multi-Agent"]}
+            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-"
+          />
+          <ProjectTile 
+            title="Multi-Agent Launch Decision"
+            subtitle="War Room Rollout Orchestration"
+            imgUrl="/mlds-thumbnail.png"
+            delay={0.4}
+            tags={["Gen AI", "Multi-Agent"]}
+            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-"
           />
           <ProjectTile 
             title="Bacsense"
