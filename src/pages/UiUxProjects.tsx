@@ -1,7 +1,10 @@
 import { motion } from "motion/react";
 import { ProjectTile } from "../components/ProjectTile";
+import { projectsData } from "../data/projects";
 
 export default function UiUxProjects() {
+  const uiUxProjects = projectsData.filter(project => project.categories.includes("UI/UX Design"));
+
   return (
     <main className="pt-40 pb-24 min-h-screen">
       <section className="max-w-7xl mx-auto px-8 mb-24">
@@ -27,39 +30,20 @@ export default function UiUxProjects() {
 
       <section className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <ProjectTile 
-            title="2Gather"
-            subtitle="Community & Events"
-            imgUrl="/2gather.png"
-            delay={0.3}
-            tags={["Mobile App", "UI/UX"]}
-            siteUrl="https://www.2gather.in/"
-            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
-            secondaryLabel="Play Store"
-          />
-          <ProjectTile 
-            title="URJA Matrimonial"
-            subtitle="UI/UX Case Study"
-            imgUrl="/mouryaurja.png"
-            delay={0.4}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
-          />
-          <ProjectTile 
-            title="Veliciae"
-            subtitle="Behance Case Study ↗"
-            imgUrl="/veliciae.png"
-            delay={0.5}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
-          />
-          <ProjectTile 
-            title="Modern Mahal"
-            subtitle="Real Estate Platform"
-            imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
-            delay={0.6}
-            tags={["UI/UX"]}
-          />
+          {uiUxProjects.map((project, index) => (
+            <ProjectTile 
+              key={project.title}
+              title={project.title}
+              subtitle={project.subtitle}
+              imgUrl={project.imgUrl}
+              delay={(index % 4) * 0.1}
+              tags={project.tags}
+              githubUrl={project.githubUrl}
+              siteUrl={project.siteUrl}
+              secondaryUrl={project.secondaryUrl}
+              secondaryLabel={project.secondaryLabel}
+            />
+          ))}
         </div>
       </section>
     </main>

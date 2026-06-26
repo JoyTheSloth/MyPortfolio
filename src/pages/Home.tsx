@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
-import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram, Github, Briefcase } from "lucide-react";
+import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram, Github, Briefcase, Cloud, Smartphone, Layers, Activity, Smile } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollVelocity from "../components/ScrollVelocity";
 import { ProjectTile } from "../components/ProjectTile";
 import DinoWidget from "../components/DinoWidget";
+import { projectsData } from "../data/projects";
 
 const ExpertiseCard = ({ 
   title, 
@@ -112,28 +113,98 @@ const ExpertiseCard = ({
   );
 };
 
+const SpotlightGlassCard = ({ 
+  children, 
+  className = "", 
+  delay = 0,
+  initial = { opacity: 0, y: 20 },
+  animate = { opacity: 1, y: 0 }
+}: { 
+  children: React.ReactNode; 
+  className?: string; 
+  delay?: number;
+  initial?: any;
+  animate?: any;
+}) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <motion.div 
+      initial={initial}
+      whileInView={animate}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      onMouseMove={handleMouseMove}
+      className={`group relative overflow-hidden rounded-3xl md:rounded-[2.5rem] bg-surface/40 backdrop-blur-2xl border border-outline-variant/15 transition-all duration-300 ${className}`}
+    >
+      {/* Spotlight effect */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-3xl md:rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30"
+        style={{
+          background: useTransform(
+            [mouseX, mouseY],
+            ([x, y]) => `radial-gradient(400px circle at ${x}px ${y}px, rgba(255, 182, 141, 0.12), transparent 80%)`
+          ),
+        }}
+      />
+      <div className="relative z-10 h-full w-full">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
 const ExperienceItem = ({ 
   title, 
   company, 
   period, 
   description, 
-  colorClass 
+  colorClass,
+  isFirst,
+  isLast
 }: { 
   title: string; 
   company: string; 
   period: string; 
   description: React.ReactNode; 
   colorClass: string; 
+  isFirst?: boolean;
+  isLast?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
     <motion.div 
       initial={false}
-      className={`group relative pl-8 border-l border-white/5 hover:border-primary/30 transition-all duration-500`}
+      className="group relative pl-8 pb-6 last:pb-0 transition-all duration-500"
     >
+      {/* Timeline Line Segment */}
+      {!isLast && (
+        <div className={`absolute left-0 top-[18px] bottom-0 w-[2px] ${
+          isFirst 
+            ? 'bg-gradient-to-b from-primary to-white/10 group-hover:from-primary group-hover:to-primary/20' 
+            : 'bg-gradient-to-b from-white/10 to-white/5 group-hover:from-primary/30 group-hover:to-white/5'
+        } transition-all duration-500`} />
+      )}
+
       {/* Timeline Bullet */}
-      <div className={`absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]`} />
+      {isFirst ? (
+        <div className="absolute left-[-5.5px] top-[5px] flex items-center justify-center w-[13px] h-[13px] z-10">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40"></span>
+          <div className="relative w-[9px] h-[9px] rounded-full bg-primary shadow-[0_0_12px_rgba(255,152,0,0.9)]" />
+        </div>
+      ) : isLast ? (
+        <div className="absolute left-[-4.5px] top-[6px] w-[11px] h-[11px] rounded-full bg-secondary border border-white/20 shadow-[0_0_10px_rgba(255,87,34,0.6)] z-10" />
+      ) : (
+        <div className="absolute left-[-3.5px] top-[7px] w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary/80 group-hover:scale-110 transition-all duration-500 shadow-[0_0_6px_rgba(255,255,255,0.1)] z-10" />
+      )}
       
       <div 
         className="cursor-pointer select-none"
@@ -141,14 +212,14 @@ const ExperienceItem = ({
       >
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <h4 className="text-xl md:text-2xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
-            <div className="flex items-center gap-3 mt-1 mb-3">
-              <span className={`font-bold text-sm md:text-base ${colorClass}`}>{company}</span>
+            <h4 className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
+            <div className="flex items-center gap-3 mt-0.5 mb-1.5">
+              <span className={`font-bold text-xs md:text-sm ${colorClass}`}>{company}</span>
               <span className="w-1 h-1 rounded-full bg-white/20" />
-              <span className="text-white/40 text-xs md:text-sm font-medium">{period}</span>
+              <span className="text-white/40 text-[10px] md:text-xs font-medium">{period}</span>
             </div>
           </div>
-          <button className={`p-2 rounded-xl bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all`}>
+          <button className={`p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all`}>
             <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
               <ChevronDown className="w-5 h-5 text-white/40 group-hover:text-primary" />
             </motion.div>
@@ -175,45 +246,116 @@ const ExperienceItem = ({
   );
 };
 
-const ArsenalTile = ({ name, icon: Icon, colorClass, imgUrl, animate }: { name: string; icon?: any; colorClass?: string; imgUrl?: string; animate?: any }) => (
-  <motion.div 
-    whileHover={{ scale: 1.02, y: -2 }}
-    className="glass-card rounded-2xl p-4 flex items-center gap-4 border border-white/5 hover:border-white/20 transition-all cursor-default group"
-  >
-    <div className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+const ArsenalTile = ({ 
+  name, 
+  icon: Icon, 
+  colorClass, 
+  imgUrl, 
+  animate,
+  backName,
+  backIcon: BackIcon,
+  backColorClass,
+  backImgUrl,
+  backAnimate
+}: { 
+  name: string; 
+  icon?: any; 
+  colorClass?: string; 
+  imgUrl?: string; 
+  animate?: any;
+  backName: string;
+  backIcon?: any;
+  backColorClass?: string;
+  backImgUrl?: string;
+  backAnimate?: any;
+}) => (
+  <div className="w-full aspect-square relative" style={{ perspective: '1000px' }}>
+    <motion.div 
+      className="w-full h-full relative cursor-pointer"
+      style={{ transformStyle: 'preserve-3d' }}
+      whileHover={{ rotateY: 180 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+    >
+      {/* Front Card */}
+      <div 
+        className="absolute inset-0 w-full h-full glass-card rounded-2xl p-2.5 md:p-3 flex flex-col items-center justify-center text-center border border-white/5 hover:border-white/20 transition-all group"
+        style={{ backfaceVisibility: 'hidden' }}
+      >
+        <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-2`}>
+          <motion.div
+            animate={animate}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center justify-center"
+          >
+            {imgUrl ? (
+              <img src={imgUrl} alt={name} className="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
+            ) : (
+              Icon && <Icon className={`w-6 h-6 md:w-7 md:h-7 ${colorClass}`} />
+            )}
+          </motion.div>
+        </div>
+        <span className="text-[10px] md:text-[11px] font-bold text-white/80 group-hover:text-white transition-colors line-clamp-1">{name}</span>
+      </div>
+
+      {/* Back Card */}
+      <div 
+        className="absolute inset-0 w-full h-full glass-card rounded-2xl p-2.5 md:p-3 flex flex-col items-center justify-center text-center border border-primary/20 bg-primary/[0.02] hover:border-primary/40 transition-all group"
+        style={{ 
+          backfaceVisibility: 'hidden',
+          transform: 'rotateY(180deg)'
+        }}
+      >
+        <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-2`}>
+          <motion.div
+            animate={backAnimate}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center justify-center"
+          >
+            {backImgUrl ? (
+              <img src={backImgUrl} alt={backName} className="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
+            ) : (
+              BackIcon && <BackIcon className={`w-6 h-6 md:w-7 md:h-7 ${backColorClass}`} />
+            )}
+          </motion.div>
+        </div>
+        <span className="text-[10px] md:text-[11px] font-bold text-white/80 group-hover:text-white transition-colors line-clamp-1">{backName}</span>
+      </div>
+    </motion.div>
+  </div>
+);
+
+const SkillPill = ({ name, icon: Icon, className, iconColorClass, animate }: { name: string, icon: any, className: string, iconColorClass?: string, animate?: any }) => {
+  const isStringIcon = typeof Icon === 'string';
+  
+  return (
+    <span className={`inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-5 md:py-2.5 lg:px-6 lg:py-3 rounded-2xl text-base md:text-lg lg:text-xl font-headline font-extrabold shadow-lg transition-all duration-300 ${className}`}>
       <motion.div
         animate={animate}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="flex items-center justify-center mr-1"
       >
-        {imgUrl ? (
-          <img src={imgUrl} alt={name} className="w-7 h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
+        {isStringIcon ? (
+          <img src={Icon} alt={name} className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
         ) : (
-          Icon && <Icon className={`w-7 h-7 ${colorClass}`} />
+          Icon && <Icon className={`w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 drop-shadow-md ${iconColorClass || ''}`} />
         )}
       </motion.div>
-    </div>
-    <span className="text-base font-bold text-white/90 group-hover:text-white transition-colors">{name}</span>
-  </motion.div>
-);
-
-const SkillPill = ({ name, icon, colorTheme }: { name: string, icon: string, colorTheme: 'primary' | 'secondary' | 'blue' | 'white' }) => {
-  const themeClasses = {
-    primary: "bg-primary/10 text-primary border-primary/20",
-    secondary: "bg-secondary/10 text-secondary border-secondary/20",
-    blue: "bg-[#89CFF0]/10 text-[#89CFF0] border-[#89CFF0]/20",
-    white: "bg-white/5 text-white border-white/10",
-  };
-
-  return (
-    <span className={`inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-5 md:py-2.5 lg:px-6 lg:py-3 rounded-full border text-base md:text-lg lg:text-xl font-bold ${themeClasses[colorTheme]}`}>
-      <img src={icon} alt={name} className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 drop-shadow-md" referrerPolicy="no-referrer" />
       {name}
     </span>
   );
 };
 
+
+
 export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  const categories = ["All", "Frontend", "Full Stack", "AI Automation", "UI/UX Design"];
+
+  const filteredProjects = selectedCategory === "All"
+    ? projectsData
+    : projectsData.filter(project => project.categories.includes(selectedCategory));
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -278,10 +420,10 @@ export default function Home() {
       <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Card: Info */}
-          <motion.div 
+          <SpotlightGlassCard 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-9 glass-card border border-white/10 rounded-3xl md:rounded-[2.5rem] pt-8 px-5 pb-6 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
+            className="lg:col-span-9 pt-8 px-5 pb-6 md:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
           >
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
             
@@ -317,14 +459,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-8 max-w-2xl">
-                Hi, I'm <span className="text-primary">Joydeep</span>.
+              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.04em] mb-8 max-w-2xl">
+                Hi, I'm <span className="animated-gradient-text">Joydeep</span>.
               </h1>
               
-              <p className="text-lg md:text-xl text-white/50 font-light leading-relaxed max-w-xl">
-                A multidisciplinary <span className="text-white font-medium">UI/UX Designer</span>, 
-                <span className="text-secondary font-medium"> Gen AI Developer</span>, and 
-                <span className="text-[#89CFF0] font-medium"> Front-end Developer</span> crafting high-performance digital experiences.
+              <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
+                A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>, 
+                <span className="text-secondary font-semibold"> Gen AI Developer</span>, and 
+                <span className="text-[#89CFF0] font-semibold"> Front-end Developer</span> crafting high-performance digital experiences.
               </p>
             </div>
 
@@ -339,17 +481,16 @@ export default function Home() {
                 Get in Touch
               </button>
             </div>
-          </motion.div>
-
+          </SpotlightGlassCard>
           {/* Right Card: Avatar */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 rounded-3xl md:rounded-[2.5rem] overflow-hidden relative group min-h-[300px] md:min-h-[500px]"
+            className="lg:col-span-3 rounded-3xl md:rounded-[2.5rem] overflow-hidden relative group min-h-[350px] md:min-h-[450px] lg:min-h-[500px] flex flex-col justify-between"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF4500]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-white/20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF4500] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-white/20 pointer-events-none" />
             
             {/* Dino-themed illustrations */}
             <motion.div 
@@ -371,26 +512,25 @@ export default function Home() {
               animate={{ y: [0, -15, 0], rotate: [0, 10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               className="absolute top-24 left-1/4 text-xl opacity-10 pointer-events-none"
-            >🦖</motion.div>
+            >Rex</motion.div>
             <motion.div 
               animate={{ y: [0, 12, 0], rotate: [0, -10, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
               className="absolute bottom-1/4 right-8 text-lg opacity-10 pointer-events-none"
-            >🌋</motion.div>
+            >Vol</motion.div>
             <motion.div 
               animate={{ scale: [0.8, 1, 0.8], rotate: [0, 45, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
               className="absolute top-1/3 right-1/4 text-sm opacity-10 pointer-events-none"
-            >🥚</motion.div>
-
-            <div className="absolute inset-0 flex flex-col p-4 md:p-6 lg:p-8">
+            >Egg</motion.div>
+ 
+            <div className="relative z-10 flex flex-col h-full p-6 md:p-8">
               <DinoWidget />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Core Expertise Section */}
       <section id="skills" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <h2 className="font-headline text-4xl font-bold mb-12 text-center">Core Expertise</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -434,26 +574,41 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Experience */}
           <div className="lg:col-span-8">
-            <div className="glass-card border border-white/10 rounded-3xl p-8 md:p-10 h-full relative overflow-hidden group/exp">
+            <SpotlightGlassCard className="p-6 md:p-8 h-full group/exp">
               {/* Decorative background components */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none group-hover/exp:bg-primary/10 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
               
               <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                    <Briefcase className="w-6 h-6 text-primary" />
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <Briefcase className="w-5 h-5 text-primary" />
                   </div>
-                  <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
+                  <h2 className="font-headline text-2xl md:text-3xl font-bold tracking-tight">Experience</h2>
                 </div>
-                <div className="space-y-10">
+                <div className="relative mt-2">
+                <ExperienceItem 
+                  isFirst
+                  title="Lead UI/UX Designer"
+                  company="GEETBIH Labs Pvt Ltd. · Part-time"
+                  period="Apr 2026 — Present"
+                  colorClass="text-[#86EFAC]"
+                  description={
+                    <ul className="list-disc list-outside ml-5 space-y-1">
+                      <li>Driving end-to-end design for digital products with a strong focus on usability, scalability, and impactful user experiences</li>
+                      <li>Leading the creation of intuitive interfaces while building and maintaining a cohesive design system across web and mobile platforms</li>
+                      <li>Collaborating closely with cross-functional teams—including developers and product stakeholders—to transform ideas into seamless, user-centric solutions</li>
+                      <li>Leveraging generative AI and prompt design to streamline workflows, enhance creativity, and accelerate the design process</li>
+                    </ul>
+                  }
+                />
                 <ExperienceItem 
                   title="App Designer"
                   company="Modern Mahal"
                   period="Aug 2025 — Nov 2025"
                   colorClass="text-[#89CFF0]"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-2">
+                    <ul className="list-disc list-outside ml-5 space-y-1">
                       <li>Designed intuitive, visually appealing web and mobile interfaces in Figma to align with brand identity</li>
                       <li>Conducted usability reviews and implemented design refinements to improve navigation, engagement and accessibility</li>
                     </ul>
@@ -465,8 +620,8 @@ export default function Home() {
                   period="May 2025 — Jul 2025"
                   colorClass="text-secondary"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-2">
-                      <li>Developed and deployed LLM-powered web applications using Google Gemini API for summarization, Q&A, and multi-turn conversational workflows</li>
+                    <ul className="list-disc list-outside ml-5 space-y-1">
+                      <li>Developed and deployed LLM-powered web applications using Google Gemini API for Q&A, and multi-turn conversational workflows</li>
                       <li>Built full-stack integration of LLM services with Flask backend and JavaScript frontend through RESTful API architecture</li>
                       <li>Accelerated AI feature development by ∼50% through optimized prompt engineering and rapid prototyping methodologies</li>
                     </ul>
@@ -478,7 +633,7 @@ export default function Home() {
                   period="Feb 2025 — Oct 2025"
                   colorClass="text-primary"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-2">
+                    <ul className="list-disc list-outside ml-5 space-y-1">
                       <li>Designed user-centric interfaces that enhance community engagement and streamline event discovery</li>
                       <li>Built a consistent design system to unify app visuals and marketing assets</li>
                       <li>Created and executed social media campaigns to boost reach, downloads, and brand identity</li>
@@ -487,6 +642,7 @@ export default function Home() {
                   }
                 />
                 <ExperienceItem 
+                  isLast
                   title="Web Designer"
                   company="YGSD"
                   period="Sep 2024 — Nov 2024"
@@ -495,14 +651,14 @@ export default function Home() {
                     <div className="space-y-6">
                       <div>
                         <p className="font-medium text-white mb-2">Project: Mourya Urja Matrimonial <span className="text-sm text-white/40 font-normal ml-2">(Oct 2024 — Nov 2024)</span></p>
-                        <ul className="list-disc list-outside ml-5 space-y-2">
+                        <ul className="list-disc list-outside ml-5 space-y-1">
                           <li>Designed user-friendly, cohesive web layouts in Figma for a trusted matrimonial brand</li>
                           <li>Integrated client feedback to enhance user experience and accessibility</li>
                         </ul>
                       </div>
                       <div>
                         <p className="font-medium text-white mb-2">Project: Veliciae Jewellery <span className="text-sm text-white/40 font-normal ml-2">(Sep 2024 — Oct 2024)</span></p>
-                        <ul className="list-disc list-outside ml-5 space-y-2">
+                        <ul className="list-disc list-outside ml-5 space-y-1">
                           <li>Created visually stunning and user-friendly web designs using Figma, ensuring a cohesive brand identity</li>
                           <li>Collaborated with developers to translate project requirements into effective design solutions</li>
                         </ul>
@@ -512,7 +668,7 @@ export default function Home() {
                 />
               </div>
               </div>
-            </div>
+            </SpotlightGlassCard>
           </div>
 
           {/* Arsenal */}
@@ -522,35 +678,96 @@ export default function Home() {
               
               <div className="relative z-10">
                 <h2 className="font-headline text-3xl md:text-4xl font-bold mb-8">Arsenal</h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-3 md:gap-4">
                   <ArsenalTile 
                     name="React" 
                     icon={Atom}
                     colorClass="text-[#61DAFB]"
                     animate={{ rotate: 360 }}
+                    backName="Flutter"
+                    backIcon={Smartphone}
+                    backColorClass="text-[#02569B]"
+                    backAnimate={{ scale: [1, 1.1, 1] }}
                   />
                   <ArsenalTile 
                     name="Figma" 
                     icon={Figma}
                     colorClass="text-[#F24E1E]"
                     animate={{ scale: [1, 1.1, 1] }}
+                    backName="Figma Weave"
+                    backIcon={Layers}
+                    backColorClass="text-[#A259FF]"
+                    backAnimate={{ scale: [1, 1.05, 1] }}
                   />
                   <ArsenalTile 
                     name="Python" 
                     icon={Terminal}
                     colorClass="text-[#3776AB]"
                     animate={{ opacity: [1, 0.5, 1] }}
+                    backName="Google Stitch"
+                    backIcon={Activity}
+                    backColorClass="text-[#4285F4]"
+                    backAnimate={{ rotate: [0, -10, 10, 0] }}
                   />
                   <ArsenalTile 
                     name="Hugging Face" 
                     imgUrl="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png" 
                     animate={{ y: [0, -4, 0] }}
+                    backName="Google Flow"
+                    backIcon={Wind}
+                    backColorClass="text-[#34A853]"
+                    backAnimate={{ x: [-3, 3, -3] }}
                   />
-                  <ArsenalTile name="Ollama" icon={Bot} colorClass="text-secondary" animate={{ rotate: [-10, 10, -10] }} />
-                  <ArsenalTile name="Tailwind" icon={Wind} colorClass="text-[#38BDF8]" animate={{ x: [-2, 2, -2] }} />
-                  <ArsenalTile name="TypeScript" icon={FileCode2} colorClass="text-[#3178C6]" animate={{ scale: [1, 1.05, 1] }} />
-                  <ArsenalTile name="LangChain" icon={LinkIcon} colorClass="text-white" animate={{ rotate: [0, 180, 360] }} />
-                  <ArsenalTile name="Prompt Eng." icon={Sparkles} colorClass="text-secondary" animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} />
+                  <ArsenalTile 
+                    name="Ollama" 
+                    icon={Bot} 
+                    colorClass="text-secondary" 
+                    animate={{ rotate: [-10, 10, -10] }} 
+                    backName="Gemini API"
+                    backIcon={Sparkles}
+                    backColorClass="text-primary"
+                    backAnimate={{ scale: [1, 1.2, 1] }}
+                  />
+                  <ArsenalTile 
+                    name="Tailwind" 
+                    icon={Wind} 
+                    colorClass="text-[#38BDF8]" 
+                    animate={{ x: [-2, 2, -2] }} 
+                    backName="Claude Code"
+                    backIcon={Terminal}
+                    backColorClass="text-[#D97706]"
+                    backAnimate={{ y: [0, -2, 0] }}
+                  />
+                  <ArsenalTile 
+                    name="TypeScript" 
+                    icon={FileCode2} 
+                    colorClass="text-[#3178C6]" 
+                    animate={{ scale: [1, 1.05, 1] }} 
+                    backName="UAI"
+                    backIcon={Brain}
+                    backColorClass="text-[#FFD93D]"
+                    backAnimate={{ rotate: [0, 5, -5, 0] }}
+                  />
+                  <ArsenalTile 
+                    name="LangChain" 
+                    icon={LinkIcon} 
+                    colorClass="text-white" 
+                    animate={{ rotate: [0, 180, 360] }} 
+                    backName="LlamaIndex"
+                    backIcon={LinkIcon}
+                    backColorClass="text-white"
+                    backAnimate={{ scale: [1, 1.1, 1] }}
+                  />
+                  <ArsenalTile 
+                    name="Prompt Eng." 
+                    icon={Sparkles} 
+                    colorClass="text-secondary" 
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} 
+                    backName="Claude"
+                    backIcon={Bot}
+                    backColorClass="text-[#D97706]"
+                    backAnimate={{ rotate: 360 }}
+                  />
                 </div>
               </div>
             </div>
@@ -565,21 +782,21 @@ export default function Home() {
           texts={[
             (
               <div className="flex gap-4 md:gap-6 px-2 md:px-3 items-center">
-                <SkillPill name="React" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Atom%20Symbol.png" colorTheme="primary" />
-                <SkillPill name="Hugging Face" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png" colorTheme="secondary" />
-                <SkillPill name="Tailwind CSS" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Dashing%20Away.png" colorTheme="blue" />
-                <SkillPill name="TypeScript" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Blue%20Book.png" colorTheme="white" />
-                <SkillPill name="Figma" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Artist%20Palette.png" colorTheme="primary" />
-                <SkillPill name="Python" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Snake.png" colorTheme="secondary" />
+                <SkillPill name="React" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Atom%20Symbol.png" className="bg-gradient-to-r from-[#9FEFFF] to-[#00D2FF] text-[#004A55] shadow-cyan-500/10" animate={{ rotate: 360 }} />
+                <SkillPill name="Hugging Face" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png" className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white shadow-indigo-500/10" animate={{ scale: [1, 1.1, 1] }} />
+                <SkillPill name="Tailwind CSS" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Dashing%20away.png" className="bg-gradient-to-r from-[#00B4DB] to-[#0083B0] text-white shadow-teal-500/10" animate={{ x: [-2, 2, -2] }} />
+                <SkillPill name="TypeScript" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Blue%20book.png" className="bg-gradient-to-r from-[#1E3C72] to-[#2A5298] text-white shadow-blue-500/10" animate={{ scale: [1, 1.05, 1] }} />
+                <SkillPill name="Figma" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Artist%20Palette.png" className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] text-slate-900 shadow-red-500/10" animate={{ rotate: [0, 10, -10, 0] }} />
+                <SkillPill name="Python" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Snake.png" className="bg-gradient-to-r from-[#1F4068] to-[#162447] text-white shadow-blue-500/10" animate={{ opacity: [1, 0.7, 1] }} />
               </div>
             ),
             (
               <div className="flex gap-4 md:gap-6 px-2 md:px-3 items-center">
-                <SkillPill name="Generative AI" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Brain.png" colorTheme="white" />
-                <SkillPill name="UI/UX Design" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Desktop%20Computer.png" colorTheme="primary" />
-                <SkillPill name="LLMs" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Speech%20Balloon.png" colorTheme="secondary" />
-                <SkillPill name="Prompt Engineering" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Sparkles.png" colorTheme="blue" />
-                <SkillPill name="LangChain" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Link.png" colorTheme="white" />
+                <SkillPill name="Generative AI" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20and%20body/Brain.png" className="bg-gradient-to-r from-[#11998E] to-[#38EF7D] text-[#0B3512] shadow-green-500/10" animate={{ scale: [1, 1.12, 1] }} />
+                <SkillPill name="UI/UX Design" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Desktop%20Computer.png" className="bg-gradient-to-r from-[#FF9a9e] to-[#fecfef] text-[#8C1B4F] shadow-pink-500/10" animate={{ y: [0, -3, 0] }} />
+                <SkillPill name="LLMs" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Speech%20balloon.png" className="bg-gradient-to-r from-[#9C75F2] to-[#713FE5] text-white shadow-purple-500/10" animate={{ scale: [1, 1.08, 1] }} />
+                <SkillPill name="Prompt Engineering" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Sparkles.png" className="bg-gradient-to-r from-[#FFDF00] to-[#FFA000] text-slate-900 shadow-yellow-500/10" animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} />
+                <SkillPill name="LangChain" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Link.png" className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] text-[#0E3E5B] shadow-sky-500/10" animate={{ rotate: [0, 180, 360] }} />
               </div>
             )
           ]} 
@@ -588,98 +805,77 @@ export default function Home() {
 
       {/* Projects Section */}
       <section id="portfolio" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
-        <div className="flex justify-between items-end mb-12">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Projects</h2>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-12">
+          <div>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-center md:text-left">Featured Projects</h2>
+          </div>
           <Link to="/projects" className="hidden md:flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
             View All Projects <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ProjectTile 
-            title="Researcix"
-            subtitle="Autonomous Academic Research & Synthesis"
-            imgUrl="/researcix.png"
-            delay={0.1}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/Researcix"
-            siteUrl="https://researcix.vercel.app/"
-          />
-          <ProjectTile 
-            title="Fitness Bunny"
-            subtitle="AI Calorie Measurer & Recipe Creator"
-            imgUrl="/fitnessbunny-thumbnail.png"
-            delay={0.15}
-            tags={["Gen AI", "Web App"]}
-            siteUrl="https://fitnessbunny.vercel.app/"
-          />
-          <ProjectTile 
-            title="MediRAG"
-            subtitle="Clinical-grade hallucination detection"
-            imgUrl="/medirag-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/MediRAG-3.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="Multi-Agent Bug Analysis"
-            subtitle="Autonomous Bug Triage & RCA"
-            imgUrl="/mabas-thumbnail.png"
-            delay={0.3}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-"
-          />
-          <ProjectTile 
-            title="Multi-Agent Launch Decision"
-            subtitle="War Room Rollout Orchestration"
-            imgUrl="/mlds-thumbnail.png"
-            delay={0.4}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-"
-          />
-          <ProjectTile 
-            title="Bacsense"
-            subtitle="IoT Biosensor Dashboard"
-            imgUrl="/bacsense-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/BacSense-2.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="2Gather"
-            subtitle="Community & Events"
-            imgUrl="/2gather.png"
-            delay={0.3}
-            tags={["Mobile App", "UI/UX"]}
-            siteUrl="https://www.2gather.in/"
-            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
-            secondaryLabel="Play Store"
-          />
-          <ProjectTile 
-            title="Mourya URJA Matrimonial"
-            subtitle="Behance Case Study ↗"
-            imgUrl="/mouryaurja.png"
-            delay={0.4}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
-          />
-          <ProjectTile 
-            title="Veliciae"
-            subtitle="Behance Case Study ↗"
-            imgUrl="/veliciae.png"
-            delay={0.5}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
-          />
-          <ProjectTile 
-            title="Modern Mahal"
-            subtitle="Real Estate Platform"
-            imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
-            delay={0.6}
-            tags={["UI/UX"]}
-          />
+
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12">
+          {categories.map((category) => {
+            const isActive = selectedCategory === category;
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`relative px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer ${
+                  isActive 
+                    ? "text-background z-10" 
+                    : "text-white/60 hover:text-white bg-white/5 border border-white/10 hover:border-white/20 hover:scale-102 active:scale-98"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeCategoryPill"
+                    className="absolute inset-0 bg-primary rounded-full -z-10 shadow-lg shadow-primary/20"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                {category}
+              </button>
+            );
+          })}
         </div>
+
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.title}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 350, 
+                  damping: 32,
+                  opacity: { duration: 0.2 }
+                }}
+              >
+                <ProjectTile 
+                  title={project.title}
+                  subtitle={project.subtitle}
+                  imgUrl={project.imgUrl}
+                  delay={0}
+                  tags={project.tags}
+                  githubUrl={project.githubUrl}
+                  siteUrl={project.siteUrl}
+                  secondaryUrl={project.secondaryUrl}
+                  secondaryLabel={project.secondaryLabel}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
         <div className="mt-8 flex justify-center md:hidden">
           <Link to="/projects" className="flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
             View All Projects <ArrowRight className="w-5 h-5" />

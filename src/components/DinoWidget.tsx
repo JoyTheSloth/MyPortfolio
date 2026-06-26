@@ -270,7 +270,7 @@ const DinoWidget: React.FC = () => {
   return (
     <div className="w-full flex-1 flex flex-col justify-center">
       {/* Header */}
-      <div className="flex justify-between items-center mb-3 text-[10px] font-bold text-black/50 uppercase tracking-wider">
+      <div className="flex justify-between items-center mb-2 md:mb-3 text-[10px] font-bold text-black/50 uppercase tracking-wider">
         <span>dino.run</span>
         <span>SCORE: {String(score).padStart(4, '0')} · HI: {String(hiScore).padStart(4, '0')}</span>
       </div>
@@ -282,21 +282,23 @@ const DinoWidget: React.FC = () => {
           width={W} 
           height={H} 
           className="w-full h-auto cursor-pointer block"
+          style={{ imageRendering: 'pixelated' }}
           onClick={jump}
+          onTouchStart={(e) => { e.preventDefault(); jump(); }}
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-4 mt-6">
+      <div className="flex gap-3 md:gap-4 mt-4 md:mt-6">
         <motion.button 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.95, y: 2 }}
           onMouseDown={jump}
           onTouchStart={(e) => { e.preventDefault(); jump(); }}
-          className="flex-1 py-4 px-6 rounded-2xl bg-black/60 backdrop-blur-md shadow-[0_8px_0_rgb(0,0,0,0.2)] hover:shadow-[0_6px_0_rgb(0,0,0,0.2)] active:shadow-none flex flex-col items-center justify-center transition-all border border-white/10 group/jbtn"
+          className="flex-1 py-3 px-4 md:py-4 md:px-6 rounded-2xl bg-black/60 backdrop-blur-md shadow-[0_6px_0_rgb(0,0,0,0.2)] md:shadow-[0_8px_0_rgb(0,0,0,0.2)] hover:shadow-[0_4px_0_rgb(0,0,0,0.2)] md:hover:shadow-[0_6px_0_rgb(0,0,0,0.2)] active:shadow-none flex flex-col items-center justify-center transition-all border border-white/10 group/jbtn"
         >
-          <span className="text-[#FFD93D] font-black text-xs md:text-sm tracking-[0.2em] mb-1 group-hover/jbtn:scale-110 transition-transform">JUMP</span>
-          <div className="text-[#FFD93D]/40 text-[10px] font-bold">SPACE / ↑</div>
+          <span className="text-[#FFD93D] font-black text-xs md:text-sm tracking-[0.2em] mb-0.5 md:mb-1 group-hover/jbtn:scale-110 transition-transform">JUMP</span>
+          <div className="text-[#FFD93D]/40 text-[9px] md:text-[10px] font-bold">SPACE / ↑</div>
         </motion.button>
         
         <motion.button 
@@ -307,10 +309,10 @@ const DinoWidget: React.FC = () => {
           onMouseLeave={() => duck(false)}
           onTouchStart={(e) => { e.preventDefault(); duck(true); }}
           onTouchEnd={(e) => { e.preventDefault(); duck(false); }}
-          className="flex-1 py-4 px-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-[0_8px_0_rgb(0,0,0,0.15)] hover:shadow-[0_6px_0_rgb(0,0,0,0.15)] active:shadow-none flex flex-col items-center justify-center transition-all border border-white/10 group/dbtn"
+          className="flex-1 py-3 px-4 md:py-4 md:px-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-[0_6px_0_rgb(0,0,0,0.15)] md:shadow-[0_8px_0_rgb(0,0,0,0.15)] hover:shadow-[0_4px_0_rgb(0,0,0,0.15)] md:hover:shadow-[0_6px_0_rgb(0,0,0,0.15)] active:shadow-none flex flex-col items-center justify-center transition-all border border-white/10 group/dbtn"
         >
-          <span className="text-white/90 font-black text-xs md:text-sm tracking-[0.2em] mb-1 group-hover/dbtn:scale-110 transition-transform">DUCK</span>
-          <div className="text-white/30 text-[10px] font-bold">DOWN ↓</div>
+          <span className="text-white/90 font-black text-xs md:text-sm tracking-[0.2em] mb-0.5 md:mb-1 group-hover/dbtn:scale-110 transition-transform">DUCK</span>
+          <div className="text-white/30 text-[9px] md:text-[10px] font-bold">DOWN ↓</div>
         </motion.button>
       </div>
 

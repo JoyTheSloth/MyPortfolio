@@ -1,7 +1,10 @@
 import { motion } from "motion/react";
 import { ProjectTile } from "../components/ProjectTile";
+import { projectsData } from "../data/projects";
 
 export default function GenAIProjects() {
+  const genAIProjects = projectsData.filter(project => project.categories.includes("AI Automation"));
+
   return (
     <main className="pt-40 pb-24 min-h-screen">
       <section className="max-w-7xl mx-auto px-8 mb-24">
@@ -30,64 +33,20 @@ export default function GenAIProjects() {
 
       <section className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ProjectTile 
-            title="Researcix"
-            subtitle="Autonomous Academic Research & Synthesis"
-            imgUrl="/researcix.png"
-            delay={0.1}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/Researcix"
-            siteUrl="https://researcix.vercel.app/"
-          />
-          <ProjectTile 
-            title="Fitness Bunny"
-            subtitle="AI Calorie Measurer & Recipe Creator"
-            imgUrl="/fitnessbunny-thumbnail.png"
-            delay={0.15}
-            tags={["Gen AI", "Web App"]}
-            siteUrl="https://fitnessbunny.vercel.app/"
-          />
-          <ProjectTile 
-            title="MediRAG"
-            subtitle="Clinical-grade hallucination detection"
-            imgUrl="/medirag-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/MediRAG-3.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="Multi-Agent Bug Analysis"
-            subtitle="Autonomous Bug Triage & RCA"
-            imgUrl="/mabas-thumbnail.png"
-            delay={0.3}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-"
-          />
-          <ProjectTile 
-            title="Multi-Agent Launch Decision"
-            subtitle="War Room Rollout Orchestration"
-            imgUrl="/mlds-thumbnail.png"
-            delay={0.4}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-"
-          />
-          <ProjectTile 
-            title="Bacsense"
-            subtitle="IoT Biosensor Dashboard"
-            imgUrl="/bacsense-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/BacSense-2.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="Agentic Framework"
-            subtitle="Autonomous LLM workflows"
-            imgUrl="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1600"
-            delay={0.3}
-            tags={["Gen AI"]}
-          />
+          {genAIProjects.map((project, index) => (
+            <ProjectTile 
+              key={project.title}
+              title={project.title}
+              subtitle={project.subtitle}
+              imgUrl={project.imgUrl}
+              delay={(index % 4) * 0.1}
+              tags={project.tags}
+              githubUrl={project.githubUrl}
+              siteUrl={project.siteUrl}
+              secondaryUrl={project.secondaryUrl}
+              secondaryLabel={project.secondaryLabel}
+            />
+          ))}
         </div>
       </section>
     </main>

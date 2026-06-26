@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ProjectTile } from "../components/ProjectTile";
+import { projectsData } from "../data/projects";
 
 export default function AllProjects() {
   return (
@@ -27,90 +28,20 @@ export default function AllProjects() {
 
       <section className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ProjectTile 
-            title="Researcix"
-            subtitle="Autonomous Academic Research & Synthesis"
-            imgUrl="/researcix.png"
-            delay={0.1}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/Researcix"
-            siteUrl="https://researcix.vercel.app/"
-          />
-          <ProjectTile 
-            title="Fitness Bunny"
-            subtitle="AI Calorie Measurer & Recipe Creator"
-            imgUrl="/fitnessbunny-thumbnail.png"
-            delay={0.15}
-            tags={["Gen AI", "Web App"]}
-            siteUrl="https://fitnessbunny.vercel.app/"
-          />
-          <ProjectTile 
-            title="MediRAG"
-            subtitle="Clinical-grade hallucination detection"
-            imgUrl="/medirag-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/MediRAG-3.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="Multi-Agent Bug Analysis"
-            subtitle="Autonomous Bug Triage & RCA"
-            imgUrl="/mabas-thumbnail.png"
-            delay={0.3}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-"
-          />
-          <ProjectTile 
-            title="Multi-Agent Launch Decision"
-            subtitle="War Room Rollout Orchestration"
-            imgUrl="/mlds-thumbnail.png"
-            delay={0.4}
-            tags={["Gen AI", "Multi-Agent"]}
-            githubUrl="https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-"
-          />
-          <ProjectTile 
-            title="Bacsense"
-            subtitle="IoT Biosensor Dashboard"
-            imgUrl="/bacsense-thumbnail.png"
-            delay={0.2}
-            tags={["Gen AI"]}
-            githubUrl="https://github.com/JoyTheSloth/BacSense-2.0"
-            siteUrl="#"
-          />
-          <ProjectTile 
-            title="2Gather"
-            subtitle="Community & Events"
-            imgUrl="/2gather.png"
-            delay={0.3}
-            tags={["Mobile App", "UI/UX"]}
-            siteUrl="https://www.2gather.in/"
-            secondaryUrl="https://play.google.com/store/apps/details?id=com.geetbihtech.togather"
-            secondaryLabel="Play Store"
-          />
-          <ProjectTile 
-            title="Mourya URJA Matrimonial"
-            subtitle="Behance Case Study ↗"
-            imgUrl="/mouryaurja.png"
-            delay={0.4}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial"
-          />
-          <ProjectTile 
-            title="Veliciae"
-            subtitle="Behance Case Study ↗"
-            imgUrl="/veliciae.png"
-            delay={0.5}
-            tags={["UI/UX"]}
-            siteUrl="https://www.behance.net/gallery/246971903/Veliciae"
-          />
-          <ProjectTile 
-            title="Modern Mahal"
-            subtitle="Real Estate Platform"
-            imgUrl="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
-            delay={0.6}
-            tags={["UI/UX"]}
-          />
+          {projectsData.map((project, index) => (
+            <ProjectTile 
+              key={project.title}
+              title={project.title}
+              subtitle={project.subtitle}
+              imgUrl={project.imgUrl}
+              delay={(index % 4) * 0.1}
+              tags={project.tags}
+              githubUrl={project.githubUrl}
+              siteUrl={project.siteUrl}
+              secondaryUrl={project.secondaryUrl}
+              secondaryLabel={project.secondaryLabel}
+            />
+          ))}
         </div>
       </section>
     </main>

@@ -5,13 +5,14 @@
 
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Palette, Sparkles, Download, FileText, ArrowLeft } from "lucide-react";
+import { Menu, X, Palette, Download, FileText, ArrowLeft } from "lucide-react";
 import Home from "./pages/Home";
 import GenAIProjects from "./pages/GenAIProjects";
 import UiUxProjects from "./pages/UiUxProjects";
 import AllProjects from "./pages/AllProjects";
 import RotatingText from "./components/RotatingText";
 import { motion, AnimatePresence } from "motion/react";
+import { ThemeRevolver, themes, applyTheme } from "./components/ThemeRevolver";
 
 
 function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -19,16 +20,21 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
-    return () => { document.body.style.overflow = 'unset'; };
+    return () => { 
+      document.body.style.overflow = ''; 
+      document.documentElement.style.overflow = ''; 
+    };
   }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-hidden">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -146,7 +152,9 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   );
 }
 
-function Navbar({ onResumeOpen }: { onResumeOpen: () => void }) {
+
+
+function Navbar({ onResumeOpen, activeTheme, onThemeChange }: { onResumeOpen: () => void; activeTheme: string; onThemeChange: (id: string) => void }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -188,10 +196,11 @@ function Navbar({ onResumeOpen }: { onResumeOpen: () => void }) {
           <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Projects</Link>
           <button 
             onClick={onResumeOpen}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold hover:bg-primary/20 transition-all text-sm"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-background font-extrabold hover:bg-primary/95 hover:scale-105 active:scale-95 transition-all text-sm shadow-[0_0_15px_rgba(255,182,141,0.35)] hover:shadow-[0_0_25px_rgba(255,182,141,0.6)]"
           >
             Resume / CV
           </button>
+          <ThemeRevolver activeTheme={activeTheme} onThemeChange={onThemeChange} />
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -226,6 +235,31 @@ function Navbar({ onResumeOpen }: { onResumeOpen: () => void }) {
               >
                 Resume / CV
               </button>
+              <div className="flex flex-col gap-2 pt-4 border-t border-white/5">
+                <span className="text-xs font-bold text-white/40 uppercase tracking-[0.15em]">Accent Theme</span>
+                <div className="flex gap-4 items-center mt-1">
+                  {themes.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => onThemeChange(t.id)}
+                      className="w-9 h-9 rounded-full border flex items-center justify-center relative cursor-pointer active:scale-90 transition-all"
+                      style={{
+                        backgroundColor: t.primaryColor === "#ffffff" ? "#111" : t.primaryColor,
+                        boxShadow: activeTheme === t.id ? `0 0 12px ${t.primaryColor}` : "none",
+                        borderColor: activeTheme === t.id ? "var(--theme-primary, #ffb68d)" : "rgba(255,255,255,0.1)"
+                      }}
+                      title={t.name}
+                    >
+                      <div 
+                        className="w-3.5 h-3.5 rounded-full" 
+                        style={{ 
+                          backgroundColor: t.id === "default" ? "#eb7e37" : t.id === "blue" ? "#219ebc" : t.id === "wine" ? "#c9184a" : t.id === "pink" ? "#ff49db" : "#fff" 
+                        }} 
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -281,12 +315,28 @@ function Footer() {
 
 export default function App() {
   const [isResumeOpen, setIsResumeOpen] = React.useState(false);
+  const [activeTheme, setActiveTheme] = React.useState("default");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("portfolio-theme") || "default";
+    setActiveTheme(saved);
+    applyTheme(saved);
+  }, []);
+
+  const handleThemeChange = (newTheme: string) => {
+    setActiveTheme(newTheme);
+    applyTheme(newTheme);
+  };
 
   return (
     <BrowserRouter>
       <ScrollToHash />
       <div className="min-h-screen soul-gradient selection:bg-primary selection:text-background overflow-x-hidden flex flex-col">
-        <Navbar onResumeOpen={() => setIsResumeOpen(true)} />
+        <Navbar 
+          onResumeOpen={() => setIsResumeOpen(true)} 
+          activeTheme={activeTheme} 
+          onThemeChange={handleThemeChange} 
+        />
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
