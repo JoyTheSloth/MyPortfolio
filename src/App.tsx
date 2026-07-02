@@ -5,7 +5,7 @@
 
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Palette, Download, FileText, ArrowLeft } from "lucide-react";
+import { Menu, X, Palette, Download, FileText, ArrowLeft, Sparkles } from "lucide-react";
 import Home from "./pages/Home";
 import GenAIProjects from "./pages/GenAIProjects";
 import UiUxProjects from "./pages/UiUxProjects";
