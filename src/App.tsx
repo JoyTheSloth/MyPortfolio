@@ -46,90 +46,125 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="w-full max-w-2xl relative z-10 pointer-events-none max-h-[95vh] overflow-y-auto no-scrollbar scroll-smooth"
+            className="w-full max-w-3xl relative z-10 pointer-events-none max-h-[95vh] overflow-y-auto no-scrollbar scroll-smooth"
           >
-            <div className="glass-card border border-white/10 rounded-[2rem] md:rounded-[3rem] p-6 md:p-14 shadow-[0_0_100px_rgba(0,0,0,0.8)] pointer-events-auto bg-[#080808]/95 backdrop-blur-3xl relative overflow-hidden my-4">
+            <div className="glass-card border border-white/10 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 shadow-[0_0_100px_rgba(0,0,0,0.8)] pointer-events-auto bg-[#080808]/95 backdrop-blur-3xl relative overflow-hidden my-4">
                {/* Background Glows */}
                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/4" />
                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 blur-[120px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/4" />
 
                <button 
                  onClick={onClose}
-                 className="absolute top-6 right-6 md:top-10 md:right-10 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 hover:bg-white/10 transition-all text-white/50 hover:text-white z-20 border border-white/5 hover:border-white/20 active:scale-90"
+                 className="absolute top-6 right-6 md:top-8 md:right-8 p-2.5 md:p-3 rounded-lg md:rounded-xl bg-white/5 hover:bg-white/10 transition-all text-white/50 hover:text-white z-20 border border-white/5 hover:border-white/20 active:scale-90"
                  aria-label="Close"
                >
-                 <X className="w-5 h-5 md:w-6 md:h-6" />
+                 <X className="w-4 h-4 md:w-5 md:h-5" />
                </button>
 
-               <div className="relative z-10 text-center mb-8 md:mb-14 px-2 md:px-0 mt-4 md:mt-0">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/40 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] mb-4 md:mb-6">
+               <div className="relative z-10 text-center mb-6 md:mb-10 px-2 md:px-0 mt-4 md:mt-0">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/40 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] mb-3 md:mb-5">
                    <FileText className="w-3 md:w-3.5 h-3 md:h-3.5" /> Portal
                  </div>
-                 <h2 className="text-3xl md:text-6xl font-headline font-bold mb-3 md:mb-5 tracking-tight text-gradient-primary leading-none">Resume Hub</h2>
-                 <p className="text-white/40 text-xs md:text-base max-w-[280px] md:max-w-sm mx-auto leading-relaxed">Choose a version of my background to dive deeper.</p>
+                 <h2 className="text-2xl md:text-4xl font-headline font-bold mb-2 md:mb-3 tracking-tight text-gradient-primary leading-none">Resume Hub</h2>
+                 <p className="text-white/40 text-xs md:text-sm max-w-[280px] md:max-w-sm mx-auto leading-relaxed">Choose a version of my background to dive deeper.</p>
                </div>
 
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 relative z-10 mb-8 md:mb-14">
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 relative z-10 mb-6 md:mb-8">
                  {/* UI/UX Resume Card */}
-                 <div className="group relative flex flex-col items-center gap-4 md:gap-6 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/5 border border-white/5 hover:border-primary/40 hover:bg-white/10 transition-all duration-700 hover:-translate-y-2 overflow-hidden shadow-2xl">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                 <div className="group relative flex flex-col items-center gap-3 md:gap-4 p-5 md:p-6 rounded-[1.2rem] md:rounded-[1.8rem] bg-white/5 border border-white/5 hover:border-primary/45 hover:bg-white/10 transition-all duration-500 hover:-translate-y-1.5 overflow-hidden shadow-xl">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-primary/15 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     
-                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary z-10 group-hover:text-background transition-all duration-700 relative shadow-inner">
-                       <Palette className="w-8 h-8 md:w-10 md:h-10" />
+                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#111] border border-white/5 flex items-center justify-center text-primary group-hover:scale-105 group-hover:bg-primary z-10 group-hover:text-background transition-all duration-500 relative shadow-inner">
+                       <Palette className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
 
                     <div className="text-center z-10">
-                       <h3 className="font-bold text-white text-lg md:text-2xl mb-0.5 md:mb-1">UI/UX</h3>
-                       <p className="text-[8px] md:text-[10px] text-white/30 font-medium tracking-[0.2em] uppercase">Visual Focus</p>
+                       <h3 className="font-bold text-white text-md md:text-lg mb-0.5">UI/UX</h3>
+                       <p className="text-[7px] md:text-[9px] text-white/30 font-medium tracking-[0.2em] uppercase">Visual Focus</p>
                     </div>
 
-                    <div className="flex gap-2 md:gap-3 w-full pt-2 md:pt-4 z-10">
+                    <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                        <a 
                          href="/Joydeep_Das_UIUX_Resume.pdf" 
                          target="_blank"
                          rel="noopener noreferrer"
-                         className="flex-1 py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.15em] hover:bg-primary hover:text-background transition-all text-center border border-white/10 hover:border-primary shadow-lg"
+                         className="flex-1 py-2 md:py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-primary hover:text-background transition-all text-center border border-white/10 hover:border-primary shadow"
                        >
                          Preview
                        </a>
                        <a 
                          href="/Joydeep_Das_UIUX_Resume.pdf" 
                          download="Joydeep_Das_UIUX_Resume.pdf"
-                         className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 text-white/50 hover:text-white hover:bg-primary hover:text-background transition-all relative group/dl border border-white/10 hover:border-primary shadow-lg"
+                         className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/50 hover:text-white hover:bg-primary hover:text-background transition-all border border-white/10 hover:border-primary shadow"
+                         title="Download PDF"
                        >
-                         <Download className="w-4 h-4 md:w-5 md:h-5" />
+                         <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
                        </a>
                     </div>
                  </div>
 
-                 {/* Gen AI Resume Card */}
-                 <div className="group relative flex flex-col items-center gap-4 md:gap-6 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/5 border border-white/5 hover:border-secondary/40 hover:bg-white/10 transition-all duration-700 hover:-translate-y-2 overflow-hidden shadow-2xl">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                 {/* Dev CV Card */}
+                 <div className="group relative flex flex-col items-center gap-3 md:gap-4 p-5 md:p-6 rounded-[1.2rem] md:rounded-[1.8rem] bg-white/5 border border-white/5 hover:border-secondary/45 hover:bg-white/10 transition-all duration-500 hover:-translate-y-1.5 overflow-hidden shadow-xl">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/15 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                     
-                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-secondary group-hover:scale-110 group-hover:bg-secondary z-10 group-hover:text-background transition-all duration-700 relative shadow-inner">
-                       <Sparkles className="w-8 h-8 md:w-10 md:h-10" />
+                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#111] border border-white/5 flex items-center justify-center text-secondary group-hover:scale-105 group-hover:bg-secondary z-10 group-hover:text-background transition-all duration-500 relative shadow-inner">
+                       <Sparkles className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
 
                     <div className="text-center z-10">
-                       <h3 className="font-bold text-white text-lg md:text-2xl mb-0.5 md:mb-1">Resume</h3>
-                       <p className="text-[8px] md:text-[10px] text-white/30 font-medium tracking-[0.2em] uppercase">Tech Focus</p>
+                       <h3 className="font-bold text-white text-md md:text-lg mb-0.5">Dev CV</h3>
+                       <p className="text-[7px] md:text-[9px] text-white/30 font-medium tracking-[0.2em] uppercase">Tech Focus</p>
                     </div>
 
-                    <div className="flex gap-2 md:gap-3 w-full pt-2 md:pt-4 z-10">
+                    <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                        <a 
                          href="/Joydeep_Das_Dev_Resume.pdf" 
                          target="_blank"
                          rel="noopener noreferrer"
-                         className="flex-1 py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/5 text-white text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] md:tracking-[0.15em] hover:bg-secondary hover:text-background transition-all text-center border border-white/10 hover:border-secondary shadow-lg"
+                         className="flex-1 py-2 md:py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-secondary hover:text-background transition-all text-center border border-white/10 hover:border-secondary shadow"
                        >
                          Preview
                        </a>
                        <a 
                          href="/Joydeep_Das_Dev_Resume.pdf" 
                          download="Joydeep_Das_Dev_Resume.pdf"
-                         className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 text-white/50 hover:text-white hover:bg-secondary hover:text-background transition-all relative group/dl border border-white/10 hover:border-secondary shadow-lg"
+                         className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/50 hover:text-white hover:bg-secondary hover:text-background transition-all border border-white/10 hover:border-secondary shadow"
+                         title="Download PDF"
                        >
-                         <Download className="w-4 h-4 md:w-5 md:h-5" />
+                         <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                       </a>
+                    </div>
+                 </div>
+
+                 {/* General Resume Card */}
+                 <div className="group relative flex flex-col items-center gap-3 md:gap-4 p-5 md:p-6 rounded-[1.2rem] md:rounded-[1.8rem] bg-white/5 border border-white/5 hover:border-primary-container/45 hover:bg-white/10 transition-all duration-500 hover:-translate-y-1.5 overflow-hidden shadow-xl">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-primary-container/15 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#111] border border-white/5 flex items-center justify-center text-primary-container group-hover:scale-105 group-hover:bg-primary-container z-10 group-hover:text-background transition-all duration-500 relative shadow-inner">
+                       <FileText className="w-6 h-6 md:w-8 md:h-8" />
+                    </div>
+
+                    <div className="text-center z-10">
+                       <h3 className="font-bold text-white text-md md:text-lg mb-0.5">Resume</h3>
+                       <p className="text-[7px] md:text-[9px] text-white/30 font-medium tracking-[0.2em] uppercase">Full Overview</p>
+                    </div>
+
+                    <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
+                       <a 
+                         href="/Joydeep_Das_Resume.pdf" 
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 py-2 md:py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-primary-container hover:text-background transition-all text-center border border-white/10 hover:border-primary-container shadow"
+                       >
+                         Preview
+                       </a>
+                       <a 
+                         href="/Joydeep_Das_Resume.pdf" 
+                         download="Joydeep_Das_Resume.pdf"
+                         className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/50 hover:text-white hover:bg-primary-container hover:text-background transition-all border border-white/10 hover:border-primary-container shadow"
+                         title="Download PDF"
+                       >
+                         <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
                        </a>
                     </div>
                  </div>
