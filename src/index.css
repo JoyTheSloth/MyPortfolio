@@ -87,3 +87,19 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* docx-preview customization */
+.docx-preview-wrapper .docx-wrapper {
+  background: transparent !important;
+  padding: 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.docx-preview-wrapper .docx-wrapper > section.docx {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  margin-bottom: 2rem !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-radius: 4px !important;
+}

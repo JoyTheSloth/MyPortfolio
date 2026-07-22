@@ -464,7 +464,7 @@ export default function Home() {
               </h1>
               
               <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
-                A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>, 
+                Founder of <a href="https://whynotstash.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">Stash</a> (Clipboard Manager). A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>, 
                 <span className="text-secondary font-semibold"> Gen AI Developer</span>, and 
                 <span className="text-[#89CFF0] font-semibold"> Front-end Developer</span> crafting high-performance digital experiences.
               </p>

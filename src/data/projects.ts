@@ -12,6 +12,14 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
+    title: "Stash",
+    subtitle: "Your ChatGPT for Ctrl + C",
+    imgUrl: "/stash-thumbnail.png",
+    tags: ["Gen AI", "Web App"],
+    siteUrl: "https://whynotstash.netlify.app/",
+    categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
+  },
+  {
     title: "2Gather Web",
     subtitle: "Where Exceptional Minds Converge",
     imgUrl: "/2gather-web.vercel.app-gather Where Exceptional Minds Converge-cvscreenshot.png",
