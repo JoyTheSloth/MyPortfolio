@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
-import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram, Github, Briefcase, Cloud, Smartphone, Layers, Activity, Smile } from "lucide-react";
+import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, Atom, FileCode2, Figma, Layout, MessageSquare, Sparkles, Link as LinkIcon, ArrowUpRight, Mail, Linkedin, Bot, Instagram, Github, Briefcase, Cloud, Smartphone, Layers, Activity, Smile, Check, Copy } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollVelocity from "../components/ScrollVelocity";
 import { ProjectTile } from "../components/ProjectTile";
@@ -17,7 +17,9 @@ const ExpertiseCard = ({
   linkTo,
   secondaryLinkText,
   secondaryLinkTo,
-  delay 
+  delay,
+  doodleNote,
+  doodleSvg
 }: { 
   title: string; 
   description: string; 
@@ -29,6 +31,8 @@ const ExpertiseCard = ({
   secondaryLinkText?: string;
   secondaryLinkTo?: string;
   delay: number;
+  doodleNote?: string;
+  doodleSvg?: React.ReactNode;
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -91,6 +95,12 @@ const ExpertiseCard = ({
 
           <h3 className="font-headline text-3xl font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-300">{title}</h3>
           <p className="text-white/60 leading-relaxed text-sm md:text-base font-light max-w-[90%]">{description}</p>
+          {doodleNote && (
+            <div className="mt-4 inline-flex items-center gap-2 font-handwriting text-lg font-bold select-none text-white/80">
+              {doodleSvg}
+              <span>{doodleNote}</span>
+            </div>
+          )}
         </div>
 
         <div className="mt-10">
@@ -168,15 +178,17 @@ const ExperienceItem = ({
   description, 
   colorClass,
   isFirst,
-  isLast
+  isLast,
+  doodle
 }: { 
   title: string; 
   company: string; 
   period: string; 
   description: React.ReactNode; 
   colorClass: string; 
-  isFirst?: boolean;
+  isFirst?: boolean; 
   isLast?: boolean;
+  doodle?: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   
@@ -213,8 +225,9 @@ const ExperienceItem = ({
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <h4 className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
-            <div className="flex items-center gap-3 mt-0.5 mb-1.5">
+            <div className="flex items-center gap-3 mt-0.5 mb-1.5 flex-wrap">
               <span className={`font-bold text-xs md:text-sm ${colorClass}`}>{company}</span>
+              {doodle}
               <span className="w-1 h-1 rounded-full bg-white/20" />
               <span className="text-white/40 text-[10px] md:text-xs font-medium">{period}</span>
             </div>
@@ -246,110 +259,202 @@ const ExperienceItem = ({
   );
 };
 
-const ArsenalTile = ({ 
+interface ArsenalItem {
+  name: string;
+  category: "Frontend" | "Gen AI" | "Design";
+  icon?: any;
+  imgUrl?: string;
+  colorClass: string;
+  glow: string;
+  role: string;
+  badge: string;
+  animate?: any;
+}
+
+const arsenalCategories = ["All", "Frontend", "Gen AI", "Design"] as const;
+
+const arsenalItems: ArsenalItem[] = [
+  {
+    name: "React",
+    category: "Frontend",
+    icon: Atom,
+    colorClass: "text-[#61DAFB]",
+    glow: "rgba(97, 218, 251, 0.3)",
+    role: "Reactive UI & Next.js",
+    badge: "V19 Core",
+    animate: { rotate: 360 }
+  },
+  {
+    name: "TypeScript",
+    category: "Frontend",
+    icon: FileCode2,
+    colorClass: "text-[#3178C6]",
+    glow: "rgba(49, 120, 198, 0.3)",
+    role: "Type Architecture",
+    badge: "Daily Driver",
+    animate: { scale: [1, 1.06, 1] }
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Frontend",
+    icon: Wind,
+    colorClass: "text-[#38BDF8]",
+    glow: "rgba(56, 189, 248, 0.3)",
+    role: "Fluid Design Tokens",
+    badge: "Styling",
+    animate: { x: [-2, 2, -2] }
+  },
+  {
+    name: "Flutter",
+    category: "Frontend",
+    icon: Smartphone,
+    colorClass: "text-[#02569B]",
+    glow: "rgba(2, 86, 155, 0.3)",
+    role: "Cross-Platform Apps",
+    badge: "Mobile",
+    animate: { scale: [1, 1.08, 1] }
+  },
+  {
+    name: "Gemini & Claude",
+    category: "Gen AI",
+    icon: Sparkles,
+    colorClass: "text-primary",
+    glow: "rgba(255, 83, 0, 0.35)",
+    role: "Agentic Reasoning",
+    badge: "Primary LLM",
+    animate: { scale: [1, 1.15, 1] }
+  },
+  {
+    name: "Python",
+    category: "Gen AI",
+    icon: Terminal,
+    colorClass: "text-[#3776AB]",
+    glow: "rgba(55, 118, 171, 0.3)",
+    role: "AI Pipelines & Flask",
+    badge: "Backend",
+    animate: { opacity: [1, 0.6, 1] }
+  },
+  {
+    name: "LangChain",
+    category: "Gen AI",
+    icon: LinkIcon,
+    colorClass: "text-[#22c55e]",
+    glow: "rgba(34, 197, 94, 0.3)",
+    role: "RAG & Agent Chains",
+    badge: "Workflows",
+    animate: { rotate: [0, 180, 360] }
+  },
+  {
+    name: "Hugging Face",
+    category: "Gen AI",
+    imgUrl: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png",
+    colorClass: "text-[#FFD21E]",
+    glow: "rgba(255, 210, 30, 0.3)",
+    role: "Models & Transformers",
+    badge: "OSS",
+    animate: { y: [0, -4, 0] }
+  },
+  {
+    name: "Ollama",
+    category: "Gen AI",
+    icon: Bot,
+    colorClass: "text-secondary",
+    glow: "rgba(0, 240, 255, 0.3)",
+    role: "Local LLM Inference",
+    badge: "On-Prem",
+    animate: { rotate: [-8, 8, -8] }
+  },
+  {
+    name: "Prompt Eng.",
+    category: "Gen AI",
+    icon: Brain,
+    colorClass: "text-[#FFD93D]",
+    glow: "rgba(255, 217, 61, 0.3)",
+    role: "Evals & Metaprompts",
+    badge: "Systems",
+    animate: { scale: [1, 1.1, 1] }
+  },
+  {
+    name: "Figma",
+    category: "Design",
+    icon: Figma,
+    colorClass: "text-[#F24E1E]",
+    glow: "rgba(242, 78, 30, 0.35)",
+    role: "Design Systems & UI",
+    badge: "Variables",
+    animate: { scale: [1, 1.08, 1] }
+  },
+  {
+    name: "Git & GitHub",
+    category: "Design",
+    icon: Github,
+    colorClass: "text-white",
+    glow: "rgba(255, 255, 255, 0.25)",
+    role: "Version Control & CI",
+    badge: "DevOps",
+    animate: { y: [0, -2, 0] }
+  }
+];
+
+const SkillPill = ({ 
   name, 
+  sublabel,
   icon: Icon, 
-  colorClass, 
-  imgUrl, 
-  animate,
-  backName,
-  backIcon: BackIcon,
-  backColorClass,
-  backImgUrl,
-  backAnimate
+  colorClass = "text-primary",
+  glowColor = "rgba(255, 83, 0, 0.25)"
 }: { 
   name: string; 
-  icon?: any; 
-  colorClass?: string; 
-  imgUrl?: string; 
-  animate?: any;
-  backName: string;
-  backIcon?: any;
-  backColorClass?: string;
-  backImgUrl?: string;
-  backAnimate?: any;
+  sublabel?: string;
+  icon: any; 
+  colorClass?: string;
+  glowColor?: string;
 }) => (
-  <div className="w-full aspect-square relative" style={{ perspective: '1000px' }}>
-    <motion.div 
-      className="w-full h-full relative cursor-pointer"
-      style={{ transformStyle: 'preserve-3d' }}
-      whileHover={{ rotateY: 180 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
-    >
-      {/* Front Card */}
-      <div 
-        className="absolute inset-0 w-full h-full glass-card rounded-2xl p-2.5 md:p-3 flex flex-col items-center justify-center text-center border border-white/5 hover:border-white/20 transition-all group"
-        style={{ backfaceVisibility: 'hidden' }}
-      >
-        <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-2`}>
-          <motion.div
-            animate={animate}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="flex items-center justify-center"
-          >
-            {imgUrl ? (
-              <img src={imgUrl} alt={name} className="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
-            ) : (
-              Icon && <Icon className={`w-6 h-6 md:w-7 md:h-7 ${colorClass}`} />
-            )}
-          </motion.div>
-        </div>
-        <span className="text-[10px] md:text-[11px] font-bold text-white/80 group-hover:text-white transition-colors line-clamp-1">{name}</span>
-      </div>
+  <div className="group/pill inline-flex items-center gap-2.5 md:gap-3 px-4 py-2.5 md:px-5 md:py-3 rounded-2xl bg-surface-bright/70 hover:bg-white/[0.08] backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg relative overflow-hidden select-none cursor-default mx-1.5 md:mx-2">
+    {/* Subtle brand glow on hover */}
+    <div 
+      className="absolute -right-4 -bottom-4 w-12 h-12 rounded-full blur-lg opacity-0 group-hover/pill:opacity-80 transition-opacity duration-300 pointer-events-none"
+      style={{ background: glowColor }}
+    />
 
-      {/* Back Card */}
-      <div 
-        className="absolute inset-0 w-full h-full glass-card rounded-2xl p-2.5 md:p-3 flex flex-col items-center justify-center text-center border border-primary/20 bg-primary/[0.02] hover:border-primary/40 transition-all group"
-        style={{ 
-          backfaceVisibility: 'hidden',
-          transform: 'rotateY(180deg)'
-        }}
-      >
-        <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-2`}>
-          <motion.div
-            animate={backAnimate}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="flex items-center justify-center"
-          >
-            {backImgUrl ? (
-              <img src={backImgUrl} alt={backName} className="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
-            ) : (
-              BackIcon && <BackIcon className={`w-6 h-6 md:w-7 md:h-7 ${backColorClass}`} />
-            )}
-          </motion.div>
-        </div>
-        <span className="text-[10px] md:text-[11px] font-bold text-white/80 group-hover:text-white transition-colors line-clamp-1">{backName}</span>
-      </div>
-    </motion.div>
+    {/* Icon */}
+    <div className="w-7 h-7 md:w-8 md:h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover/pill:scale-110 transition-transform duration-300 shrink-0">
+      <Icon className={`w-3.5 h-3.5 md:w-4 md:h-4 ${colorClass}`} />
+    </div>
+
+    {/* Label & Sublabel */}
+    <div className="flex items-baseline gap-2">
+      <span className="font-headline font-bold text-sm md:text-base text-white/90 group-hover/pill:text-white transition-colors tracking-tight">
+        {name}
+      </span>
+      {sublabel && (
+        <span className="font-mono text-[10px] text-white/40 uppercase tracking-wider hidden sm:inline-block">
+          {sublabel}
+        </span>
+      )}
+    </div>
+
+    {/* Separator diamond */}
+    <span className="text-white/20 text-xs ml-0.5">✦</span>
   </div>
 );
-
-const SkillPill = ({ name, icon: Icon, className, iconColorClass, animate }: { name: string, icon: any, className: string, iconColorClass?: string, animate?: any }) => {
-  const isStringIcon = typeof Icon === 'string';
-  
-  return (
-    <span className={`inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-5 md:py-2.5 lg:px-6 lg:py-3 rounded-2xl text-base md:text-lg lg:text-xl font-headline font-extrabold shadow-lg transition-all duration-300 ${className}`}>
-      <motion.div
-        animate={animate}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="flex items-center justify-center mr-1"
-      >
-        {isStringIcon ? (
-          <img src={Icon} alt={name} className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 object-contain drop-shadow-md" referrerPolicy="no-referrer" />
-        ) : (
-          Icon && <Icon className={`w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 drop-shadow-md ${iconColorClass || ''}`} />
-        )}
-      </motion.div>
-      {name}
-    </span>
-  );
-};
 
 
 
 export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [arsenalCategory, setArsenalCategory] = useState<string>("All");
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const filteredArsenal = arsenalCategory === "All"
+    ? arsenalItems
+    : arsenalItems.filter(item => item.category === arsenalCategory);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("joy.thesloth@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2200);
+  };
   
   const categories = ["All", "Frontend", "Full Stack", "AI Automation", "UI/UX Design"];
 
@@ -369,7 +474,24 @@ export default function Home() {
   };
 
   return (
-    <main className="pt-28 md:pt-24 pb-16 md:pb-24">
+    <main className="pt-28 md:pt-24 pb-16 md:pb-24 relative overflow-hidden">
+      {/* Cool Letter-Like Matrix & Ghost Typography Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        {/* Large Architectural Ghost Typography Watermark */}
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-[14vw] font-black text-white/[0.015] tracking-[0.2em] uppercase whitespace-nowrap font-headline leading-none">
+          CREATIVE // ARCHITECT
+        </div>
+
+        {/* Micro Typographic Matrix Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='15' y='30' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3E%2B 01 J%3C/text%3E%3Ctext x='95' y='30' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3E%7B%20%7D%3C/text%3E%3Ctext x='15' y='80' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3E%2F%2F AI%3C/text%3E%3Ctext x='95' y='80' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3EUX %C2%B7%3C/text%3E%3Ctext x='15' y='130' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3E2026%3C/text%3E%3Ctext x='95' y='130' fill='%23ffffff' font-family='monospace' font-size='10' font-weight='700'%3E%3C %2F%3E%3C/text%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat"
+          }}
+        />
+      </div>
+
       {/* Contact Popup Modal */}
       <AnimatePresence>
         {isContactOpen && (
@@ -395,20 +517,27 @@ export default function Home() {
               </button>
               <h3 className="text-3xl font-bold text-white mb-2">Get in Touch</h3>
               <p className="text-white/60 mb-8">Choose a platform to connect with me.</p>
-              <div className="flex flex-col w-full gap-4">
+              <div className="flex flex-col w-full gap-3">
+                <button 
+                  onClick={handleCopyEmail}
+                  className="flex items-center justify-center gap-2.5 px-6 py-3.5 bg-primary text-background rounded-full font-bold hover:opacity-90 active:scale-95 transition-all w-full text-sm shadow"
+                >
+                  {copiedEmail ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copiedEmail ? "Copied joy.thesloth@gmail.com!" : "Copy Email Address"}
+                </button>
                 <a 
                   href="mailto:joy.thesloth@gmail.com" 
-                  className="flex items-center justify-center gap-3 px-8 py-4 bg-primary text-background rounded-full font-bold hover:scale-105 transition-transform w-full"
+                  className="flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white/10 hover:bg-white/15 text-white border border-white/20 rounded-full font-bold transition-all w-full text-sm"
                 >
-                  <Mail className="w-5 h-5" /> Email Me
+                  <Mail className="w-4 h-4" /> Direct Mail Client
                 </a>
                 <a 
                   href="https://www.linkedin.com/in/joydeep-das-78123522a" 
                   target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold hover:bg-white/20 transition-colors w-full"
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white/90 border border-white/10 rounded-full font-bold transition-all w-full text-sm"
                 >
-                  <Linkedin className="w-5 h-5" /> LinkedIn
+                  <Linkedin className="w-4 h-4" /> LinkedIn
                 </a>
               </div>
             </motion.div>
@@ -444,6 +573,10 @@ export default function Home() {
                   </div>
                   <div>
                     <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">@pixeldeck.design</h2>
+                    <span className="font-handwriting text-xs text-primary/80 font-bold -rotate-2 inline-flex items-center gap-1 select-none">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                      creative studio & lab ✦
+                    </span>
                   </div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-1.5 md:gap-2 scale-90 md:scale-100 origin-right">
@@ -459,19 +592,59 @@ export default function Home() {
                 </div>
               </div>
 
-              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.04em] mb-8 max-w-2xl">
-                Hi, I'm <span className="animated-gradient-text">Joydeep</span>.
-              </h1>
+              <div className="relative inline-block mb-8 max-w-2xl">
+                <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.04em]">
+                  Hi, I'm{" "}
+                  <span className="relative inline-block">
+                    <span className="animated-gradient-text">Joydeep</span>
+                    {/* Hand-Drawn Wavy Underline */}
+                    <svg 
+                      className="absolute -bottom-2.5 left-0 w-full h-3.5 text-primary/80 overflow-visible pointer-events-none" 
+                      viewBox="0 0 120 12" 
+                      fill="none" 
+                      preserveAspectRatio="none"
+                    >
+                      <path 
+                        d="M 2 8 C 30 1, 65 13, 118 6" 
+                        stroke="currentColor" 
+                        strokeWidth="3" 
+                        strokeLinecap="round" 
+                      />
+                    </svg>
+                  </span>
+                  .
+                </h1>
+
+                {/* Floating Starburst Doodle */}
+                <motion.svg
+                  animate={{ rotate: [0, 180, 360], scale: [1, 1.15, 1] }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  className="absolute -top-4 -right-8 w-6 h-6 md:w-8 md:h-8 text-secondary/70 pointer-events-none hidden sm:block"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M19 5 L5 19" strokeDasharray="1 2.5" />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                </motion.svg>
+              </div>
               
               <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
                 Founder of <a href="https://whynotstash.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">Stash</a> (Clipboard Manager). A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>, 
                 <span className="text-secondary font-semibold"> Gen AI Developer</span>, and 
-                <span className="text-[#89CFF0] font-semibold"> Front-end Developer</span> crafting high-performance digital experiences.
+                <span className="relative inline-block text-[#89CFF0] font-semibold">
+                  <span> Front-end Developer</span>
+                  <svg className="absolute -bottom-1 left-1 w-full h-2 text-[#89CFF0]/60 overflow-visible pointer-events-none" viewBox="0 0 80 8" fill="none">
+                    <path d="M 2 5 Q 40 1 78 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                </span> crafting high-performance digital experiences.
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-wrap gap-4 mt-12">
-              <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform">
+            <div className="relative z-10 flex flex-wrap items-center gap-4 mt-12">
+              <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform shadow-lg">
                 Explore More
               </a>
               <button 
@@ -480,6 +653,17 @@ export default function Home() {
               >
                 Get in Touch
               </button>
+
+              {/* Hand-Drawn Arrow Annotation */}
+              <div className="hidden sm:flex items-center gap-2 ml-2 select-none pointer-events-none">
+                <svg className="w-8 h-8 text-primary/70 transform -rotate-12" viewBox="0 0 30 30" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M 5 10 Q 15 25, 25 15" />
+                  <path d="M 18 13 L 25 15 L 23 23" />
+                </svg>
+                <span className="font-handwriting text-xl text-primary font-bold -rotate-3">
+                  crafted with soul ✦
+                </span>
+              </div>
             </div>
           </SpotlightGlassCard>
           {/* Right Card: Avatar */}
@@ -532,7 +716,37 @@ export default function Home() {
       </section>
 
       <section id="skills" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
-        <h2 className="font-headline text-4xl font-bold mb-12 text-center">Core Expertise</h2>
+        <div className="flex flex-col items-center justify-center text-center mb-12 relative">
+          <div className="relative inline-block">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-white leading-tight">
+              Core{" "}
+              <span className="relative inline-block text-gradient-primary">
+                Expertise
+                {/* Hand-drawn Squiggle */}
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary/80 overflow-visible pointer-events-none" viewBox="0 0 120 12" fill="none" preserveAspectRatio="none">
+                  <path d="M 2 8 C 30 1, 65 13, 118 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+              </span>
+            </h2>
+            {/* Floating Starburst */}
+            <motion.svg
+              animate={{ rotate: [0, 90, 180, 270, 360] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+              className="absolute -top-4 -right-7 w-6 h-6 text-secondary/70 pointer-events-none hidden sm:block"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            >
+              <path d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M19 5 L5 19" strokeDasharray="1 3" />
+              <circle cx="12" cy="12" r="2" fill="currentColor" />
+            </motion.svg>
+          </div>
+          <p className="font-handwriting text-secondary text-xl font-bold mt-2 -rotate-1 select-none">
+            ✦ human-centered design meets agentic workflows ✦
+          </p>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <ExpertiseCard 
             title="UI/UX Design"
@@ -545,6 +759,13 @@ export default function Home() {
             secondaryLinkText="Figma Work"
             secondaryLinkTo="https://www.figma.com/design/lzR9XA3fQsXhGqpDNU5Exq/Portfolio--Copy-?node-id=6-19096&t=phHSoA8VxgUax1an-1"
             delay={0.1}
+            doodleNote="pixel-perfect craft ✨"
+            doodleSvg={
+              <svg className="w-4 h-4 text-primary" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="10" cy="10" r="7" strokeDasharray="2 2" />
+                <path d="M10 6v8M6 10h8" />
+              </svg>
+            }
           />
           <ExpertiseCard 
             title="Gen AI Development"
@@ -555,6 +776,13 @@ export default function Home() {
             linkText="View Projects"
             linkTo="/gen-ai"
             delay={0.2}
+            doodleNote="autonomous agents & LLMs 🤖"
+            doodleSvg={
+              <svg className="w-4 h-4 text-secondary" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 14 Q10 4 16 14 Q10 10 4 14Z" />
+                <circle cx="10" cy="10" r="2" fill="currentColor" />
+              </svg>
+            }
           />
           <ExpertiseCard 
             title="Front-end Development"
@@ -565,6 +793,12 @@ export default function Home() {
             linkText="Github Explore"
             linkTo="https://github.com/JoyTheSloth"
             delay={0.3}
+            doodleNote="60fps silky smooth ⚡"
+            doodleSvg={
+              <svg className="w-4 h-4 text-[#89CFF0]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 8 L3 11 L6 14 M14 8 L17 11 L14 14 M11 6 L9 16" />
+              </svg>
+            }
           />
         </div>
       </section>
@@ -584,22 +818,52 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
                     <Briefcase className="w-5 h-5 text-primary" />
                   </div>
-                  <h2 className="font-headline text-2xl md:text-3xl font-bold tracking-tight">Experience</h2>
+                  <div className="flex items-baseline gap-3">
+                    <h2 className="font-headline text-2xl md:text-3xl font-bold tracking-tight">Experience</h2>
+                    <span className="font-handwriting text-primary/80 text-lg hidden sm:inline-block -rotate-3 select-none">
+                      proven in production 🚀
+                    </span>
+                  </div>
                 </div>
                 <div className="relative mt-2">
                 <ExperienceItem 
                   isFirst
+                  title="Web Designer"
+                  company="TripEva · Freelance"
+                  period="Aug 2026 — Present"
+                  colorClass="text-primary"
+                  doodle={
+                    <span className="font-handwriting text-xs text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 rounded-full -rotate-2 select-none inline-flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                      active now ✦
+                    </span>
+                  }
+                  description={
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Crafting high-impact, responsive web layouts and landing pages from concept to launch. Working closely with clients and developers, I translate brand goals into clean, fluid digital interfaces with meticulous attention to typography, micro-interactions, and modern design standards.
+                    </p>
+                  }
+                />
+                <ExperienceItem 
+                  title="Academic Counsellor"
+                  company="SkillArbitrage · Full-time"
+                  period="Jul 2026 — Present"
+                  colorClass="text-secondary"
+                  description={
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Guiding students and working professionals navigating career pivots and tech upskilling. By assessing individual goals and industry trends, I help learners choose suitable professional programs, master emerging tools, and map out sustainable career roadmaps.
+                    </p>
+                  }
+                />
+                <ExperienceItem 
                   title="Lead UI/UX Designer"
                   company="GEETBIH Labs Pvt Ltd. · Part-time"
                   period="Apr 2026 — Present"
                   colorClass="text-[#86EFAC]"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-1">
-                      <li>Driving end-to-end design for digital products with a strong focus on usability, scalability, and impactful user experiences</li>
-                      <li>Leading the creation of intuitive interfaces while building and maintaining a cohesive design system across web and mobile platforms</li>
-                      <li>Collaborating closely with cross-functional teams—including developers and product stakeholders—to transform ideas into seamless, user-centric solutions</li>
-                      <li>Leveraging generative AI and prompt design to streamline workflows, enhance creativity, and accelerate the design process</li>
-                    </ul>
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Driving end-to-end design for scalable digital products while building and maintaining cohesive design systems across web and mobile. I partner closely with engineers and product stakeholders to shape user-centric solutions, integrating generative AI and prompt design directly into our design process to accelerate prototyping without compromising craft.
+                    </p>
                   }
                 />
                 <ExperienceItem 
@@ -608,10 +872,9 @@ export default function Home() {
                   period="Aug 2025 — Nov 2025"
                   colorClass="text-[#89CFF0]"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-1">
-                      <li>Designed intuitive, visually appealing web and mobile interfaces in Figma to align with brand identity</li>
-                      <li>Conducted usability reviews and implemented design refinements to improve navigation, engagement and accessibility</li>
-                    </ul>
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Designed intuitive mobile and web interfaces in Figma aligned with brand identity. Through continuous usability reviews and iterative refinements, I simplified navigation flows and enhanced visual accessibility across primary user touchpoints.
+                    </p>
                   }
                 />
                 <ExperienceItem 
@@ -620,11 +883,9 @@ export default function Home() {
                   period="May 2025 — Jul 2025"
                   colorClass="text-secondary"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-1">
-                      <li>Developed and deployed LLM-powered web applications using Google Gemini API for Q&A, and multi-turn conversational workflows</li>
-                      <li>Built full-stack integration of LLM services with Flask backend and JavaScript frontend through RESTful API architecture</li>
-                      <li>Accelerated AI feature development by ∼50% through optimized prompt engineering and rapid prototyping methodologies</li>
-                    </ul>
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Built and shipped full-stack LLM applications powered by the Google Gemini API, handling multi-turn conversational agents with a Flask backend and JavaScript frontend. Through prompt engineering and rapid experimentation, our team cut AI feature prototyping cycles by roughly 50%.
+                    </p>
                   }
                 />
                 <ExperienceItem 
@@ -633,12 +894,9 @@ export default function Home() {
                   period="Feb 2025 — Oct 2025"
                   colorClass="text-primary"
                   description={
-                    <ul className="list-disc list-outside ml-5 space-y-1">
-                      <li>Designed user-centric interfaces that enhance community engagement and streamline event discovery</li>
-                      <li>Built a consistent design system to unify app visuals and marketing assets</li>
-                      <li>Created and executed social media campaigns to boost reach, downloads, and brand identity</li>
-                      <li>Collaborated with the content team to deliver Gen Z-friendly posts, reels, and stories across platforms</li>
-                    </ul>
+                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                      Designed community-first mobile experiences centered on social discovery and event engagement. Along with architecting a unified design system for the core product, I directed creative social media campaigns and Gen-Z-friendly content that drove organic growth and community reach.
+                    </p>
                   }
                 />
                 <ExperienceItem 
@@ -648,174 +906,249 @@ export default function Home() {
                   period="Sep 2024 — Nov 2024"
                   colorClass="text-[#89CFF0]"
                   description={
-                    <div className="space-y-6">
-                      <div>
-                        <p className="font-medium text-white mb-2">Project: Mourya Urja Matrimonial <span className="text-sm text-white/40 font-normal ml-2">(Oct 2024 — Nov 2024)</span></p>
-                        <ul className="list-disc list-outside ml-5 space-y-1">
-                          <li>Designed user-friendly, cohesive web layouts in Figma for a trusted matrimonial brand</li>
-                          <li>Integrated client feedback to enhance user experience and accessibility</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="font-medium text-white mb-2">Project: Veliciae Jewellery <span className="text-sm text-white/40 font-normal ml-2">(Sep 2024 — Oct 2024)</span></p>
-                        <ul className="list-disc list-outside ml-5 space-y-1">
-                          <li>Created visually stunning and user-friendly web designs using Figma, ensuring a cohesive brand identity</li>
-                          <li>Collaborated with developers to translate project requirements into effective design solutions</li>
-                        </ul>
-                      </div>
+                    <div className="space-y-3">
+                      <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                        Designed cohesive, brand-aligned web experiences for established consumer businesses, including matrimonial brand <strong className="text-white font-semibold">Mourya Urja Matrimonial</strong> and luxury jeweler <strong className="text-white font-semibold">Veliciae Jewellery</strong>.
+                      </p>
+                      <p className="text-white/60 leading-relaxed text-xs md:text-sm">
+                        Collaborated with frontend engineering teams to turn Figma design systems and client feedback into polished, responsive, and accessible production sites.
+                      </p>
                     </div>
                   }
                 />
+              </div>
+
+              {/* Sketched continuous shipping footer doodle */}
+              <div className="pt-4 flex items-center justify-end gap-2 text-white/40 pointer-events-none select-none">
+                <span className="font-handwriting text-base text-primary/70">continuous shipping</span>
+                <svg className="w-4 h-4 text-primary/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </div>
               </div>
             </SpotlightGlassCard>
           </div>
 
-          {/* Arsenal */}
+          {/* Tech Stack */}
           <div className="lg:col-span-4">
-            <div className="glass-card border border-white/10 rounded-3xl p-6 md:p-8 h-full relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
-              
+            <div className="glass-card border border-white/10 rounded-3xl p-6 md:p-8 h-full flex flex-col justify-between relative overflow-hidden group/arsenal">
+              {/* Subtle background brand illumination */}
+              <div className="absolute top-0 right-0 w-72 h-72 bg-secondary/5 blur-[100px] rounded-full pointer-events-none group-hover/arsenal:bg-secondary/10 transition-all duration-700" />
+              <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
+
               <div className="relative z-10">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold mb-8">Arsenal</h2>
-                <div className="grid grid-cols-3 gap-3 md:gap-4">
-                  <ArsenalTile 
-                    name="React" 
-                    icon={Atom}
-                    colorClass="text-[#61DAFB]"
-                    animate={{ rotate: 360 }}
-                    backName="Flutter"
-                    backIcon={Smartphone}
-                    backColorClass="text-[#02569B]"
-                    backAnimate={{ scale: [1, 1.1, 1] }}
-                  />
-                  <ArsenalTile 
-                    name="Figma" 
-                    icon={Figma}
-                    colorClass="text-[#F24E1E]"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    backName="Figma Weave"
-                    backIcon={Layers}
-                    backColorClass="text-[#A259FF]"
-                    backAnimate={{ scale: [1, 1.05, 1] }}
-                  />
-                  <ArsenalTile 
-                    name="Python" 
-                    icon={Terminal}
-                    colorClass="text-[#3776AB]"
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    backName="Google Stitch"
-                    backIcon={Activity}
-                    backColorClass="text-[#4285F4]"
-                    backAnimate={{ rotate: [0, -10, 10, 0] }}
-                  />
-                  <ArsenalTile 
-                    name="Hugging Face" 
-                    imgUrl="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png" 
-                    animate={{ y: [0, -4, 0] }}
-                    backName="Google Flow"
-                    backIcon={Wind}
-                    backColorClass="text-[#34A853]"
-                    backAnimate={{ x: [-3, 3, -3] }}
-                  />
-                  <ArsenalTile 
-                    name="Ollama" 
-                    icon={Bot} 
-                    colorClass="text-secondary" 
-                    animate={{ rotate: [-10, 10, -10] }} 
-                    backName="Gemini API"
-                    backIcon={Sparkles}
-                    backColorClass="text-primary"
-                    backAnimate={{ scale: [1, 1.2, 1] }}
-                  />
-                  <ArsenalTile 
-                    name="Tailwind" 
-                    icon={Wind} 
-                    colorClass="text-[#38BDF8]" 
-                    animate={{ x: [-2, 2, -2] }} 
-                    backName="Claude Code"
-                    backIcon={Terminal}
-                    backColorClass="text-[#D97706]"
-                    backAnimate={{ y: [0, -2, 0] }}
-                  />
-                  <ArsenalTile 
-                    name="TypeScript" 
-                    icon={FileCode2} 
-                    colorClass="text-[#3178C6]" 
-                    animate={{ scale: [1, 1.05, 1] }} 
-                    backName="UAI"
-                    backIcon={Brain}
-                    backColorClass="text-[#FFD93D]"
-                    backAnimate={{ rotate: [0, 5, -5, 0] }}
-                  />
-                  <ArsenalTile 
-                    name="LangChain" 
-                    icon={LinkIcon} 
-                    colorClass="text-white" 
-                    animate={{ rotate: [0, 180, 360] }} 
-                    backName="LlamaIndex"
-                    backIcon={LinkIcon}
-                    backColorClass="text-white"
-                    backAnimate={{ scale: [1, 1.1, 1] }}
-                  />
-                  <ArsenalTile 
-                    name="Prompt Eng." 
-                    icon={Sparkles} 
-                    colorClass="text-secondary" 
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} 
-                    backName="Claude"
-                    backIcon={Bot}
-                    backColorClass="text-[#D97706]"
-                    backAnimate={{ rotate: 360 }}
-                  />
+                {/* Header */}
+                <div className="flex items-start justify-between gap-2 mb-6">
+                  <div>
+                    <div className="relative inline-block">
+                      <h2 className="font-headline text-2xl md:text-3xl font-bold">Tech Stack</h2>
+                      <svg className="absolute -bottom-1.5 left-0 w-full h-2 text-secondary/70 overflow-visible pointer-events-none" viewBox="0 0 110 8" fill="none">
+                        <path d="M2 3 C 35 1, 75 5, 108 3 M4 6 C 38 4, 72 7, 106 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <p className="text-white/40 text-xs mt-1.5 font-medium">Curated production toolchain</p>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <span className="font-handwriting text-secondary text-base font-bold -rotate-3 select-none">
+                      daily drivers ⚡
+                    </span>
+                    {/* Floating starburst doodle */}
+                    <motion.svg
+                      animate={{ rotate: [0, 90, 180, 270, 360], scale: [1, 1.1, 1] }}
+                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 text-secondary/50 pointer-events-none ml-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    >
+                      <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" strokeDasharray="2 2" />
+                    </motion.svg>
+                  </div>
                 </div>
+
+                {/* Filter Tabs - Premium Segmented Control */}
+                <div className="grid grid-cols-4 gap-1 mb-5 p-1 bg-surface-bright/70 border border-white/10 rounded-2xl shadow-inner backdrop-blur-xl">
+                  {arsenalCategories.map((cat) => {
+                    const isActive = arsenalCategory === cat;
+                    const count = cat === "All" 
+                      ? arsenalItems.length 
+                      : arsenalItems.filter(i => i.category === cat).length;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setArsenalCategory(cat)}
+                        className={`group relative flex items-center justify-center gap-1.5 py-2 px-1 rounded-xl text-xs font-semibold tracking-tight transition-all duration-200 cursor-pointer select-none ${
+                          isActive 
+                            ? "text-white font-bold" 
+                            : "text-white/50 hover:text-white hover:bg-white/[0.04]"
+                        }`}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeArsenalTab"
+                            className="absolute inset-0 bg-white/10 border border-white/20 rounded-xl shadow-md backdrop-blur-md"
+                            transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                          />
+                        )}
+                        <span className="relative z-10 truncate">{cat}</span>
+                        <span className={`relative z-10 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-full transition-colors ${
+                          isActive 
+                            ? "bg-primary text-background shadow-sm" 
+                            : "bg-white/5 text-white/40 group-hover:text-white/70 group-hover:bg-white/10"
+                        }`}>
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Tech Cards Grid */}
+                <motion.div 
+                  layout
+                  className="grid grid-cols-2 gap-2.5"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {filteredArsenal.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <motion.div
+                          key={item.name}
+                          layout
+                          initial={{ opacity: 0, scale: 0.92 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.92 }}
+                          transition={{ duration: 0.2 }}
+                          className="group/tile relative p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-white/20 transition-all duration-300 flex items-center gap-2.5 overflow-hidden cursor-pointer"
+                        >
+                          {/* Ambient Brand Glow on Hover */}
+                          <div 
+                            className="absolute -right-6 -bottom-6 w-20 h-20 rounded-full blur-xl opacity-0 group-hover/tile:opacity-70 transition-opacity duration-500 pointer-events-none"
+                            style={{ background: item.glow }}
+                          />
+                          
+                          {/* Icon wrapper */}
+                          <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover/tile:scale-110 transition-transform duration-300 shrink-0">
+                            <motion.div
+                              animate={item.animate}
+                              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                              className="flex items-center justify-center"
+                            >
+                              {item.imgUrl ? (
+                                <img src={item.imgUrl} alt={item.name} className="w-5 h-5 object-contain drop-shadow" referrerPolicy="no-referrer" />
+                              ) : (
+                                Icon && <Icon className={`w-5 h-5 ${item.colorClass}`} />
+                              )}
+                            </motion.div>
+                          </div>
+
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-bold text-xs text-white/90 group-hover/tile:text-white truncate">{item.name}</span>
+                            </div>
+                            <span className="text-[10px] text-white/40 group-hover/tile:text-white/70 block truncate transition-colors">{item.role}</span>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+                </motion.div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Scrolling Skills Section */}
-      <section className="mt-12 mb-12 overflow-hidden">
-        <ScrollVelocity 
-          velocity={40} 
-          texts={[
-            (
-              <div className="flex gap-4 md:gap-6 px-2 md:px-3 items-center">
-                <SkillPill name="React" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Atom%20Symbol.png" className="bg-gradient-to-r from-[#9FEFFF] to-[#00D2FF] text-[#004A55] shadow-cyan-500/10" animate={{ rotate: 360 }} />
-                <SkillPill name="Hugging Face" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Hugging%20Face.png" className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white shadow-indigo-500/10" animate={{ scale: [1, 1.1, 1] }} />
-                <SkillPill name="Tailwind CSS" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Dashing%20away.png" className="bg-gradient-to-r from-[#00B4DB] to-[#0083B0] text-white shadow-teal-500/10" animate={{ x: [-2, 2, -2] }} />
-                <SkillPill name="TypeScript" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Blue%20book.png" className="bg-gradient-to-r from-[#1E3C72] to-[#2A5298] text-white shadow-blue-500/10" animate={{ scale: [1, 1.05, 1] }} />
-                <SkillPill name="Figma" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Artist%20Palette.png" className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] text-slate-900 shadow-red-500/10" animate={{ rotate: [0, 10, -10, 0] }} />
-                <SkillPill name="Python" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Snake.png" className="bg-gradient-to-r from-[#1F4068] to-[#162447] text-white shadow-blue-500/10" animate={{ opacity: [1, 0.7, 1] }} />
-              </div>
-            ),
-            (
-              <div className="flex gap-4 md:gap-6 px-2 md:px-3 items-center">
-                <SkillPill name="Generative AI" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20and%20body/Brain.png" className="bg-gradient-to-r from-[#11998E] to-[#38EF7D] text-[#0B3512] shadow-green-500/10" animate={{ scale: [1, 1.12, 1] }} />
-                <SkillPill name="UI/UX Design" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Desktop%20Computer.png" className="bg-gradient-to-r from-[#FF9a9e] to-[#fecfef] text-[#8C1B4F] shadow-pink-500/10" animate={{ y: [0, -3, 0] }} />
-                <SkillPill name="LLMs" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Speech%20balloon.png" className="bg-gradient-to-r from-[#9C75F2] to-[#713FE5] text-white shadow-purple-500/10" animate={{ scale: [1, 1.08, 1] }} />
-                <SkillPill name="Prompt Engineering" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Sparkles.png" className="bg-gradient-to-r from-[#FFDF00] to-[#FFA000] text-slate-900 shadow-yellow-500/10" animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} />
-                <SkillPill name="LangChain" icon="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Link.png" className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] text-[#0E3E5B] shadow-sky-500/10" animate={{ rotate: [0, 180, 360] }} />
-              </div>
-            )
-          ]} 
-        />
+      {/* Scrolling Skills Banner Section */}
+      <section className="relative my-16 md:my-20 overflow-hidden">
+        {/* Editorial Subheader with Doodles */}
+        <div className="flex items-center justify-center gap-2 mb-6 pointer-events-none select-none">
+          <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/30 font-bold">
+            ENGINEERING & DESIGN CAPABILITIES
+          </span>
+          <span className="font-handwriting text-primary text-base md:text-lg font-bold -rotate-2">
+            ✦ stream in motion
+          </span>
+        </div>
+
+        {/* Ambient background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-32 bg-primary/[0.03] blur-[120px] pointer-events-none rounded-full" />
+
+        {/* Left and Right Smooth Edge Fade Masks */}
+        <div className="absolute inset-y-0 left-0 w-20 md:w-48 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-20 md:w-48 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+
+        {/* Ribbon track container */}
+        <div className="py-4 md:py-6 border-y border-white/[0.06] bg-white/[0.015] backdrop-blur-[2px]">
+          <ScrollVelocity 
+            velocity={30} 
+            texts={[
+              (
+                <div className="flex px-2 items-center">
+                  <SkillPill name="React 19" sublabel="UI Engine" icon={Atom} colorClass="text-[#61DAFB]" glowColor="rgba(97, 218, 251, 0.3)" />
+                  <SkillPill name="TypeScript" sublabel="Strict Architecture" icon={FileCode2} colorClass="text-[#3178C6]" glowColor="rgba(49, 120, 198, 0.3)" />
+                  <SkillPill name="Gemini 2.0" sublabel="Agentic AI" icon={Sparkles} colorClass="text-primary" glowColor="rgba(255, 83, 0, 0.35)" />
+                  <SkillPill name="Figma" sublabel="Design Tokens" icon={Figma} colorClass="text-[#F24E1E]" glowColor="rgba(242, 78, 30, 0.35)" />
+                  <SkillPill name="Tailwind CSS" sublabel="Styling" icon={Wind} colorClass="text-[#38BDF8]" glowColor="rgba(56, 189, 248, 0.3)" />
+                  <SkillPill name="Next.js" sublabel="App Router" icon={Code2} colorClass="text-white" glowColor="rgba(255, 255, 255, 0.25)" />
+                  <SkillPill name="Claude Code" sublabel="CLI & AI" icon={Terminal} colorClass="text-[#D97706]" glowColor="rgba(217, 119, 6, 0.3)" />
+                </div>
+              ),
+              (
+                <div className="flex px-2 items-center">
+                  <SkillPill name="Generative AI" sublabel="LLM Pipelines" icon={Brain} colorClass="text-[#a855f7]" glowColor="rgba(168, 85, 247, 0.3)" />
+                  <SkillPill name="LangChain" sublabel="RAG & Chains" icon={LinkIcon} colorClass="text-[#22c55e]" glowColor="rgba(34, 197, 94, 0.3)" />
+                  <SkillPill name="Python" sublabel="Automation" icon={Terminal} colorClass="text-[#3776AB]" glowColor="rgba(55, 118, 171, 0.3)" />
+                  <SkillPill name="Hugging Face" sublabel="Open Models" icon={Bot} colorClass="text-[#FFD21E]" glowColor="rgba(255, 210, 30, 0.3)" />
+                  <SkillPill name="Flutter" sublabel="Cross-Platform" icon={Smartphone} colorClass="text-[#02569B]" glowColor="rgba(2, 86, 155, 0.3)" />
+                  <SkillPill name="Prompt Engineering" sublabel="Evals & System" icon={Sparkles} colorClass="text-[#FFD93D]" glowColor="rgba(255, 217, 61, 0.3)" />
+                  <SkillPill name="UI/UX Architecture" sublabel="Human Centered" icon={Layout} colorClass="text-[#ec4899]" glowColor="rgba(236, 72, 153, 0.3)" />
+                </div>
+              )
+            ]} 
+          />
+        </div>
       </section>
 
       {/* Projects Section */}
       <section id="portfolio" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-12">
-          <div>
-            <h2 className="font-headline text-4xl md:text-5xl font-bold text-center md:text-left">Featured Projects</h2>
+          <div className="relative">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-center md:text-left">
+              Featured{" "}
+              <span className="relative inline-block text-gradient-primary">
+                Projects
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-secondary/80 overflow-visible pointer-events-none" viewBox="0 0 100 10" fill="none" preserveAspectRatio="none">
+                  <path d="M 0 5 Q 25 0 50 5 T 100 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+              </span>
+            </h2>
+            <span className="font-handwriting text-white/60 text-lg block text-center md:text-left mt-1 select-none -rotate-1">
+              shipped deliverables & case studies ↓
+            </span>
           </div>
           <Link to="/projects" className="hidden md:flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
-            View All Projects <ArrowRight className="w-5 h-5" />
+            View Project Gallery <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12">
+        <div className="flex flex-col items-center justify-center mb-12">
+          {/* Hand-drawn filter arrow annotation */}
+          <div className="flex items-center justify-center gap-2 mb-3 pointer-events-none select-none">
+            <svg className="w-5 h-5 text-secondary/70 -rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M4 8 Q12 18 20 8" />
+              <path d="M16 6 L20 8 L18 12" />
+            </svg>
+            <span className="font-handwriting text-secondary text-lg font-bold -rotate-1">
+              filter by domain & stack ✦
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
           {categories.map((category) => {
             const isActive = selectedCategory === category;
             return (
@@ -839,6 +1172,7 @@ export default function Home() {
               </button>
             );
           })}
+          </div>
         </div>
 
         <motion.div 
@@ -878,7 +1212,7 @@ export default function Home() {
 
         <div className="mt-8 flex justify-center md:hidden">
           <Link to="/projects" className="flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
-            View All Projects <ArrowRight className="w-5 h-5" />
+            View Project Gallery <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </section>
@@ -887,9 +1221,28 @@ export default function Home() {
       <section id="contact" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Card */}
-          <div className="lg:col-span-2 bg-gradient-to-br from-[#2a1b14] to-[#1a100c] rounded-[2.5rem] p-10 md:p-16 border border-white/5 flex flex-col justify-between min-h-[400px]">
+          <div className="lg:col-span-2 bg-gradient-to-br from-[#2a1b14] to-[#1a100c] rounded-[2.5rem] p-10 md:p-16 border border-white/5 flex flex-col justify-between min-h-[400px] relative overflow-hidden group">
+            {/* Hand-drawn sketched lightbulb & spark doodle in the background */}
+            <div className="absolute top-6 right-8 opacity-20 group-hover:opacity-35 transition-opacity duration-500 pointer-events-none select-none">
+              <svg className="w-24 h-24 text-primary" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 34 C 18 28, 18 18, 26 12 C 34 6, 44 10, 46 20 C 47 26, 42 31, 38 34 L 38 42 L 26 42 Z" />
+                <path d="M 28 47 L 36 47" />
+                <path d="M 30 52 L 34 52" />
+                <path d="M 32 4 L 32 8" strokeDasharray="2 2" />
+                <path d="M 14 14 L 18 17" strokeDasharray="2 2" />
+                <path d="M 50 14 L 46 17" strokeDasharray="2 2" />
+                <path d="M 8 28 L 12 28" strokeDasharray="2 2" />
+                <path d="M 56 28 L 52 28" strokeDasharray="2 2" />
+              </svg>
+            </div>
+
             <div>
-              <p className="text-white/50 font-medium mb-6">I constantly try to improve myself</p>
+              <div className="flex items-center gap-3 mb-6">
+                <p className="text-white/50 font-medium">I constantly try to improve myself</p>
+                <span className="font-handwriting text-primary text-xl font-bold -rotate-3 select-none hidden sm:inline-block">
+                  never stop exploring 🚀
+                </span>
+              </div>
               <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-12 uppercase tracking-tighter">
                 Currently, I am learning about<br/>
                 <span className="text-primary italic">LLMs and Development</span>
@@ -912,25 +1265,62 @@ export default function Home() {
             <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-black/20 blur-[60px] rounded-full" />
             
             <div className="relative z-10 flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Contact</h2>
-              <p className="text-white/80 mb-8">Make a contact via a mail or DM.</p>
+              {/* Hand-Drawn Paper Airplane Doodle with Flight Loop */}
+              <motion.div 
+                animate={{ y: [0, -4, 0], x: [0, 2, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="hidden sm:flex items-center gap-2 mb-2 text-white/80 pointer-events-none select-none"
+              >
+                <svg className="w-24 h-8 text-white/50 overflow-visible" viewBox="0 0 100 30" fill="none" stroke="currentColor">
+                  <path d="M 5 22 Q 25 28 35 15 Q 45 2 60 14 Q 75 26 90 10" strokeWidth="1.8" strokeDasharray="3 3" strokeLinecap="round" />
+                  <path d="M 90 10 L 100 6 L 96 17 L 92 12 Z" fill="currentColor" />
+                </svg>
+                <span className="font-handwriting text-xl text-white font-bold -rotate-3">
+                  drop a line anytime ✉️
+                </span>
+              </motion.div>
+
+              <div className="flex items-center gap-3 mb-2">
+                <h2 className="text-4xl md:text-5xl font-bold text-white">Contact</h2>
+                <span className="font-handwriting text-white/90 text-2xl -rotate-6 select-none">
+                  say hello 👋
+                </span>
+              </div>
+              <p className="text-white/80 mb-6">Make a contact via a mail or DM.</p>
               
-              <div className="flex flex-wrap gap-4 relative z-20">
-                <a href="mailto:joy.thesloth@gmail.com" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+              {/* Hand-drawn doodle pointer to action buttons */}
+              <div className="hidden sm:flex items-center gap-1 text-white/70 font-handwriting text-base font-bold mb-3 select-none">
+                <svg className="w-4 h-4 text-white/70 -rotate-45" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M4 10 Q10 16 16 10" />
+                  <path d="M12 9 L16 10 L15 14" />
+                </svg>
+                <span>one-tap copy or connect ↓</span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 relative z-20">
+                <button
+                  onClick={handleCopyEmail}
+                  className="flex items-center gap-2 px-4 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-medium text-xs md:text-sm transition-all border border-white/20 shadow-lg active:scale-95 cursor-pointer"
+                  title="Click to copy email address"
+                >
+                  {copiedEmail ? <Check className="w-4 h-4 text-green-300" /> : <Copy className="w-4 h-4" />}
+                  <span>{copiedEmail ? "Copied!" : "joy.thesloth@gmail.com"}</span>
+                </button>
+                <a href="mailto:joy.thesloth@gmail.com" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg" title="Open Mail App">
                   <Mail className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg" title="LinkedIn">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg" title="GitHub">
                   <Github className="w-5 h-5" />
                 </a>
-                <a href="https://www.behance.net/joythesloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                <a href="https://www.behance.net/joythesloth" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg" title="Behance">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
                     <path d="M22 7h-7v-2h7v2zm.4 4.5s-.1-4.2-3.8-4.2c-3.1 0-4 2.1-4 4.1 0 2.2.8 4.4 4.2 4.4 3 0 3.7-1.8 3.7-1.8l-2.1-.9s-.3 1-1.6 1c-1.3 0-1.6-.9-1.6-1.5h5.2v-.1zm-5.2-1.1c0-1 1-1.2 1.6-1.2.9 0 1.5.5 1.5 1.2h-3.1zm-8.3 1.9c.7 0 1.2-.4 1.2-.4s.3 1.7 2.1 1.7c1.7 0 2.3-1.4 2.3-3.4 0-2.4-.8-3.7-2.6-3.7-1.7 0-1.9 1.4-1.9 1.4s-.4-1.4-2.1-1.4c-1.5 0-2 1.1-2 1.1V7.5H3.9v8.9h2.1v-3.7c0-1 1-1.1 1.3-1.1.5 0 .8.4.8.9v3.9h2.1l-.1-3.6z"/>
                   </svg>
                 </a>
-                <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg">
+                <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-colors border border-white/20 shadow-lg" title="Instagram">
                   <Instagram className="w-5 h-5" />
                 </a>
               </div>

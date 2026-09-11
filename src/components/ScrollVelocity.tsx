@@ -15,6 +15,7 @@ interface VelocityMapping {
 }
 
 interface VelocityTextProps {
+  key?: React.Key;
   children: React.ReactNode;
   baseVelocity: number;
   scrollContainerRef?: React.RefObject<HTMLElement>;

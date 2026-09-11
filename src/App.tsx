@@ -1,11 +1,19 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Palette, Download, FileText, ArrowLeft, Sparkles, Eye } from "lucide-react";
-import { renderAsync } from "docx-preview";
-import Home from "./pages/Home";
-import GenAIProjects from "./pages/GenAIProjects";
-import UiUxProjects from "./pages/UiUxProjects";
-import AllProjects from "./pages/AllProjects";
+import { Menu, X, Palette, Download, FileText, ArrowLeft, Sparkles, Eye, ArrowUpRight, Zap, Linkedin, Github, Instagram, Mail, ArrowUp } from "lucide-react";
+const Home = React.lazy(() => import("./pages/Home"));
+const GenAIProjects = React.lazy(() => import("./pages/GenAIProjects"));
+const UiUxProjects = React.lazy(() => import("./pages/UiUxProjects"));
+const AllProjects = React.lazy(() => import("./pages/AllProjects"));
+
+function PageLoader() {
+  return (
+    <div className="w-full min-h-[60vh] flex flex-col items-center justify-center gap-4">
+      <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      <span className="text-white/40 text-xs tracking-widest uppercase font-mono">Loading...</span>
+    </div>
+  );
+}
 import RotatingText from "./components/RotatingText";
 import { motion, AnimatePresence } from "motion/react";
 import { ThemeRevolver, themes, applyTheme } from "./components/ThemeRevolver";
@@ -25,6 +33,16 @@ function DocxPreviewModal({
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
+  // Escape key handler
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   React.useEffect(() => {
     if (!isOpen || !fileUrl) return;
 
@@ -32,12 +50,14 @@ function DocxPreviewModal({
     setLoading(true);
     setError(null);
 
-    fetch(fileUrl)
-      .then((res) => {
+    Promise.all([
+      fetch(fileUrl).then((res) => {
         if (!res.ok) throw new Error("Failed to load DOCX document");
         return res.arrayBuffer();
-      })
-      .then((buffer) => {
+      }),
+      import("docx-preview")
+    ])
+      .then(([buffer, { renderAsync }]) => {
         if (!isMounted || !containerRef.current) return;
         containerRef.current.innerHTML = "";
         return renderAsync(buffer, containerRef.current, undefined, {
@@ -146,6 +166,16 @@ function DocxPreviewModal({
 
 function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [activeDocxPreview, setActiveDocxPreview] = React.useState<{ url: string; title: string } | null>(null);
+
+  // Escape key handler
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   // Prevent body scroll when modal is open
   React.useEffect(() => {
@@ -329,12 +359,16 @@ function Navbar({ onResumeOpen, activeTheme, onThemeChange }: { onResumeOpen: ()
           <a href="/#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Portfolio</a>
           <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Skills</a>
           <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Contact</a>
-          <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Projects</Link>
+          <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Project Gallery</Link>
           <button 
             onClick={onResumeOpen}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-background font-extrabold hover:bg-primary/95 hover:scale-105 active:scale-95 transition-all text-sm shadow-[0_0_15px_rgba(255,182,141,0.35)] hover:shadow-[0_0_25px_rgba(255,182,141,0.6)]"
+            className="group relative inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#3b4ff6] hover:bg-[#3245e8] text-white font-extrabold text-sm tracking-tight shadow-[0_5px_0_#000000] hover:shadow-[0_6px_0_#000000] hover:-translate-y-0.5 active:translate-y-[4px] active:shadow-[0_1px_0_#000000] transition-all duration-150 cursor-pointer select-none"
           >
-            Resume / CV
+            <span>Resume / CV</span>
+            {/* Top-right floating lightning badge */}
+            <span className="absolute -top-2.5 -right-2 w-6 h-6 rounded-full bg-[#ffcc00] border-2 border-black flex items-center justify-center shadow-[0_2px_0_#000000] pointer-events-none group-hover:scale-110 group-hover:rotate-12 transition-transform duration-200">
+              <Zap className="w-3.5 h-3.5 fill-black text-black stroke-[2.5]" />
+            </span>
           </button>
           <ThemeRevolver activeTheme={activeTheme} onThemeChange={onThemeChange} />
         </div>
@@ -361,15 +395,18 @@ function Navbar({ onResumeOpen, activeTheme, onThemeChange }: { onResumeOpen: ()
               <a href="/#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Portfolio</a>
               <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Skills</a>
               <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Contact</a>
-              <Link to="/projects" onClick={() => setIsOpen(false)} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Projects</Link>
+              <Link to="/projects" onClick={() => setIsOpen(false)} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Project Gallery</Link>
               <button 
                 onClick={() => {
                   setIsOpen(false);
                   onResumeOpen();
                 }}
-                className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-primary text-background font-bold text-lg"
+                className="group relative inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#3b4ff6] hover:bg-[#3245e8] text-white font-extrabold text-base tracking-tight shadow-[0_5px_0_#000000] active:translate-y-[4px] active:shadow-[0_1px_0_#000000] transition-all duration-150 cursor-pointer select-none w-full mt-2"
               >
-                Resume / CV
+                <span>Resume / CV</span>
+                <span className="absolute -top-2.5 -right-1 w-6 h-6 rounded-full bg-[#ffcc00] border-2 border-black flex items-center justify-center shadow-[0_2px_0_#000000] pointer-events-none">
+                  <Zap className="w-3.5 h-3.5 fill-black text-black stroke-[2.5]" />
+                </span>
               </button>
               <div className="flex flex-col gap-2 pt-4 border-t border-white/5">
                 <span className="text-xs font-bold text-white/40 uppercase tracking-[0.15em]">Accent Theme</span>
@@ -430,19 +467,204 @@ function ScrollToHash() {
   return null;
 }
 
-function Footer() {
+function Footer({ onResumeOpen }: { onResumeOpen?: () => void }) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-background w-full py-12 px-6 md:px-12 border-t border-outline-variant/5">
-      <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-white/40 text-sm">© 2026 Joydeep Das. Crafted with Intentional Asymmetry.</p>
-        <div className="flex flex-wrap justify-center gap-8">
-          <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">LinkedIn</a>
-          <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">GitHub</a>
-          <a href="https://www.behance.net/joythesloth" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">Behance</a>
-          <a href="https://www.instagram.com/pixeldeck.design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-all text-sm">@pixeldeck.design</a>
+    <footer className="w-full relative pt-12 pb-4 px-4 sm:px-8 overflow-hidden">
+      {/* Floating Modern Slab Card */}
+      <div className="max-w-7xl mx-auto rounded-3xl md:rounded-[2.5rem] bg-[#141419]/90 border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl p-8 sm:p-12 lg:p-14 relative overflow-hidden z-10">
+        {/* Subtle Ambient Radial Highlights */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 blur-[90px] rounded-full pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-secondary/10 blur-[90px] rounded-full pointer-events-none" />
+
+        {/* Top Grid: Brand & Multi-Column Navigation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 pb-10 border-b border-white/[0.08] relative z-10">
+          
+          {/* Left Column: Brand, Bio, and Socials */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <Link to="/" className="inline-flex items-center gap-3 group mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-primary text-background font-black flex items-center justify-center text-lg font-headline shadow-lg group-hover:scale-105 transition-transform">
+                  JD
+                </div>
+                <div>
+                  <span className="text-2xl font-headline font-extrabold text-white tracking-tight">
+                    Joydeep Das<span className="text-primary font-black">.</span>
+                  </span>
+                </div>
+              </Link>
+              <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed max-w-sm mb-6">
+                Architecting intelligent autonomous AI systems, high-converting product UI/UX, and production-grade web applications.
+              </p>
+            </div>
+
+            {/* Social Icons Row */}
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              <a
+                href="https://x.com/JoyTheSloth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="X / Twitter"
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/pixeldeck.design"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/joydeep-das-78123522a"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://github.com/JoyTheSloth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="GitHub"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.behance.net/joythesloth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="Behance"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="M22 7h-7v-2h7v2zm.4 4.5s-.1-4.2-3.8-4.2c-3.1 0-4 2.1-4 4.1 0 2.2.8 4.4 4.2 4.4 3 0 3.7-1.8 3.7-1.8l-2.1-.9s-.3 1-1.6 1c-1.3 0-1.6-.9-1.6-1.5h5.2v-.1zm-5.2-1.1c0-1 1-1.2 1.6-1.2.9 0 1.5.5 1.5 1.2h-3.1zm-8.3 1.9c.7 0 1.2-.4 1.2-.4s.3 1.7 2.1 1.7c1.7 0 2.3-1.4 2.3-3.4 0-2.4-.8-3.7-2.6-3.7-1.7 0-1.9 1.4-1.9 1.4s-.4-1.4-2.1-1.4c-1.5 0-2 1.1-2 1.1V7.5H3.9v8.9h2.1v-3.7c0-1 1-1.1 1.3-1.1.5 0 .8.4.8.9v3.9h2.1l-.1-3.6z"/>
+                </svg>
+              </a>
+              <a
+                href="mailto:joy.thesloth@gmail.com"
+                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-white/70 hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                title="Email Me"
+              >
+                <Mail className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Columns: Navigation, Focus, Connect */}
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            {/* Column 1: Navigation */}
+            <div>
+              <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-white/90 mb-4">
+                Explore
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-white/50">
+                <li><a href="/#portfolio" className="hover:text-primary transition-colors">Featured Works</a></li>
+                <li><a href="/#skills" className="hover:text-primary transition-colors">Core Expertise</a></li>
+                <li><Link to="/projects" className="hover:text-primary transition-colors">Project Archive</Link></li>
+                <li><Link to="/ui-ux" className="hover:text-primary transition-colors">UI/UX Studies</Link></li>
+                <li><Link to="/gen-ai" className="hover:text-primary transition-colors">Gen AI Systems</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 2: Focus Areas */}
+            <div>
+              <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-white/90 mb-4">
+                Core Stack
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-white/50">
+                <li><span className="hover:text-white transition-colors cursor-default">Autonomous Agents</span></li>
+                <li><span className="hover:text-white transition-colors cursor-default">Next.js & React</span></li>
+                <li><span className="hover:text-white transition-colors cursor-default">RAG Pipelines</span></li>
+                <li><span className="hover:text-white transition-colors cursor-default">Design Systems</span></li>
+                <li><span className="hover:text-white transition-colors cursor-default">LangChain & Python</span></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Direct Connect */}
+            <div className="col-span-2 sm:col-span-1">
+              <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-white/90 mb-4">
+                Contact
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-white/50">
+                <li>
+                  <a href="mailto:joy.thesloth@gmail.com" className="text-primary hover:underline break-all">
+                    joy.thesloth@gmail.com
+                  </a>
+                </li>
+                {onResumeOpen && (
+                  <li>
+                    <button 
+                      onClick={onResumeOpen}
+                      className="hover:text-white text-left transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Resume Hub</span>
+                      <ArrowUpRight className="w-3 h-3 text-primary" />
+                    </button>
+                  </li>
+                )}
+                <li>
+                  <a href="https://www.linkedin.com/in/joydeep-das-78123522a" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                    <span>LinkedIn</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-50" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/JoyTheSloth" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                    <span>GitHub</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-50" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.behance.net/joythesloth" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                    <span>Behance</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-50" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
-        <div className="text-primary-container font-headline font-bold text-lg">
-          Stay Curious.
+
+        {/* Bottom Bar: Rights, Location, Back to Top */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-white/40 relative z-10">
+          <p>© 2026 Joydeep Das. All rights reserved.</p>
+          
+          <div className="flex items-center gap-4 sm:gap-6">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Available for Work
+            </span>
+            <span className="hidden md:inline text-white/20">|</span>
+            <span className="hidden md:inline">Kolkata, India</span>
+            <span className="text-white/20">|</span>
+            <button 
+              onClick={scrollToTop}
+              className="hover:text-white transition-colors flex items-center gap-1 font-bold cursor-pointer"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Massive Architectural Ghost Watermark (like ZenEstate) */}
+      <div className="relative w-full overflow-hidden select-none pointer-events-none -mt-4 sm:-mt-8 md:-mt-12 pb-2">
+        <div className="text-[14vw] font-black text-white/[0.028] tracking-tight uppercase leading-none text-center font-headline whitespace-nowrap">
+          JOYDEEP DAS
         </div>
       </div>
     </footer>
@@ -474,14 +696,16 @@ export default function App() {
           onThemeChange={handleThemeChange} 
         />
         <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/gen-ai" element={<GenAIProjects />} />
-            <Route path="/ui-ux" element={<UiUxProjects />} />
-            <Route path="/projects" element={<AllProjects />} />
-          </Routes>
+          <React.Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/gen-ai" element={<GenAIProjects />} />
+              <Route path="/ui-ux" element={<UiUxProjects />} />
+              <Route path="/projects" element={<AllProjects />} />
+            </Routes>
+          </React.Suspense>
         </div>
-        <Footer />
+        <Footer onResumeOpen={() => setIsResumeOpen(true)} />
         
         {/* Global Modal Layer */}
         <ResumeDialog isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
