@@ -287,11 +287,11 @@ const ExperienceItem = ({
   return (
     <motion.div 
       initial={false}
-      className="group relative pl-8 pb-7 last:pb-0 transition-all duration-500"
+      className="group relative pl-5 sm:pl-8 pb-4 sm:pb-6 last:pb-0 transition-all duration-500"
     >
       {/* Timeline Line Segment */}
       {!isLast && (
-        <div className={`absolute left-0 top-[20px] bottom-0 w-[2px] ${
+        <div className={`absolute left-0 top-[18px] sm:top-[20px] bottom-0 w-[2px] ${
           isFirst 
             ? 'bg-gradient-to-b from-primary to-white/10 group-hover:from-primary group-hover:to-primary/20' 
             : 'bg-gradient-to-b from-white/10 to-white/5 group-hover:from-primary/30 group-hover:to-white/5'
@@ -300,38 +300,38 @@ const ExperienceItem = ({
 
       {/* Timeline Bullet */}
       {isFirst ? (
-        <div className="absolute left-[-5.5px] top-[9px] flex items-center justify-center w-[13px] h-[13px] z-10">
+        <div className="absolute left-[-5.5px] top-[7px] sm:top-[9px] flex items-center justify-center w-[13px] h-[13px] z-10">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40"></span>
           <div className="relative w-[9px] h-[9px] rounded-full bg-primary shadow-[0_0_12px_rgba(255,152,0,0.9)]" />
         </div>
       ) : isLast ? (
-        <div className="absolute left-[-4.5px] top-[10px] w-[11px] h-[11px] rounded-full bg-secondary border border-white/20 shadow-[0_0_10px_rgba(255,87,34,0.6)] z-10" />
+        <div className="absolute left-[-4.5px] top-[8px] sm:top-[10px] w-[11px] h-[11px] rounded-full bg-secondary border border-white/20 shadow-[0_0_10px_rgba(255,87,34,0.6)] z-10" />
       ) : (
-        <div className="absolute left-[-3.5px] top-[11px] w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary/80 group-hover:scale-110 transition-all duration-500 shadow-[0_0_6px_rgba(255,255,255,0.1)] z-10" />
+        <div className="absolute left-[-3.5px] top-[9px] sm:top-[11px] w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary/80 group-hover:scale-110 transition-all duration-500 shadow-[0_0_6px_rgba(255,255,255,0.1)] z-10" />
       )}
       
       <div 
         className="cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex justify-between items-start gap-3.5 md:gap-4">
+        <div className="flex justify-between items-start gap-2.5 sm:gap-3.5 md:gap-4">
           {logo && (
-            <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center p-2 shrink-0 group-hover:border-primary/40 group-hover:bg-white/[0.07] group-hover:scale-105 transition-all duration-300 shadow-md overflow-hidden">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center p-1.5 sm:p-2 shrink-0 group-hover:border-primary/40 group-hover:bg-white/[0.07] group-hover:scale-105 transition-all duration-300 shadow-md overflow-hidden">
               {logo}
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <h4 className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
-            <div className="flex items-center gap-3 mt-0.5 mb-1.5 flex-wrap">
-              <span className={`font-bold text-xs md:text-sm ${colorClass}`}>{company}</span>
+            <h4 className="text-base sm:text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight leading-snug sm:leading-normal">{title}</h4>
+            <div className="flex items-center gap-1.5 sm:gap-2.5 mt-0.5 mb-1 sm:mb-1.5 flex-wrap">
+              <span className={`font-bold text-xs sm:text-sm ${colorClass}`}>{company}</span>
               {doodle}
               <span className="w-1 h-1 rounded-full bg-white/20" />
-              <span className="text-white/40 text-[10px] md:text-xs font-medium">{period}</span>
+              <span className="text-white/40 text-[10px] sm:text-xs font-medium">{period}</span>
             </div>
           </div>
-          <button className={`p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all shrink-0 mt-0.5`}>
+          <button className={`p-1 sm:p-1.5 rounded-md sm:rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all shrink-0 mt-0.5`}>
             <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
-              <ChevronDown className="w-5 h-5 text-white/40 group-hover:text-primary" />
+              <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-white/40 group-hover:text-primary" />
             </motion.div>
           </button>
         </div>
@@ -345,7 +345,7 @@ const ExperienceItem = ({
               transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
               className="overflow-hidden"
             >
-              <div className="text-white/60 leading-relaxed text-sm md:text-base pt-2 pb-4 pr-4">
+              <div className="text-white/60 leading-relaxed text-xs sm:text-sm md:text-base pt-1.5 sm:pt-2 pb-2.5 sm:pb-4 pr-1 sm:pr-4">
                 {description}
               </div>
             </motion.div>
@@ -910,24 +910,24 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Experience */}
           <div className="lg:col-span-8">
-            <SpotlightGlassCard className="p-6 md:p-8 h-full group/exp">
+            <SpotlightGlassCard className="p-4 sm:p-6 md:p-8 h-full group/exp">
               {/* Decorative background components */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none group-hover/exp:bg-primary/10 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
               
               <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                    <Briefcase className="w-5 h-5 text-primary" />
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div className="flex items-baseline gap-3">
-                    <h2 className="font-headline text-2xl md:text-3xl font-bold tracking-tight">Experience</h2>
-                    <span className="font-handwriting text-primary/80 text-lg hidden sm:inline-block -rotate-3 select-none">
+                  <div className="flex items-baseline gap-2.5 sm:gap-3">
+                    <h2 className="font-headline text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Experience</h2>
+                    <span className="font-handwriting text-primary/80 text-sm sm:text-lg hidden sm:inline-block -rotate-3 select-none">
                       proven in production 🚀
                     </span>
                   </div>
                 </div>
-                <div className="relative mt-2">
+                <div className="relative mt-1 sm:mt-2">
                 <ExperienceItem 
                   isFirst
                   title="Freelance Designer / Dev"
@@ -1033,22 +1033,22 @@ export default function Home() {
 
           {/* Tech Stack */}
           <div className="lg:col-span-4">
-            <div className="glass-card border border-white/10 rounded-3xl p-6 md:p-8 h-full flex flex-col justify-between relative overflow-hidden group/arsenal">
+            <div className="glass-card border border-white/10 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 h-full flex flex-col justify-between relative overflow-hidden group/arsenal">
               {/* Subtle background brand illumination */}
               <div className="absolute top-0 right-0 w-72 h-72 bg-secondary/5 blur-[100px] rounded-full pointer-events-none group-hover/arsenal:bg-secondary/10 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
               <div className="relative z-10">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-2 mb-6">
+                <div className="flex items-start justify-between gap-2 mb-4 sm:mb-6">
                   <div>
                     <div className="relative inline-block">
-                      <h2 className="font-headline text-2xl md:text-3xl font-bold">Tech Stack</h2>
+                      <h2 className="font-headline text-xl sm:text-2xl md:text-3xl font-bold">Tech Stack</h2>
                       <svg className="absolute -bottom-1.5 left-0 w-full h-2 text-secondary/70 overflow-visible pointer-events-none" viewBox="0 0 110 8" fill="none">
                         <path d="M2 3 C 35 1, 75 5, 108 3 M4 6 C 38 4, 72 7, 106 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                       </svg>
                     </div>
-                    <p className="text-white/40 text-xs mt-1.5 font-medium">Curated production toolchain</p>
+                    <p className="text-white/40 text-xs mt-1 sm:mt-1.5 font-medium">Curated production toolchain</p>
                   </div>
 
                   <div className="flex items-center gap-1">
