@@ -1,0 +1,123 @@
+================================================================================
+JOYDEEP DAS — GENERATIVE AI & FRONTEND DEVELOPMENT RESUME (DEV CV)
+================================================================================
+AI / GenAI Engineer  |  React Js  |  RAG  |  Python  |  Full-Stack AI  |  Frontend Dev
+Kolkata, West Bengal, India  |  +91-7085917058  |  joy.thesloth@gmail.com
+LinkedIn: https://linkedin.com/in/joydeep-das-78123522a  |  GitHub: https://github.com/JoyTheSloth
+Portfolio: https://joydeepdas-portfolio.vercel.app/
+================================================================================
+
+PROFESSIONAL SUMMARY
+--------------------------------------------------------------------------------
+AI / GenAI Engineer and 2026 B.Tech CSE graduate who builds and ships LLM applications: RAG pipelines, multi-agent systems and full-stack AI products. Created Job Dalal (AI job matching) and Resume Darzi (AI resume tailoring), both live, and co-built MediRAG, a clinical RAG hallucination-audit system ranked 62nd nationally at India Innovates 2026. Hands-on with Python, FastAPI, LangChain, Groq, Gemini API, FAISS, React and Next.js, with a GenAI internship and a track record of taking AI features from prototype to deployment.
+
+--------------------------------------------------------------------------------
+TECHNICAL SKILLS
+--------------------------------------------------------------------------------
+• GenAI & LLM: RAG, LangChain, LangSmith, Multi-Agent Systems, AI Agents, Prompt Engineering, Groq (Llama 3), Google Gemini API, Mistral, Ollama (Gemma, LLaMA 3), Hugging Face, Embeddings, Semantic Search, FAISS, Hybrid Retrieval (BM25), NLI Faithfulness Scoring, RAGAS Evaluation
+• Languages: Python, TypeScript, JavaScript (ES6+), SQL, HTML5, CSS3
+• Backend & APIs: FastAPI, Flask, Node.js, Express.js, RESTful APIs, NDJSON Streaming, PostgreSQL (Supabase)
+• Frontend: React 19, Next.js, Tailwind CSS, Vite
+• ML / Data: TensorFlow, Keras, Scikit-learn, Pandas, NumPy, BioBERT
+• Tools & Deployment: Git, GitHub, Docker, Vercel, Netlify, Hugging Face Spaces, Apify, n8n, Make.com, Figma
+
+--------------------------------------------------------------------------------
+WORK EXPERIENCE
+--------------------------------------------------------------------------------
+
+Freelance Designer / Developer — wyrcan.io | Freelance, Remote
+August 2026 – Present
+• Build and design frontends for digital platforms across travel, real estate and consumer tech, including TripEva (route calculators, search filters) and Modern Mahal (luxury real estate platform).
+• Maintain a design-to-code workflow with TypeScript and Tailwind CSS across client sites.
+
+Consultant — SkillArbitrage | Full-time, Remote [SALES & CONSULTING ROLE]
+July 2026 – September 2026
+• Advised students and early-career professionals on AI, ML, and full-stack upskilling programs, handling lead qualification, counselling, follow-ups, and enrollment conversations.
+• Managed sales activities through CRM workflows and Zoho Workspace, maintaining prospect records, follow-ups, communication, and pipeline tracking.
+
+React Developer | GEETBIH Labs Pvt. Ltd. · Part-time
+April 2026 – Present
+• Lead design for digital products and maintain a design system across web and mobile platforms.
+• Develop responsive web interfaces using React, JavaScript/TypeScript, and CSS, translating Figma designs into reusable, production-ready components and scalable UI systems.
+
+Generative AI Developer Intern — Al Wallah | Remote
+May 2025 – July 2025
+• Developed and deployed LLM-powered web apps using the Google Gemini API for Q&A and multi-turn conversational workflows.
+• Integrated LLM services with a Flask backend and JavaScript frontend via REST APIs; sped up AI feature delivery by ~50% through prompt engineering, structured JSON outputs and hallucination guardrails.
+
+UI/UX Designer & Social Media Marketing — 2GatherApp | Remote [CONTENT & DESIGN ROLE]
+February 2025 – October 2025
+• Designed interfaces for a social discovery and meetup app, built a unified design system and ran social campaigns to grow reach and downloads.
+
+--------------------------------------------------------------------------------
+PROJECTS
+--------------------------------------------------------------------------------
+
+Job Dalal: AI Job Discovery & Resume Matching Engine | 2026 | Live Demo
+Tech Stack: React 19, TypeScript, Groq (Llama-3), Apify, Node.js, Tailwind CSS
+• Built and deployed an AI job discovery platform that aggregates live postings from LinkedIn, Naukri, Indeed, Upwork and Internshala using Apify crawlers.
+• Used Groq (Llama-3) to score semantic match between resume text and unstructured job descriptions; added deduplication and missing-keyword tagging.
+• Added one-click export of matched jobs to CSV, XLSX and Google Sheets; built a responsive dark-mode React UI with live filters.
+
+Resume Darzi: AI Resume Tailoring Studio | 2026 | Live Demo
+Tech Stack: Next.js, React 19, TypeScript, Groq (Llama-3), Tailwind CSS, docx-preview
+• Built an AI resume tailoring app that constrains LLM output to the user's verified career profile and DOCX history to avoid fabricated content.
+• Implemented an ATS optimization engine that parses job descriptions, scores keyword and semantic alignment, and rewrites bullets with streaming Groq responses.
+• Built multi-persona career profiles with local-first storage, in-browser DOCX preview and DOCX/PDF export.
+
+MediRAG-Eval: Clinical RAG Safety Audit | India Innovates 2026, Rank 62 | Live Demo | GitHub
+Team project (2 members) | Tech Stack: Python, FastAPI, LangChain, FAISS, BM25, BioBERT, DeBERTa NLI, RAGAS, React 19
+• Co-built an audit layer for clinical RAG that verifies medical claims against retrieved literature using hybrid BioBERT + BM25 retrieval over a 107k-vector FAISS index, NLI faithfulness scoring and 2-pass LLM verification.
+• Owned the evaluation module (RAGAS integration), the FastAPI endpoint and the React 19 front end, including MediChat with hallucination risk scores, source citation cards and PDF/lab-report upload.
+• Built a research lab for side-by-side A/B testing of clinical personas with live RAGAS scoring.
+
+Stash: Local-First AI Clipboard Memory Vault | OpenAI x NamasteDev Hackathon 2026 | Live Demo | GitHub
+Tech Stack: React, Embeddings, Semantic Search, AES-256 Encryption
+• Built and deployed a clipboard memory vault for developers that captures copied text, commands and code snippets into a private, searchable knowledge base.
+• Implemented semantic AI search so users can rediscover past snippets without exact keywords, with offline operation and AES-256 encryption to keep data on the user's device.
+
+Researcix: Autonomous Research Agent System | 2026 | Live Demo | GitHub
+Tech Stack: Groq (Llama 3.3 70B / 3.1 8B), Tavily, arXiv API, Node.js, Express, React 19, Vite, Tailwind CSS
+• Built a 4-phase multi-agent pipeline (topic definition, parallel retrieval, verification, synthesis) that produces IEEE-format LaTeX research papers in under 3 minutes.
+• Integrated Tavily Search and arXiv APIs with fact-checking agents to reduce hallucinated citations; streamed live agent reasoning to the UI via NDJSON.
+• Deployed the Express backend on Hugging Face Spaces and the React frontend on Vercel.
+
+Multi-Agent Bug Analysis System (MABAS) | 2026 | GitHub
+Tech Stack: Groq (Llama 3.1 8B), FastAPI, React, Vite, Tailwind CSS
+• Built a 5-agent autonomous pipeline (triage, reproduce, analyze, fix plan, review) that resolves bugs end-to-end and scores fix risk from 0 to 100.
+• Reproduced bugs by generating and executing sandboxed Python scripts to capture real crash scenarios and stderr logs; built a live React dashboard for agent traces.
+
+Additional Projects:
+• FitnessBunny (AI calorie estimator & recipe generator)
+• Multi-Agent Launch Decision System (6-agent rollout decisions)
+• ZenEstate (Next.js 15)
+• Flatzy (rental discovery)
+• BacSense 2.0 (IoT telemetry dashboard)
+
+--------------------------------------------------------------------------------
+EDUCATION
+--------------------------------------------------------------------------------
+Amity University, Kolkata — B.Tech, Computer Science and Engineering | July 2022 – 2026
+CGPA: 7.25 / 10.0
+
+Unacco School, Imphal West | 2022
+Class XII (Higher Secondary) — 82%
+
+Heritage Convent, Imphal West | 2020
+Class X (Secondary School) — 70%
+
+--------------------------------------------------------------------------------
+ACHIEVEMENTS & LEADERSHIP
+--------------------------------------------------------------------------------
+• India Innovates 2026 National Hackathon, Open Innovation category: Rank 62 nationally (MediRAG-Eval)
+• OpenAI x NamasteDev Hackathon 2026: Built and shipped Stash
+• Created "Ask Joy Bhaiya", a mentorship platform for Amity University Kolkata engineering students
+
+--------------------------------------------------------------------------------
+CERTIFICATIONS
+--------------------------------------------------------------------------------
+• Career Essentials in GitHub Professional Certificate — GitHub & LinkedIn Learning (2025)
+• SQL Essential Training — LinkedIn Learning (2025)
+• Build Your Generative AI Productivity Skills — Microsoft & LinkedIn Learning (2024)
+• Career Essentials in Generative AI — Microsoft & LinkedIn Learning (2024)
+================================================================================

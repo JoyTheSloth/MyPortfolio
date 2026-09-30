@@ -1,0 +1,80 @@
+================================================================================
+JOYDEEP DAS — GENERATIVE AI & FRONTEND DEVELOPMENT PROJECTS (RESUME COMPANION)
+================================================================================
+Tailored for: AI / GenAI Engineer | Full-Stack AI | React Js | Frontend Dev
+Format: ATS-Optimized, Metric-Focused, Production-Tested bullet points directly sourced from DEV_CV.docx.
+================================================================================
+
+
+1. JOB DALAL: AI JOB DISCOVERY & RESUME MATCHING ENGINE | 2026 | Live Demo
+--------------------------------------------------------------------------------
+Role: Creator & Full-Stack AI Engineer
+Live Link: https://job-dalal.vercel.app/
+Tech Stack: React 19, TypeScript, Groq (Llama-3), Apify, Node.js, Tailwind CSS
+
+• Built and deployed an AI job discovery platform that aggregates live postings from LinkedIn, Naukri, Indeed, Upwork and Internshala using Apify crawlers.
+• Used Groq (Llama-3) to score semantic match between resume text and unstructured job descriptions; added deduplication and missing-keyword tagging.
+• Added one-click export of matched jobs to CSV, XLSX and Google Sheets; built a responsive dark-mode React UI with live filters.
+
+
+2. RESUME DARZI: AI RESUME TAILORING STUDIO | 2026 | Live Demo
+--------------------------------------------------------------------------------
+Role: Creator & Full-Stack AI Engineer
+Live Link: https://resume-bay-eta-41.vercel.app/
+Tech Stack: Next.js, React 19, TypeScript, Groq (Llama-3), Tailwind CSS, docx-preview
+
+• Built an AI resume tailoring app that constrains LLM output to the user's verified career profile and DOCX history to avoid fabricated content.
+• Implemented an ATS optimization engine that parses job descriptions, scores keyword and semantic alignment, and rewrites bullets with streaming Groq responses.
+• Built multi-persona career profiles with local-first storage, in-browser DOCX preview and DOCX/PDF export.
+
+
+3. MEDIRAG-EVAL: CLINICAL RAG SAFETY AUDIT | India Innovates 2026, Rank 62 | Live Demo | GitHub
+--------------------------------------------------------------------------------
+Role: Co-Builder & AI Systems Engineer (Team project: 2 members)
+GitHub: https://github.com/JoyTheSloth/MediRAG-3.0
+Tech Stack: Python, FastAPI, LangChain, FAISS, BM25, BioBERT, DeBERTa NLI, RAGAS, React 19
+
+• Co-built an audit layer for clinical RAG that verifies medical claims against retrieved literature using hybrid BioBERT + BM25 retrieval over a 107k-vector FAISS index, NLI faithfulness scoring and 2-pass LLM verification.
+• Owned the evaluation module (RAGAS integration), the FastAPI endpoint and the React 19 front end, including MediChat with hallucination risk scores, source citation cards and PDF/lab-report upload.
+• Built a research lab for side-by-side A/B testing of clinical personas with live RAGAS scoring.
+
+
+4. STASH: LOCAL-FIRST AI CLIPBOARD MEMORY VAULT | OpenAI x NamasteDev Hackathon 2026 | Live Demo | GitHub
+--------------------------------------------------------------------------------
+Role: Creator & Lead Developer
+Live Link: https://whynotstash.netlify.app/
+Tech Stack: React, Embeddings, Semantic Search, AES-256 Encryption
+
+• Built and deployed a clipboard memory vault for developers that captures copied text, commands and code snippets into a private, searchable knowledge base.
+• Implemented semantic AI search so users can rediscover past snippets without exact keywords, with offline operation and AES-256 encryption to keep data on the user's device.
+
+
+5. RESEARCIX: AUTONOMOUS RESEARCH AGENT SYSTEM | 2026 | Live Demo | GitHub
+--------------------------------------------------------------------------------
+Role: Creator & AI Systems Engineer
+Live Link: https://researcix.vercel.app/ | GitHub: https://github.com/JoyTheSloth/Researcix
+Tech Stack: Groq (Llama 3.3 70B / 3.1 8B), Tavily, arXiv API, Node.js, Express, React 19, Vite, Tailwind CSS
+
+• Built a 4-phase multi-agent pipeline (topic definition, parallel retrieval, verification, synthesis) that produces IEEE-format LaTeX research papers in under 3 minutes.
+• Integrated Tavily Search and arXiv APIs with fact-checking agents to reduce hallucinated citations; streamed live agent reasoning to the UI via NDJSON.
+• Deployed the Express backend on Hugging Face Spaces and the React frontend on Vercel.
+
+
+6. MULTI-AGENT BUG ANALYSIS SYSTEM (MABAS) | 2026 | GitHub
+--------------------------------------------------------------------------------
+Role: AI & Systems Developer
+GitHub: https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-
+Tech Stack: Groq (Llama 3.1 8B), FastAPI, React, Vite, Tailwind CSS
+
+• Built a 5-agent autonomous pipeline (triage, reproduce, analyze, fix plan, review) that resolves bugs end-to-end and scores fix risk from 0 to 100.
+• Reproduced bugs by generating and executing sandboxed Python scripts to capture real crash scenarios and stderr logs; built a live React dashboard for agent traces.
+
+
+ADDITIONAL PROJECTS
+--------------------------------------------------------------------------------
+• FitnessBunny: AI calorie estimator & recipe generator
+• Multi-Agent Launch Decision System: 6-agent rollout decisions
+• ZenEstate: Luxury architectural pavilions real estate platform (Next.js 15)
+• Flatzy Kolkata (Live: https://flatzy.vercel.app/): Co-founded hyper-local rental discovery platform as a duo team; achieved 20k+ social media reach in month 1 and generated 10 qualified organic rental leads with zero ad spend; engineered responsive React & Tailwind CSS web app.
+• BacSense 2.0: IoT telemetry dashboard
+================================================================================

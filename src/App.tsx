@@ -247,14 +247,14 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
                       <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                          <button 
-                           onClick={() => setActiveDocxPreview({ url: "/UIUX_Resume.docx", title: "UI/UX Resume" })}
+                           onClick={() => setActiveDocxPreview({ url: "/UIUX_Resume_Final.docx", title: "UI/UX Resume" })}
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-primary text-background font-bold text-[8px] md:text-[9px] uppercase tracking-[0.1em] hover:bg-primary/90 transition-all text-center flex items-center justify-center gap-1.5 shadow active:scale-95 cursor-pointer"
                          >
                            <Eye className="w-3.5 h-3.5" /> Preview
                          </button>
                          <a 
-                           href="/UIUX_Resume.docx" 
-                           download="UIUX_Resume.docx"
+                           href="/UIUX_Resume_Final.docx" 
+                           download="UIUX_Resume_Final.docx"
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/80 hover:text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-white/10 transition-all text-center border border-white/10 flex items-center justify-center gap-1.5 active:scale-95 shadow"
                          >
                            <Download className="w-3.5 h-3.5" /> Download
@@ -271,20 +271,20 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                       </div>
 
                       <div className="text-center z-10">
-                         <h3 className="font-bold text-white text-md md:text-lg mb-0.5">Dev Resume</h3>
+                         <h3 className="font-bold text-white text-md md:text-lg mb-0.5">Dev CV</h3>
                          <p className="text-[7px] md:text-[9px] text-white/30 font-medium tracking-[0.2em] uppercase">Engineering Focus</p>
                       </div>
 
                       <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                          <button 
-                           onClick={() => setActiveDocxPreview({ url: "/DEV_Resume.docx", title: "Dev Resume" })}
+                           onClick={() => setActiveDocxPreview({ url: "/DEV_CV.docx", title: "Dev CV" })}
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-secondary text-background font-bold text-[8px] md:text-[9px] uppercase tracking-[0.1em] hover:bg-secondary/90 transition-all text-center flex items-center justify-center gap-1.5 shadow active:scale-95 cursor-pointer"
                          >
                            <Eye className="w-3.5 h-3.5" /> Preview
                          </button>
                          <a 
-                           href="/DEV_Resume.docx" 
-                           download="DEV_Resume.docx"
+                           href="/DEV_CV.docx" 
+                           download="DEV_CV.docx"
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/80 hover:text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-white/10 transition-all text-center border border-white/10 flex items-center justify-center gap-1.5 active:scale-95 shadow"
                          >
                            <Download className="w-3.5 h-3.5" /> Download
@@ -360,6 +360,16 @@ function Navbar({ onResumeOpen, activeTheme, onThemeChange }: { onResumeOpen: ()
           <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Skills</a>
           <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="font-headline font-medium text-white/70 hover:text-white transition-colors">Contact</a>
           <Link to="/projects" className="font-headline font-medium text-white/70 hover:text-white transition-colors">Project Gallery</Link>
+          <a 
+            href="https://github.com/JoyTheSloth" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="font-headline font-medium text-white/70 hover:text-white transition-colors flex items-center gap-1.5 group"
+            title="GitHub Profile"
+          >
+            <Github className="w-4.5 h-4.5 group-hover:scale-110 transition-transform" />
+            <span>GitHub</span>
+          </a>
           <button 
             onClick={onResumeOpen}
             className="group relative inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#3b4ff6] hover:bg-[#3245e8] text-white font-extrabold text-sm tracking-tight shadow-[0_5px_0_#000000] hover:shadow-[0_6px_0_#000000] hover:-translate-y-0.5 active:translate-y-[4px] active:shadow-[0_1px_0_#000000] transition-all duration-150 cursor-pointer select-none"
@@ -396,6 +406,16 @@ function Navbar({ onResumeOpen, activeTheme, onThemeChange }: { onResumeOpen: ()
               <a href="/#skills" onClick={(e) => handleNavClick(e, '#skills')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Skills</a>
               <a href="/#contact" onClick={(e) => handleNavClick(e, '#contact')} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Contact</a>
               <Link to="/projects" onClick={() => setIsOpen(false)} className="text-2xl font-headline font-bold text-white/70 hover:text-white">Project Gallery</Link>
+              <a 
+                href="https://github.com/JoyTheSloth" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => setIsOpen(false)} 
+                className="text-2xl font-headline font-bold text-white/70 hover:text-white flex items-center gap-3"
+              >
+                <Github className="w-6 h-6" />
+                <span>GitHub</span>
+              </a>
               <button 
                 onClick={() => {
                   setIsOpen(false);

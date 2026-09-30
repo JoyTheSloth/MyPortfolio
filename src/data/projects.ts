@@ -11,7 +11,23 @@ export interface Project {
 }
 
 export const projectsData: Project[] = [
-  // ── Tier 1: Flagship Live Production Platforms ──────────────────────
+  // ── Tier 1: Flagship Live Production & AI Platforms ──────────────────────
+  {
+    title: "Resume Darzi",
+    subtitle: "Bespoke AI Resume Tailoring Studio",
+    imgUrl: "/resumedarzi.png",
+    tags: ["Gen AI", "Next.js", "ATS Optimizer", "Llama-3", "Tailwind", "Full Stack"],
+    siteUrl: "https://resume-bay-eta-41.vercel.app/",
+    categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
+  },
+  {
+    title: "Job Dalal",
+    subtitle: "AI-Powered Job Discovery & Neural Matching Engine",
+    imgUrl: "/jobdalal.png",
+    tags: ["Gen AI", "Groq LPU", "Neural Matching", "Web Scraper", "Full Stack", "React"],
+    siteUrl: "https://job-dalal.vercel.app/",
+    categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
+  },
   {
     title: "ZenEstate",
     subtitle: "Architectural Pavilions & Luxury Real Estate",
@@ -21,20 +37,20 @@ export const projectsData: Project[] = [
     categories: ["Full Stack", "Frontend", "UI/UX Design"]
   },
   {
-    title: "Flatzy",
-    subtitle: "Kolkata's Hassle-Free Rental Discovery",
-    imgUrl: "/flatzy.png",
-    tags: ["React", "Tailwind CSS", "Frontend", "Real Estate", "UI/UX"],
-    siteUrl: "https://flatzy.vercel.app/",
-    categories: ["Frontend", "Full Stack", "UI/UX Design"]
-  },
-  {
     title: "Stash",
     subtitle: "Your ChatGPT for Ctrl + C",
     imgUrl: "/stash-thumbnail.png",
     tags: ["Gen AI", "LLMs", "Chrome Ext", "React", "Founder"],
     siteUrl: "https://whynotstash.netlify.app/",
     categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
+  },
+  {
+    title: "Flatzy",
+    subtitle: "Co-Founder • 20k+ Reach & 10 Leads in M1 | Rental Discovery",
+    imgUrl: "/flatzy.png",
+    tags: ["Founder", "React", "Tailwind CSS", "20k+ Reach", "UI/UX"],
+    siteUrl: "https://flatzy.vercel.app/",
+    categories: ["Frontend", "Full Stack", "UI/UX Design"]
   },
   {
     title: "Researcix",
@@ -58,6 +74,15 @@ export const projectsData: Project[] = [
 
   // ── Tier 2: Advanced Autonomous AI & Multi-Agent Systems ─────────────
   {
+    title: "MediRAG",
+    subtitle: "Clinical-grade Hallucination Detection",
+    imgUrl: "/medirag-thumbnail.png",
+    tags: ["Gen AI", "RAG Pipeline", "Hallucination Eval", "Healthcare", "Python"],
+    githubUrl: "https://github.com/JoyTheSloth/MediRAG-3.0",
+    siteUrl: "#",
+    categories: ["AI Automation", "Full Stack"]
+  },
+  {
     title: "Multi-Agent Bug Analysis",
     subtitle: "Autonomous Bug Triage & RCA",
     imgUrl: "/mabas-thumbnail.png",
@@ -71,15 +96,6 @@ export const projectsData: Project[] = [
     imgUrl: "/mlds-thumbnail.png",
     tags: ["Gen AI", "Multi-Agent", "Consensus AI", "War Room", "Python"],
     githubUrl: "https://github.com/JoyTheSloth/Multi-Agent-Launch-Decision-System-MLDS-",
-    categories: ["AI Automation", "Full Stack"]
-  },
-  {
-    title: "MediRAG",
-    subtitle: "Clinical-grade Hallucination Detection",
-    imgUrl: "/medirag-thumbnail.png",
-    tags: ["Gen AI", "RAG Pipeline", "Hallucination Eval", "Healthcare", "Python"],
-    githubUrl: "https://github.com/JoyTheSloth/MediRAG-3.0",
-    siteUrl: "#",
     categories: ["AI Automation", "Full Stack"]
   },
   {
@@ -133,6 +149,13 @@ export const projectsData: Project[] = [
     siteUrl: "https://www.behance.net/gallery/246971903/Veliciae",
     categories: ["UI/UX Design", "Graphic Design"]
   },
+  {
+    title: "Modern Mahal",
+    subtitle: "Real Estate Platform",
+    imgUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600",
+    tags: ["UI/UX", "Architecture", "Luxury Estates", "Concept UI", "3D Web"],
+    categories: ["UI/UX Design", "Graphic Design"]
+  },
 
   // ── Tier 4: Interactive Web Apps & Community Tools ───────────────────
   {
@@ -150,12 +173,5 @@ export const projectsData: Project[] = [
     tags: ["Frontend", "Interactive", "React", "Mentorship", "Community"],
     siteUrl: "https://ask-joybhaiya.vercel.app/",
     categories: ["Frontend"]
-  },
-  {
-    title: "Modern Mahal",
-    subtitle: "Real Estate Platform",
-    imgUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600",
-    tags: ["UI/UX", "Architecture", "Luxury Estates", "Concept UI", "3D Web"],
-    categories: ["UI/UX Design", "Graphic Design"]
   }
 ];

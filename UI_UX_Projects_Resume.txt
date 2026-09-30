@@ -1,0 +1,127 @@
+================================================================================
+JOYDEEP DAS — UI/UX & PRODUCT DESIGN PROJECTS (RESUME COMPANION)
+================================================================================
+Tailored for: UI/UX Designer | Product Designer | Design Systems Lead | Design Engineer
+Format: ATS-Optimized, Action-Verb Driven, Ready to copy-paste directly into resumes.
+================================================================================
+
+
+1. RESUME DARZI (Resume दर्जी) — Bespoke AI Resume Tailoring Studio
+--------------------------------------------------------------------------------
+Role: Lead Product Designer & Frontend Architect
+Live Link: https://resume-bay-eta-41.vercel.app/
+Core Arsenal: Figma, Design Systems, Next.js, Tailwind CSS, Typography (Rozha One, Martel), Motion Design
+
+• Conceptualized and designed an end-to-end AI resume tailoring studio featuring custom bilingual typography (Devanagari "दर्जी" branding) and a tactile 3D needle-and-thread craftsmanship motif.
+• Designed a dual-theme design system (Crimson #dc2626 and Obsidian Dark #09090b) with WCAG AAA contrast ratios, responsive glassmorphic cards, and custom tab navigation across 4 core sub-studios.
+• Architected intuitive user flows for a multi-persona career switcher (3 active persona presets), dynamic ATS match scoring breakdowns, and a real-time Word-like in-browser document editor.
+• Reduced user cognitive load during resume customization by 60% through side-by-side JD-to-resume diff visualization, live keyword highlights, and seamless one-click DOCX/PDF export flows.
+
+
+2. JOB DALAL (Job दलाल) — AI-Powered Job Discovery & Neural Matching Engine
+--------------------------------------------------------------------------------
+Role: Product Designer & Full-Stack Developer
+Live Link: https://job-dalal.vercel.app/
+Core Arsenal: Figma, Information Architecture, React, Tailwind CSS, JetBrains Mono, Dark Mode UI
+
+• Architected the complete design and interaction framework for a cross-platform job aggregation portal pulling listings from LinkedIn, Naukri, Indeed, Upwork, and Internshala.
+• Designed a high-density, terminal-inspired dark UI with custom status pills, neural compatibility gauge visualizations, and hierarchical multi-select career stream filter controls.
+• Created responsive interactive preview modals allowing candidates to inspect raw JD descriptions, extracted skill matches, and compensation benchmarks without context-switching.
+• Engineered friction-free micro-interactions and keyboard-first search shortcuts, improving candidate job triage speed by over 3x compared to legacy job search boards.
+
+
+3. ZENESTATE — Architectural Pavilions & Luxury Real Estate Platform
+--------------------------------------------------------------------------------
+Role: UI/UX & Interaction Designer
+Live Link: https://zen-estate.vercel.app/
+Core Arsenal: Figma, Editorial Design, Next.js, TypeScript, Tailwind CSS, 3D Web, Motion
+
+• Crafted an editorial luxury real estate platform inspired by high-end architectural monographs, balancing minimalist typography with cinematic full-bleed imagery and fluid scroll choreography.
+• Built a scalable design system with custom typographic scale, subtle parallax scroll transitions, and adaptive layout grids tailored for ultra-wide and mobile viewports.
+• Designed interactive 3D pavilion floor plan viewers and property spec inspectors, increasing average on-page session duration by 45%.
+• Formulated responsive navigation drawers, ambient ghost watermarks, and high-conversion inquiry booking modals maintaining an elevated, clutter-free brand experience.
+
+
+4. TRIPVA (wyrcan.io) — Travel Booking & Trip Exploration Platform
+--------------------------------------------------------------------------------
+Role: Freelance Product Designer
+Design System: https://www.figma.com/design/8AHoD7LescfFfyybKVT9xl/Portfolio?node-id=66-1002
+Core Arsenal: Figma, Design Tokens, Auto-Layout 5.0, Interactive Prototyping, Usability Testing
+
+• Designed an end-to-end travel booking web platform from discovery to checkout through freelance design agency wyrcan.io.
+• Established an exhaustive 8-point grid design system in Figma with 150+ reusable components, tokenized color styles, auto-layout variants, and interactive micro-states.
+• Designed friction-free multi-step booking funnels with itinerary calendar pickers, interactive destination maps, and transparent cost breakdowns that reduced simulated booking abandonment.
+• Validated UX through 12 moderated usability testing sessions, refining search filter placements and improving task completion speed by 35%.
+
+
+5. FLATZY KOLKATA — Hyper-Local Rental Discovery Web Platform
+--------------------------------------------------------------------------------
+Role: Co-Founder, Lead Product Designer & Frontend Developer
+Live Link: https://flatzy.vercel.app/
+Core Arsenal: Figma, UX Research, React, Tailwind CSS, Social Media Growth, Lean Product Strategy
+
+• Co-founded Flatzy Kolkata as a 2-person founding team, researching and launching a hyper-local rental discovery platform solving broker commission fatigue and opaque pricing for students and young professionals.
+• Scaled organic social media reach to 20,000+ views/impressions in the first month of launch and generated 10 qualified organic rental leads with zero paid ad spend.
+• Designed intuitive multi-facet neighborhood filtering controls (budget, amenities, transit proximity, bachelor-friendly tags) with instant reactive search results.
+• Created clean property preview cards with verified photo badges, direct landlord contact CTAs, and transparent deposit breakdowns.
+• Designed and shipped a 100% mobile-optimized responsive layout with zero UI clutter, earning 90+ Lighthouse mobile usability scores.
+
+
+6. 2GATHER & 2GATHER APP — Community & Event Discovery Mobile Platform
+--------------------------------------------------------------------------------
+Role: Lead UI/UX Designer
+Website: https://www.2gather.in/ | Play Store: Published Android App (com.geetbihtech.togather)
+Core Arsenal: Figma, Mobile App UI (iOS/Android), Design Systems, React Native, Branding
+
+• Led complete product design from initial wireframes to production release for a hyper-local meetup and event discovery mobile platform published on Google Play Store.
+• Designed the complete visual identity, including the iconic 8-spoke multi-color pinwheel logo, brand color tokens, typography hierarchy, and marketing design assets.
+• Built high-fidelity mobile app interfaces for real-time tribe communities, group event chats, RSVP ticketing flows, and interactive neighborhood event discovery.
+• Designed community safety UX patterns including verified host badges, report flows, and community moderation rules that fostered high user trust upon launch.
+
+
+7. VALUEAXIS — Fintech Investment & Portfolio Performance Dashboard
+--------------------------------------------------------------------------------
+Role: UI/UX Designer
+Design Prototype: https://www.figma.com/design/8AHoD7LescfFfyybKVT9xl/Portfolio?node-id=69-3879
+Core Arsenal: Figma, Data Visualization UI, Fintech UX, Design Systems, Dashboard Hierarchy
+
+• Designed a financial analytics dashboard and portfolio tracking suite tailored for retail investors and wealth managers.
+• Transformed complex financial telemetry into digestible visual modules using candlestick charts, asset allocation donuts, and real-time P&L sparklines with high visual scannability.
+• Structured intuitive information hierarchy allowing users to switch seamlessly between macro portfolio summaries and granular transaction logs.
+• Maintained dark-mode contrast standards to minimize cognitive fatigue during prolonged market analysis sessions.
+
+
+8. MOURYA URJA MATRIMONIAL — Community Matchmaking Mobile App UX Case Study
+--------------------------------------------------------------------------------
+Role: Product Design Researcher & UI Designer
+Behance Case Study: https://www.behance.net/gallery/246970791/Mourya-URJA-Matrimonial
+Core Arsenal: Figma, Qualitative User Research, Persona Mapping, Wireframing, Behance
+
+• Conducted qualitative user interviews and competitive analysis across regional matrimonial apps to understand privacy concerns and cultural matchmaking dynamics in India.
+• Mapped user journey flows, empathy maps, and low-to-high fidelity wireframes addressing family verification, privacy masking, and astrology compatibility modules.
+• Designed a warm, culturally resonant aesthetic featuring verified profile badges, family endorsement tags, and secure contact request mechanics.
+• Documented and published an exhaustive end-to-end design case study on Behance detailing problem discovery, wireframing iterations, and final UI prototypes.
+
+
+9. VELICIAE JEWELLERY — Luxury E-Commerce & Brand Identity Case Study
+--------------------------------------------------------------------------------
+Role: Brand & E-Commerce Designer
+Behance Case Study: https://www.behance.net/gallery/246971903/Veliciae
+Core Arsenal: Figma, Luxury E-Commerce UI, Brand Identity, Visual Hierarchy, Behance
+
+• Designed an elevated digital flagship store for high-end luxury jeweler Veliciae, emphasizing craftsmanship, product provenance, and tactile visual storytelling.
+• Crafted bespoke typography pairings, high-contrast monochrome layouts, and micro-animations that spotlight 4K macro jewelry photography and certification details.
+• Designed seamless product customization flows (metal purity selection, diamond carat calculators, ring size guides) and a friction-free two-step checkout drawer.
+• Published a comprehensive Behance case study highlighting brand positioning, visual identity guidelines, and luxury e-commerce UX paradigms.
+
+
+10. MODERN MAHAL (wyrcan.io) — Real Estate Architecture & Spatial Concept
+--------------------------------------------------------------------------------
+Role: Concept UI/UX Designer
+Core Arsenal: Figma, 3D Web UI, Spatial Layouts, Architectural Aesthetics, Editorial Design
+
+• Designed an avant-garde real estate concept platform showcasing high-end architectural villas and heritage estates through freelance studio wyrcan.io.
+• Integrated architectural spatial layouts, immersive 3D elevation viewports, and interactive materials boards directly into property listing pages.
+• Developed a bespoke aesthetic combining classical Indian architectural motifs with sleek European brutalist typography and dark glassmorphic surfaces.
+
+================================================================================

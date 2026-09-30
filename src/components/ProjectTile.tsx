@@ -88,7 +88,7 @@ export const ProjectTile = ({
       </div>
 
       {/* Card Info Section */}
-      <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-10 pointer-events-none">
+      <div className="absolute inset-0 p-5 md:p-6 lg:p-7 flex flex-col justify-end z-10 pointer-events-none">
         {/* Dynamic Category/Tag Pills */}
         <div className="flex flex-wrap gap-1.5 mb-3 opacity-90 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-[-4px]">
           {tags.slice(0, 4).map(tag => (
@@ -103,7 +103,7 @@ export const ProjectTile = ({
 
         {/* Project Title & Description */}
         <div className="transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-[-4px]">
-          <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2 group-hover:text-primary transition-colors duration-300">
+          <h3 className="text-xl sm:text-2xl lg:text-[1.65rem] font-bold text-white tracking-tight leading-tight mb-1.5 group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
           <p className="text-white/60 text-xs md:text-sm font-medium leading-relaxed max-w-md line-clamp-2">

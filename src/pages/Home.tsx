@@ -4,6 +4,7 @@ import { ArrowRight, Palette, Brain, Code2, Terminal, Cpu, Wind, ChevronDown, At
 import { Link } from "react-router-dom";
 import ScrollVelocity from "../components/ScrollVelocity";
 import { ProjectTile } from "../components/ProjectTile";
+import TechText from "../components/TechText";
 import DinoWidget from "../components/DinoWidget";
 import { projectsData } from "../data/projects";
 
@@ -52,15 +53,15 @@ const ExpertiseCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
       onMouseMove={handleMouseMove}
-      className="group relative overflow-hidden rounded-[2rem] h-full min-h-[400px] transition-all duration-500 hover:-translate-y-2 flex flex-col border border-white/5 hover:border-white/10 bg-white/[0.03] backdrop-blur-3xl"
+      className="group relative overflow-hidden rounded-2xl md:rounded-[1.75rem] h-full transition-all duration-500 hover:-translate-y-1.5 flex flex-col border border-white/5 hover:border-white/10 bg-white/[0.03] backdrop-blur-3xl"
     >
       {/* Interactive Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-2xl md:rounded-[1.75rem] opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useTransform(
               [mouseX, mouseY],
-              ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 80%)`
+              ([x, y]) => `radial-gradient(500px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 80%)`
           ),
         }}
       />
@@ -68,53 +69,53 @@ const ExpertiseCard = ({
       <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity`} />
       
       {/* Background Decorative Icon */}
-      <div className="absolute -right-8 -top-8 opacity-[0.03] group-hover:opacity-[0.07] group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 pointer-events-none">
-        <Icon size={240} className={colorClass} />
+      <div className="absolute -right-6 -top-6 opacity-[0.03] group-hover:opacity-[0.07] group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 pointer-events-none">
+        <Icon size={160} className={colorClass} />
       </div>
 
-      <div className="relative flex-1 p-8 md:p-10 flex flex-col justify-between z-10">
+      <div className="relative flex-1 p-5 md:p-6 lg:p-7 flex flex-col justify-between z-10">
         <div>
-          <div className="flex justify-between items-start mb-8">
-            <div className={`w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-xl overflow-hidden relative`}>
+          <div className="flex justify-between items-start mb-5">
+            <div className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-lg overflow-hidden relative`}>
                <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-20`} />
-               <Icon className={`w-8 h-8 ${colorClass} relative z-10`} />
+               <Icon className={`w-6 h-6 ${colorClass} relative z-10`} />
             </div>
             
             {secondaryLinkText && secondaryLinkTo && (
                 secondaryLinkTo.startsWith('http') ? (
-                  <a href={secondaryLinkTo} target="_blank" rel="noopener noreferrer" className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 text-xs font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
+                  <a href={secondaryLinkTo} target="_blank" rel="noopener noreferrer" className="px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/50 text-[11px] font-semibold uppercase tracking-wider hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
                     {secondaryLinkText}
                   </a>
                 ) : (
-                  <Link to={secondaryLinkTo} className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 text-xs font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
+                  <Link to={secondaryLinkTo} className="px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/50 text-[11px] font-semibold uppercase tracking-wider hover:bg-white/10 hover:text-white transition-all backdrop-blur-md hover:scale-105 active:scale-95">
                     {secondaryLinkText}
                   </Link>
                 )
             )}
           </div>
 
-          <h3 className="font-headline text-3xl font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-300">{title}</h3>
-          <p className="text-white/60 leading-relaxed text-sm md:text-base font-light max-w-[90%]">{description}</p>
+          <h3 className="font-headline text-xl md:text-2xl font-bold mb-2.5 tracking-tight group-hover:text-primary transition-colors duration-300">{title}</h3>
+          <p className="text-white/60 leading-relaxed text-xs md:text-sm font-light">{description}</p>
           {doodleNote && (
-            <div className="mt-4 inline-flex items-center gap-2 font-handwriting text-lg font-bold select-none text-white/80">
+            <div className="mt-3 inline-flex items-center gap-1.5 font-handwriting text-sm md:text-base font-bold select-none text-white/80">
               {doodleSvg}
               <span>{doodleNote}</span>
             </div>
           )}
         </div>
 
-        <div className="mt-10">
+        <div className="mt-6">
           {isExternal ? (
-            <a href={linkTo} target="_blank" rel="noopener noreferrer" className={`group/btn relative inline-flex items-center gap-3 py-3 px-6 rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
+            <a href={linkTo} target="_blank" rel="noopener noreferrer" className={`group/btn relative inline-flex items-center gap-2.5 py-2.5 px-4 sm:px-5 rounded-lg bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
               <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover/btn:opacity-10 transition-opacity`} />
-              <span className={`font-bold text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
-              <ArrowRight className={`w-4 h-4 ${colorClass} group-hover/btn:translate-x-2 transition-transform duration-300`} />
+              <span className={`font-semibold text-xs md:text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
+              <ArrowRight className={`w-3.5 h-3.5 ${colorClass} group-hover/btn:translate-x-1.5 transition-transform duration-300`} />
             </a>
           ) : (
-            <Link to={linkTo} className={`group/btn relative inline-flex items-center gap-3 py-3 px-6 rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
+            <Link to={linkTo} className={`group/btn relative inline-flex items-center gap-2.5 py-2.5 px-4 sm:px-5 rounded-lg bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-white/20`}>
               <div className={`absolute inset-0 bg-gradient-to-r ${gradientClass} opacity-0 group-hover/btn:opacity-10 transition-opacity`} />
-              <span className={`font-bold text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
-              <ArrowRight className={`w-4 h-4 ${colorClass} group-hover/btn:translate-x-2 transition-transform duration-300`} />
+              <span className={`font-semibold text-xs md:text-sm ${colorClass} group-hover/btn:translate-x-1 transition-transform duration-300`}>{linkText}</span>
+              <ArrowRight className={`w-3.5 h-3.5 ${colorClass} group-hover/btn:translate-x-1.5 transition-transform duration-300`} />
             </Link>
           )}
         </div>
@@ -171,6 +172,95 @@ const SpotlightGlassCard = ({
   );
 };
 
+// Company Logos for Experience Timeline
+const WyrcanLogo = () => (
+  <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <defs>
+      <linearGradient id="wyrcan-grad" x1="4" y1="6" x2="40" y2="38" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#FF7A00" />
+        <stop offset="0.5" stopColor="#FF3D00" />
+        <stop offset="1" stopColor="#E52E71" />
+      </linearGradient>
+    </defs>
+    <path 
+      d="M8 12L15.5 32L22 17L28.5 32L36 12" 
+      stroke="url(#wyrcan-grad)" 
+      strokeWidth="4" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+    />
+    <circle cx="22" cy="10" r="3" fill="#FF7A00" />
+  </svg>
+);
+
+const SkillArbitrageLogo = () => (
+  <svg viewBox="0 0 2800 3300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full p-0.5">
+    <path 
+      d="M628 36c345 0 628 283 628 629v2020c0 346-283 629-628 629S0 3031 0 2685V665C0 319 283 36 628 36z" 
+      fill="#4361EE" 
+    />
+    <circle cx="2157" cy="1675" r="629" fill="#4361EE" />
+  </svg>
+);
+
+const GeetbihLabsLogo = () => (
+  <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <defs>
+      <linearGradient id="geetbih-grad" x1="6" y1="6" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#86EFAC" />
+        <stop offset="1" stopColor="#10B981" />
+      </linearGradient>
+    </defs>
+    <polygon points="22,6 36,14 36,30 22,38 8,30 8,14" stroke="url(#geetbih-grad)" strokeWidth="3" strokeLinejoin="round" fill="none" />
+    <circle cx="22" cy="22" r="4.5" fill="#86EFAC" />
+    <line x1="22" y1="10" x2="22" y2="17.5" stroke="#86EFAC" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="32" y1="27" x2="26.5" y2="24" stroke="#86EFAC" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="12" y1="27" x2="17.5" y2="24" stroke="#86EFAC" strokeWidth="2.5" strokeLinecap="round" />
+  </svg>
+);
+
+const AlWallahLogo = () => (
+  <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <defs>
+      <linearGradient id="alwallah-grad" x1="6" y1="6" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#C084FC" />
+        <stop offset="1" stopColor="#F43F5E" />
+      </linearGradient>
+    </defs>
+    <path 
+      d="M22 6 L25 17 L36 17 L27 24 L30 35 L22 28 L14 35 L17 24 L8 17 L19 17 Z" 
+      fill="url(#alwallah-grad)" 
+    />
+    <circle cx="22" cy="22" r="3" fill="#ffffff" />
+  </svg>
+);
+
+const TwoGatherLogo = () => (
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <rect x="44" y="6" width="12" height="26" rx="6" fill="#4f46e5" />
+    <rect x="68" y="16" width="12" height="26" rx="6" transform="rotate(45 74 29)" fill="#4f46e5" />
+    <rect x="68" y="44" width="26" height="12" rx="6" fill="#4f46e5" />
+    <rect x="68" y="58" width="12" height="26" rx="6" transform="rotate(-45 74 71)" fill="#4f46e5" />
+    <rect x="44" y="68" width="12" height="26" rx="6" fill="#4f46e5" />
+    <path d="M12 68 H34 A6 6 0 0 1 40 74 V92 A6 6 0 0 1 28 92 V78 H12 A6 6 0 0 1 12 68 Z" fill="#ff6b35" />
+    <rect x="6" y="44" width="26" height="12" rx="6" fill="#4f46e5" />
+    <rect x="20" y="16" width="12" height="26" rx="6" transform="rotate(-45 26 29)" fill="#4f46e5" />
+  </svg>
+);
+
+const YgsdLogo = () => (
+  <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <defs>
+      <linearGradient id="ygsd-grad" x1="4" y1="4" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#89CFF0" />
+        <stop offset="1" stopColor="#0EA5E9" />
+      </linearGradient>
+    </defs>
+    <rect x="5" y="5" width="34" height="34" rx="10" stroke="url(#ygsd-grad)" strokeWidth="3" />
+    <path d="M13 14 L22 24 V32 M31 14 L22 24" stroke="#89CFF0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const ExperienceItem = ({ 
   title, 
   company, 
@@ -179,7 +269,8 @@ const ExperienceItem = ({
   colorClass,
   isFirst,
   isLast,
-  doodle
+  doodle,
+  logo
 }: { 
   title: string; 
   company: string; 
@@ -189,17 +280,18 @@ const ExperienceItem = ({
   isFirst?: boolean; 
   isLast?: boolean;
   doodle?: React.ReactNode;
+  logo?: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
     <motion.div 
       initial={false}
-      className="group relative pl-8 pb-6 last:pb-0 transition-all duration-500"
+      className="group relative pl-8 pb-7 last:pb-0 transition-all duration-500"
     >
       {/* Timeline Line Segment */}
       {!isLast && (
-        <div className={`absolute left-0 top-[18px] bottom-0 w-[2px] ${
+        <div className={`absolute left-0 top-[20px] bottom-0 w-[2px] ${
           isFirst 
             ? 'bg-gradient-to-b from-primary to-white/10 group-hover:from-primary group-hover:to-primary/20' 
             : 'bg-gradient-to-b from-white/10 to-white/5 group-hover:from-primary/30 group-hover:to-white/5'
@@ -208,22 +300,27 @@ const ExperienceItem = ({
 
       {/* Timeline Bullet */}
       {isFirst ? (
-        <div className="absolute left-[-5.5px] top-[5px] flex items-center justify-center w-[13px] h-[13px] z-10">
+        <div className="absolute left-[-5.5px] top-[9px] flex items-center justify-center w-[13px] h-[13px] z-10">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40"></span>
           <div className="relative w-[9px] h-[9px] rounded-full bg-primary shadow-[0_0_12px_rgba(255,152,0,0.9)]" />
         </div>
       ) : isLast ? (
-        <div className="absolute left-[-4.5px] top-[6px] w-[11px] h-[11px] rounded-full bg-secondary border border-white/20 shadow-[0_0_10px_rgba(255,87,34,0.6)] z-10" />
+        <div className="absolute left-[-4.5px] top-[10px] w-[11px] h-[11px] rounded-full bg-secondary border border-white/20 shadow-[0_0_10px_rgba(255,87,34,0.6)] z-10" />
       ) : (
-        <div className="absolute left-[-3.5px] top-[7px] w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary/80 group-hover:scale-110 transition-all duration-500 shadow-[0_0_6px_rgba(255,255,255,0.1)] z-10" />
+        <div className="absolute left-[-3.5px] top-[11px] w-[9px] h-[9px] rounded-full bg-white/20 group-hover:bg-primary/80 group-hover:scale-110 transition-all duration-500 shadow-[0_0_6px_rgba(255,255,255,0.1)] z-10" />
       )}
       
       <div 
         className="cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
+        <div className="flex justify-between items-start gap-3.5 md:gap-4">
+          {logo && (
+            <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center p-2 shrink-0 group-hover:border-primary/40 group-hover:bg-white/[0.07] group-hover:scale-105 transition-all duration-300 shadow-md overflow-hidden">
+              {logo}
+            </div>
+          )}
+          <div className="flex-1 min-w-0">
             <h4 className="text-lg md:text-xl font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">{title}</h4>
             <div className="flex items-center gap-3 mt-0.5 mb-1.5 flex-wrap">
               <span className={`font-bold text-xs md:text-sm ${colorClass}`}>{company}</span>
@@ -232,7 +329,7 @@ const ExperienceItem = ({
               <span className="text-white/40 text-[10px] md:text-xs font-medium">{period}</span>
             </div>
           </div>
-          <button className={`p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all`}>
+          <button className={`p-1.5 rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all shrink-0 mt-0.5`}>
             <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
               <ChevronDown className="w-5 h-5 text-white/40 group-hover:text-primary" />
             </motion.div>
@@ -552,12 +649,12 @@ export default function Home() {
           <SpotlightGlassCard 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:col-span-9 pt-8 px-5 pb-6 md:p-12 flex flex-col justify-between min-h-[400px] md:min-h-[500px]"
+            className="lg:col-span-9 p-6 md:p-8 lg:p-9 flex flex-col justify-between"
           >
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
             
             <div className="relative z-10">
-              <div className="flex justify-between items-start mb-8 md:mb-12">
+              <div className="flex justify-between items-start mb-4 md:mb-6">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary/20 bg-surface-bright relative group">
                     <div 
@@ -592,64 +689,69 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="relative inline-block mb-8 max-w-2xl">
-                <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.04em]">
-                  Hi, I'm{" "}
-                  <span className="relative inline-block">
-                    <span className="animated-gradient-text">Joydeep</span>
-                    {/* Hand-Drawn Wavy Underline */}
-                    <svg 
-                      className="absolute -bottom-2.5 left-0 w-full h-3.5 text-primary/80 overflow-visible pointer-events-none" 
-                      viewBox="0 0 120 12" 
-                      fill="none" 
-                      preserveAspectRatio="none"
-                    >
-                      <path 
-                        d="M 2 8 C 30 1, 65 13, 118 6" 
-                        stroke="currentColor" 
-                        strokeWidth="3" 
-                        strokeLinecap="round" 
-                      />
-                    </svg>
-                  </span>
-                  .
-                </h1>
+              <div className="relative mb-3 md:mb-4 w-full max-w-2xl">
+                {/* Accessible H1 heading for SEO & screen readers */}
+                <h1 className="sr-only">Hi, I'm Joydeep</h1>
 
-                {/* Floating Starburst Doodle */}
-                <motion.svg
-                  animate={{ rotate: [0, 180, 360], scale: [1, 1.15, 1] }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                  className="absolute -top-4 -right-8 w-6 h-6 md:w-8 md:h-8 text-secondary/70 pointer-events-none hidden sm:block"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                >
-                  <path d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M19 5 L5 19" strokeDasharray="1 2.5" />
-                  <circle cx="12" cy="12" r="2" fill="currentColor" />
-                </motion.svg>
+                {/* TechText Interactive Wordmark from React Bits */}
+                <div className="w-full h-[65px] sm:h-[80px] md:h-[95px] relative">
+                  <TechText
+                    text="Hi, I'm Joydeep"
+                    fontWeight={800}
+                    fontSize={80}
+                    letterSpacing={-0.03}
+                    color="#ffffff"
+                    accentColor="#eb7e37"
+                    reveal="letter"
+                    dashLength={4}
+                    dashGap={2}
+                    specks={12}
+                    draggable={true}
+                    selection={true}
+                    labels={true}
+                    sweep={true}
+                    speed={1}
+                    align="left"
+                  />
+                </div>
+
+                {/* Micro floating hint for interactive letters */}
+                <div className="flex items-center gap-2 mt-0.5 select-none pointer-events-none">
+                  <span className="font-handwriting text-xs text-primary/70 font-bold -rotate-1">
+                    ✦ drag letters or hover to inspect outlines
+                  </span>
+                </div>
               </div>
               
-              <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
-                Founder of <a href="https://whynotstash.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">Stash</a> (Clipboard Manager). A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>, 
-                <span className="text-secondary font-semibold"> Gen AI Developer</span>, and 
+              <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
+                Founder of{" "}
+                <a 
+                  href="https://flatzy.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-primary font-semibold hover:underline"
+                >
+                  Flatzykolkata
+                </a>{" "}
+                with a social reach of <span className="text-white font-medium">20k+</span> in the first month and <span className="text-white font-medium">10 organic leads</span> as a duo team. A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>,{" "}
+                <span className="text-secondary font-semibold">Gen AI Developer</span>, and{" "}
                 <span className="relative inline-block text-[#89CFF0] font-semibold">
-                  <span> Front-end Developer</span>
+                  <span>Front-end Developer</span>
                   <svg className="absolute -bottom-1 left-1 w-full h-2 text-[#89CFF0]/60 overflow-visible pointer-events-none" viewBox="0 0 80 8" fill="none">
                     <path d="M 2 5 Q 40 1 78 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                   </svg>
-                </span> crafting high-performance digital experiences.
+                </span>{" "}
+                crafting high-performance digital experiences.
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-wrap items-center gap-4 mt-12">
-              <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="bg-primary text-background px-8 py-4 rounded-full font-bold hover:scale-105 active:scale-95 transition-transform shadow-lg">
+            <div className="relative z-10 flex flex-wrap items-center gap-3 mt-6 md:mt-7">
+              <a href="https://www.instagram.com/pixeldeck.design" target="_blank" rel="noopener noreferrer" className="bg-primary text-background px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-lg">
                 Explore More
               </a>
               <button 
                 onClick={() => setIsContactOpen(true)} 
-                className="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-colors"
+                className="bg-white/5 border border-white/10 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-colors"
               >
                 Get in Touch
               </button>
@@ -671,7 +773,7 @@ export default function Home() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 rounded-3xl md:rounded-[2.5rem] overflow-hidden relative group min-h-[350px] md:min-h-[450px] lg:min-h-[500px] flex flex-col justify-between"
+            className="lg:col-span-3 rounded-3xl md:rounded-[2.5rem] overflow-hidden relative group flex flex-col justify-between"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF4500] pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-white/20 pointer-events-none" />
@@ -828,10 +930,11 @@ export default function Home() {
                 <div className="relative mt-2">
                 <ExperienceItem 
                   isFirst
-                  title="Web Designer"
-                  company="TripEva · Freelance"
+                  title="Freelance Designer / Dev"
+                  company="wyrcan.io"
                   period="Aug 2026 — Present"
                   colorClass="text-primary"
+                  logo={<WyrcanLogo />}
                   doodle={
                     <span className="font-handwriting text-xs text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 rounded-full -rotate-2 select-none inline-flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -839,19 +942,25 @@ export default function Home() {
                     </span>
                   }
                   description={
-                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                      Crafting high-impact, responsive web layouts and landing pages from concept to launch. Working closely with clients and developers, I translate brand goals into clean, fluid digital interfaces with meticulous attention to typography, micro-interactions, and modern design standards.
-                    </p>
+                    <div className="space-y-3">
+                      <p className="text-white/70 leading-relaxed text-sm md:text-base">
+                        Delivering end-to-end UI/UX design and frontend development for clients through <strong className="text-white font-semibold">wyrcan.io</strong>. Architected and developed flagship platforms including travel booking &amp; exploration system <strong className="text-white font-semibold">TripEva</strong> and luxury architectural real estate platform <strong className="text-white font-semibold">Modern Mahal</strong>.
+                      </p>
+                      <p className="text-white/60 leading-relaxed text-xs md:text-sm">
+                        Crafting high-impact, responsive web layouts, scalable design systems, and fluid micro-interactions from concept through launch.
+                      </p>
+                    </div>
                   }
                 />
                 <ExperienceItem 
-                  title="Academic Counsellor"
+                  title="Consultant"
                   company="SkillArbitrage · Full-time"
-                  period="Jul 2026 — Present"
+                  period="Jul 2026 — Sep 2026"
                   colorClass="text-secondary"
+                  logo={<SkillArbitrageLogo />}
                   description={
                     <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                      Guiding students and working professionals navigating career pivots and tech upskilling. By assessing individual goals and industry trends, I help learners choose suitable professional programs, master emerging tools, and map out sustainable career roadmaps.
+                      Consulting students and working professionals navigating career pivots and tech upskilling. By assessing individual goals and industry trends, I helped learners choose suitable professional programs, master emerging tools, and map out sustainable career roadmaps.
                     </p>
                   }
                 />
@@ -860,20 +969,10 @@ export default function Home() {
                   company="GEETBIH Labs Pvt Ltd. · Part-time"
                   period="Apr 2026 — Present"
                   colorClass="text-[#86EFAC]"
+                  logo={<GeetbihLabsLogo />}
                   description={
                     <p className="text-white/70 leading-relaxed text-sm md:text-base">
                       Driving end-to-end design for scalable digital products while building and maintaining cohesive design systems across web and mobile. I partner closely with engineers and product stakeholders to shape user-centric solutions, integrating generative AI and prompt design directly into our design process to accelerate prototyping without compromising craft.
-                    </p>
-                  }
-                />
-                <ExperienceItem 
-                  title="App Designer"
-                  company="Modern Mahal"
-                  period="Aug 2025 — Nov 2025"
-                  colorClass="text-[#89CFF0]"
-                  description={
-                    <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                      Designed intuitive mobile and web interfaces in Figma aligned with brand identity. Through continuous usability reviews and iterative refinements, I simplified navigation flows and enhanced visual accessibility across primary user touchpoints.
                     </p>
                   }
                 />
@@ -882,6 +981,7 @@ export default function Home() {
                   company="Al Wallah"
                   period="May 2025 — Jul 2025"
                   colorClass="text-secondary"
+                  logo={<AlWallahLogo />}
                   description={
                     <p className="text-white/70 leading-relaxed text-sm md:text-base">
                       Built and shipped full-stack LLM applications powered by the Google Gemini API, handling multi-turn conversational agents with a Flask backend and JavaScript frontend. Through prompt engineering and rapid experimentation, our team cut AI feature prototyping cycles by roughly 50%.
@@ -893,6 +993,7 @@ export default function Home() {
                   company="2GatherApp"
                   period="Feb 2025 — Oct 2025"
                   colorClass="text-primary"
+                  logo={<TwoGatherLogo />}
                   description={
                     <p className="text-white/70 leading-relaxed text-sm md:text-base">
                       Designed community-first mobile experiences centered on social discovery and event engagement. Along with architecting a unified design system for the core product, I directed creative social media campaigns and Gen-Z-friendly content that drove organic growth and community reach.
@@ -905,6 +1006,7 @@ export default function Home() {
                   company="YGSD"
                   period="Sep 2024 — Nov 2024"
                   colorClass="text-[#89CFF0]"
+                  logo={<YgsdLogo />}
                   description={
                     <div className="space-y-3">
                       <p className="text-white/70 leading-relaxed text-sm md:text-base">
@@ -1177,7 +1279,7 @@ export default function Home() {
 
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (

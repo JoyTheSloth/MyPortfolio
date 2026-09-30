@@ -1,0 +1,105 @@
+================================================================================
+JOYDEEP DAS — UI/UX & PRODUCT DESIGN RESUME
+================================================================================
+Phone: +91-7085917058 | Email: joy.thesloth@gmail.com | Location: Kolkata, West Bengal, India
+Portfolio: https://joydeepdas-portfolio.vercel.app/ | GitHub: https://github.com/JoyTheSloth
+LinkedIn: https://linkedin.com/in/joydeep-das-78123522a | Behance: https://behance.net/joydeepdas
+================================================================================
+
+PROFESSIONAL SUMMARY
+--------------------------------------------------------------------------------
+Creative UI/UX Designer and AI product builder with 2 years of experience designing web and mobile products, design systems and brand identities from concept to launch. Bridges design and engineering with Figma, React and Python, and builds AI-powered tools and premium 3D web experiences.
+
+--------------------------------------------------------------------------------
+TECHNICAL SKILLS
+--------------------------------------------------------------------------------
+• Design & Prototyping: Figma, Figma Make, Google Stitch, Adobe Illustrator, Framer, Canva, Spline, Prototyping, 3D Web Experience Design, Interactive Motion Design, AI Image Generation (Nano Banana)
+• UX Methods: Wireframing, User Flows, Information Architecture, Design Systems, Usability Reviews, Accessibility, Responsive Design, Design Handoff, Cross-Functional Collaboration
+• Languages & Frameworks: HTML5, CSS, JavaScript, Python3, FastAPI, React.js, Tailwind CSS, Bootstrap
+• AI & LLMs: LangChain, LangSmith, Google Gemini API, Ollama (Gemma, LLaMA 3), Prompt Engineering, RAG, Multi-Agent Systems
+• Automation & Version Control: Make.com, n8n, Git, GitHub
+
+--------------------------------------------------------------------------------
+WORK EXPERIENCE
+--------------------------------------------------------------------------------
+
+Freelance Designer / Developer — wyrcan.io | Freelance, Remote
+August 2026 – Present
+• Build and design frontends for digital platforms across travel, real estate and consumer tech, including TripEva (route calculators, search filters) and Modern Mahal (luxury real estate platform).
+• Maintain a design-to-code workflow with TypeScript and Tailwind CSS across client sites.
+
+Consultant — SkillArbitrage | Full-time, Remote [SALES & CONSULTING ROLE]
+July 2026 – September 2026
+• Advised students and early-career professionals on AI, ML, and full-stack upskilling programs, handling lead qualification, counselling, follow-ups, and enrollment conversations.
+• Managed sales activities through CRM workflows and Zoho Workspace, maintaining prospect records, follow-ups, communication, and pipeline tracking.
+
+Lead UI/UX Designer — GEETBIH Labs Pvt. Ltd. | Part-time
+April 2026 – Present
+• Lead end-to-end UI/UX design for web and mobile products, from wireframes and Figma prototypes to developer handoff.
+• Build and maintain a design system (components, tokens, style guides) used across web and mobile platforms.
+• Use generative AI and prompt design to speed up prototyping, and review React/CSS builds with developers so implementation matches the design.
+
+UI/UX Designer & Social Media Marketer — 2GatherApp | Remote [CONTENT & DESIGN ROLE]
+February 2025 – October 2025
+• Created the visual identity (logo, color tokens, typography) and marketing assets for a social meetup app published on Google Play.
+• Ran social media campaigns that grew reach and app downloads; produced engaging visual and promotional content across social platforms.
+
+App Designer — Modern Mahal | Remote
+August 2025 – November 2025
+• Designed web and mobile interfaces in Figma; ran usability reviews to improve navigation, accessibility and visual hierarchy.
+
+Web Designer — YGSD | Remote
+September 2024 – November 2024
+• Designed Figma web layouts for Mourya Urja Matrimonial and Veliciae Jewellery, incorporated client feedback and collaborated with developers on implementation.
+
+--------------------------------------------------------------------------------
+PROJECTS
+--------------------------------------------------------------------------------
+
+2GatherApp – UI/UX Design System | 2025 | Google Play
+• Designed high-fidelity mobile interfaces and a scalable design system to improve event discovery, engagement, and cross-platform consistency.
+
+TripEva – Travel Booking & Itinerary Platform | Design + Frontend · 2026
+• Designed the design system and UI for a travel platform (route maps, calendar pickers, pricing breakdowns) and built the frontend.
+
+Modern Mahal – App UX Optimization | Figma + UX Research · 2025
+• Designed and audited web/mobile interfaces, improving navigation, accessibility, and visual hierarchy through wireframes and iterative prototypes.
+
+Mourya Urja Matrimonial Platform | Web Design (Figma) · 2024 | Behance Case Study
+• Designed structured, accessible layouts for profile browsing, matchmaking, and onboarding; iterated on client feedback.
+
+ValueAxis Wealth – FinTech Design System | UI/UX + Brand Identity · 2026
+• Designed premium landing pages, onboarding, and investor dashboards; built a full design system (typography, tokens, components) and marketing/social assets.
+
+MediRAG: Clinical-Grade AI Reasoning & Retrieval | India Innovates 2026 · Team Project · 2026 | Live Demo | GitHub
+• Built a medical clinical decision support system on 211K+ records with a 107,425-vector clinical index; hybrid BioBERT + BM25 retrieval with a 2-step dual-Mistral verification pipeline.
+• Document-aware MediChat for PDF/report analysis with source citations, relevance scores, and NLI-based faithfulness checks; interactive 3D pipeline visualization for stakeholders.
+
+Additional Projects:
+• Stash (AI clipboard manager)
+• Cravlings
+• Veliciae Jewellery
+• @pixeldeck.design (product design content)
+
+--------------------------------------------------------------------------------
+EDUCATION
+--------------------------------------------------------------------------------
+Amity University Kolkata, India | July 2022 – 2026
+Bachelor of Technology – Computer Science and Engineering | CGPA: 7.25 / 10.0 (GPA: 7.1/10)
+
+Unacco School, Imphal West | 2022
+Class XII (Higher Secondary) — 82%
+
+Heritage Convent, Imphal West | 2020
+Class X (Secondary School) — 70%
+
+--------------------------------------------------------------------------------
+CERTIFICATIONS & ACHIEVEMENTS
+--------------------------------------------------------------------------------
+• Career Essentials in GitHub Professional Certificate | GitHub & LinkedIn Learning · 2025
+• Build Your Generative AI Productivity Skills | Microsoft & LinkedIn Learning · 2024
+• Career Essentials in Generative AI | Microsoft & LinkedIn Learning · 2024
+• SQL Essential Training | LinkedIn Learning · 2025
+• India Innovates 2026 National Hackathon: Rank 62 nationally (MediRAG)
+• Founder, @pixeldeck.design — Curated design concepts & 3D UI explorations
+================================================================================
