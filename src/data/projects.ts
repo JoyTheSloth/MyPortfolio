@@ -159,6 +159,22 @@ export const projectsData: Project[] = [
 
   // ── Tier 4: Interactive Web Apps & Community Tools ───────────────────
   {
+    title: "Mabbelle Studios",
+    subtitle: "We Build Websites & Applications for Forward-Thinking Brands",
+    imgUrl: "/mabbele-studios.vercel.app-Mabbelle Studios We Build Websites Applications for Forward-Thinking Brands-cvscreenshot.png",
+    tags: ["Frontend", "UI/UX", "Agency", "Web Design", "React", "Tailwind CSS"],
+    siteUrl: "https://mabbele-studios.vercel.app/",
+    categories: ["Frontend", "UI/UX Design"]
+  },
+  {
+    title: "Pandale Kolkata",
+    subtitle: "Local Brand & Community Website",
+    imgUrl: "/pandale.png",
+    tags: ["Frontend", "React", "Tailwind CSS", "UI/UX", "Vercel"],
+    siteUrl: "https://pandalekolkata.vercel.app/",
+    categories: ["Frontend", "UI/UX Design"]
+  },
+  {
     title: "2Gather Web",
     subtitle: "Where Exceptional Minds Converge",
     imgUrl: "/2gather-web.vercel.app-gather Where Exceptional Minds Converge-cvscreenshot.png",

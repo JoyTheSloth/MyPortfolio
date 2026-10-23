@@ -247,14 +247,14 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
                       <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                          <button 
-                           onClick={() => setActiveDocxPreview({ url: "/UIUX_Resume_Final.docx", title: "UI/UX Resume" })}
+                           onClick={() => setActiveDocxPreview({ url: "/Joydeep_Das_UIUX_CV.docx", title: "UI/UX Resume" })}
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-primary text-background font-bold text-[8px] md:text-[9px] uppercase tracking-[0.1em] hover:bg-primary/90 transition-all text-center flex items-center justify-center gap-1.5 shadow active:scale-95 cursor-pointer"
                          >
                            <Eye className="w-3.5 h-3.5" /> Preview
                          </button>
                          <a 
-                           href="/UIUX_Resume_Final.docx" 
-                           download="UIUX_Resume_Final.docx"
+                           href="/Joydeep_Das_UIUX_CV.docx" 
+                           download="Joydeep_Das_UIUX_CV.docx"
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/80 hover:text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-white/10 transition-all text-center border border-white/10 flex items-center justify-center gap-1.5 active:scale-95 shadow"
                          >
                            <Download className="w-3.5 h-3.5" /> Download
@@ -277,14 +277,14 @@ function ResumeDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
                       <div className="flex gap-2 w-full pt-1.5 md:pt-3 z-10">
                          <button 
-                           onClick={() => setActiveDocxPreview({ url: "/DEV_CV.docx", title: "Dev CV" })}
+                           onClick={() => setActiveDocxPreview({ url: "/Joydeep_Das_Developer_CV.docx", title: "Dev CV" })}
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-secondary text-background font-bold text-[8px] md:text-[9px] uppercase tracking-[0.1em] hover:bg-secondary/90 transition-all text-center flex items-center justify-center gap-1.5 shadow active:scale-95 cursor-pointer"
                          >
                            <Eye className="w-3.5 h-3.5" /> Preview
                          </button>
                          <a 
-                           href="/DEV_CV.docx" 
-                           download="DEV_CV.docx"
+                           href="/Joydeep_Das_Developer_CV.docx" 
+                           download="Joydeep_Das_Developer_CV.docx"
                            className="flex-1 py-2.5 rounded-lg md:rounded-xl bg-white/5 text-white/80 hover:text-white text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] hover:bg-white/10 transition-all text-center border border-white/10 flex items-center justify-center gap-1.5 active:scale-95 shadow"
                          >
                            <Download className="w-3.5 h-3.5" /> Download

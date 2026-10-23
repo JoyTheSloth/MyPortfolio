@@ -724,24 +724,10 @@ export default function Home() {
               </div>
               
               <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed tracking-tight max-w-xl">
-                Founder of{" "}
-                <a 
-                  href="https://flatzy.vercel.app/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-primary font-semibold hover:underline"
-                >
-                  Flatzykolkata
-                </a>{" "}
-                with a social reach of <span className="text-white font-medium">20k+</span> in the first month and <span className="text-white font-medium">10 organic leads</span> as a duo team. A multidisciplinary <span className="text-white font-semibold">UI/UX Designer</span>,{" "}
-                <span className="text-secondary font-semibold">Gen AI Developer</span>, and{" "}
-                <span className="relative inline-block text-[#89CFF0] font-semibold">
-                  <span>Front-end Developer</span>
-                  <svg className="absolute -bottom-1 left-1 w-full h-2 text-[#89CFF0]/60 overflow-visible pointer-events-none" viewBox="0 0 80 8" fill="none">
-                    <path d="M 2 5 Q 40 1 78 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                  </svg>
-                </span>{" "}
-                crafting high-performance digital experiences.
+                Built{" "}
+                <span className="text-primary font-semibold">Pandale Kolkata</span>, a data-driven Durga Puja discovery platform that attracted{" "}
+                <span className="text-white font-medium">7,000+ visitors, 31K+ page views, and 90K+ social media video views</span>. Combining{" "}
+                <span className="text-white font-semibold">UI/UX design, frontend engineering, and AI-driven problem-solving</span> to build scalable, user-centric digital products that drive engagement, solve real-world problems, and deliver measurable impact.
               </p>
             </div>
 
@@ -931,7 +917,7 @@ export default function Home() {
                 <ExperienceItem 
                   isFirst
                   title="Freelance Designer / Dev"
-                  company="wyrcan.io"
+                  company="Mabbelle Studios"
                   period="Aug 2026 — Present"
                   colorClass="text-primary"
                   logo={<WyrcanLogo />}
@@ -944,7 +930,7 @@ export default function Home() {
                   description={
                     <div className="space-y-3">
                       <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                        Delivering end-to-end UI/UX design and frontend development for clients through <strong className="text-white font-semibold">wyrcan.io</strong>. Architected and developed flagship platforms including travel booking &amp; exploration system <strong className="text-white font-semibold">TripEva</strong> and luxury architectural real estate platform <strong className="text-white font-semibold">Modern Mahal</strong>.
+                        Delivering end-to-end UI/UX design and frontend development for clients through <strong className="text-white font-semibold">Mabbelle Studios</strong>. Architected and developed flagship platforms including travel booking &amp; exploration system <strong className="text-white font-semibold">TripEva</strong> and luxury architectural real estate platform <strong className="text-white font-semibold">Modern Mahal</strong>.
                       </p>
                       <p className="text-white/60 leading-relaxed text-xs md:text-sm">
                         Crafting high-impact, responsive web layouts, scalable design systems, and fluid micro-interactions from concept through launch.
@@ -965,7 +951,7 @@ export default function Home() {
                   }
                 />
                 <ExperienceItem 
-                  title="Lead UI/UX Designer"
+                  title="React Developer / Lead UI/UX Designer"
                   company="GEETBIH Labs Pvt Ltd. · Part-time"
                   period="Apr 2026 — Present"
                   colorClass="text-[#86EFAC]"
