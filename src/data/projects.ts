@@ -11,15 +11,7 @@ export interface Project {
 }
 
 export const projectsData: Project[] = [
-  // ── Tier 1: Flagship Live Production & AI Platforms ──────────────────────
-  {
-    title: "Resume Darzi",
-    subtitle: "Bespoke AI Resume Tailoring Studio",
-    imgUrl: "/resumedarzi.png",
-    tags: ["Gen AI", "Next.js", "ATS Optimizer", "Llama-3", "Tailwind", "Full Stack"],
-    siteUrl: "https://resume-bay-eta-41.vercel.app/",
-    categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
-  },
+  // ── Tier 1: Flagship Live Production & Core Innovations ───────────────────
   {
     title: "Job Dalal",
     subtitle: "AI-Powered Job Discovery & Neural Matching Engine",
@@ -29,12 +21,21 @@ export const projectsData: Project[] = [
     categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
   },
   {
-    title: "ZenEstate",
-    subtitle: "Architectural Pavilions & Luxury Real Estate",
-    imgUrl: "/zenestate.png",
-    tags: ["Next.js", "Full Stack", "TypeScript", "Tailwind", "UI/UX"],
-    siteUrl: "https://zen-estate.vercel.app/",
-    categories: ["Full Stack", "Frontend", "UI/UX Design"]
+    title: "Resume Darzi",
+    subtitle: "Bespoke AI Resume Tailoring Studio",
+    imgUrl: "/resumedarzi.png",
+    tags: ["Gen AI", "Next.js", "ATS Optimizer", "Llama-3", "Tailwind", "Full Stack"],
+    siteUrl: "https://resume-bay-eta-41.vercel.app/",
+    categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
+  },
+  {
+    title: "MediRAG",
+    subtitle: "Clinical-grade Hallucination Detection",
+    imgUrl: "/medirag-thumbnail.png",
+    tags: ["Gen AI", "RAG Pipeline", "Hallucination Eval", "Healthcare", "Python"],
+    githubUrl: "https://github.com/JoyTheSloth/MediRAG-3.0",
+    siteUrl: "#",
+    categories: ["AI Automation", "Full Stack"]
   },
   {
     title: "Stash",
@@ -45,14 +46,6 @@ export const projectsData: Project[] = [
     categories: ["AI Automation", "Full Stack", "Frontend", "UI/UX Design"]
   },
   {
-    title: "Flatzy",
-    subtitle: "Co-Founder • 20k+ Reach & 10 Leads in M1 | Rental Discovery",
-    imgUrl: "/flatzy.png",
-    tags: ["Founder", "React", "Tailwind CSS", "20k+ Reach", "UI/UX"],
-    siteUrl: "https://flatzy.vercel.app/",
-    categories: ["Frontend", "Full Stack", "UI/UX Design"]
-  },
-  {
     title: "Researcix",
     subtitle: "Autonomous Academic Research & Synthesis",
     imgUrl: "/researcix.png",
@@ -60,6 +53,22 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/JoyTheSloth/Researcix",
     siteUrl: "https://researcix.vercel.app/",
     categories: ["AI Automation", "Full Stack", "Frontend"]
+  },
+  {
+    title: "Multi-Agent Bug Analysis",
+    subtitle: "Autonomous Bug Triage & RCA",
+    imgUrl: "/mabas-thumbnail.png",
+    tags: ["Gen AI", "Multi-Agent", "LangChain", "Autonomous RCA", "Python"],
+    githubUrl: "https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-",
+    categories: ["AI Automation", "Full Stack"]
+  },
+  {
+    title: "Flatzy",
+    subtitle: "Co-Founder • 20k+ Reach & 10 Leads in M1 | Rental Discovery",
+    imgUrl: "/flatzy.png",
+    tags: ["Founder", "React", "Tailwind CSS", "20k+ Reach", "UI/UX"],
+    siteUrl: "https://flatzy.vercel.app/",
+    categories: ["Frontend", "Full Stack", "UI/UX Design"]
   },
   {
     title: "2Gather",
@@ -72,24 +81,7 @@ export const projectsData: Project[] = [
     categories: ["UI/UX Design", "Full Stack", "Frontend"]
   },
 
-  // ── Tier 2: Advanced Autonomous AI & Multi-Agent Systems ─────────────
-  {
-    title: "MediRAG",
-    subtitle: "Clinical-grade Hallucination Detection",
-    imgUrl: "/medirag-thumbnail.png",
-    tags: ["Gen AI", "RAG Pipeline", "Hallucination Eval", "Healthcare", "Python"],
-    githubUrl: "https://github.com/JoyTheSloth/MediRAG-3.0",
-    siteUrl: "#",
-    categories: ["AI Automation", "Full Stack"]
-  },
-  {
-    title: "Multi-Agent Bug Analysis",
-    subtitle: "Autonomous Bug Triage & RCA",
-    imgUrl: "/mabas-thumbnail.png",
-    tags: ["Gen AI", "Multi-Agent", "LangChain", "Autonomous RCA", "Python"],
-    githubUrl: "https://github.com/JoyTheSloth/Multi-Agent-Bug-Analysis-System-MABAS-",
-    categories: ["AI Automation", "Full Stack"]
-  },
+  // ── Tier 2: Autonomous Systems & Advanced Applications ───────────────────
   {
     title: "Multi-Agent Launch Decision",
     subtitle: "War Room Rollout Orchestration",
@@ -116,7 +108,7 @@ export const projectsData: Project[] = [
     categories: ["Full Stack", "Frontend"]
   },
 
-  // ── Tier 3: High-Fidelity UI/UX & Design Systems ─────────────────────
+  // ── Tier 3: High-Fidelity UI/UX & Design Systems ─────────────────────────
   {
     title: "TripEva",
     subtitle: "Figma UI/UX Travel Booking & Planner Platform",
@@ -157,7 +149,7 @@ export const projectsData: Project[] = [
     categories: ["UI/UX Design", "Graphic Design"]
   },
 
-  // ── Tier 4: Interactive Web Apps & Community Tools ───────────────────
+  // ── Tier 4: Client & Community Web Deliverables ──────────────────────────
   {
     title: "Mabbelle Studios",
     subtitle: "We Build Websites & Applications for Forward-Thinking Brands",
@@ -189,5 +181,15 @@ export const projectsData: Project[] = [
     tags: ["Frontend", "Interactive", "React", "Mentorship", "Community"],
     siteUrl: "https://ask-joybhaiya.vercel.app/",
     categories: ["Frontend"]
+  },
+
+  // ── ZenEstate at the end ─────────────────────────────────────────────────
+  {
+    title: "ZenEstate",
+    subtitle: "Architectural Pavilions & Luxury Real Estate",
+    imgUrl: "/zenestate.png",
+    tags: ["Next.js", "Full Stack", "TypeScript", "Tailwind", "UI/UX"],
+    siteUrl: "https://zen-estate.vercel.app/",
+    categories: ["Full Stack", "Frontend", "UI/UX Design"]
   }
 ];
